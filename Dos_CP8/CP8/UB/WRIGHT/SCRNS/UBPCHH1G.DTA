@@ -1,0 +1,18 @@
+UBPCHH1G.FieldInfo:
+DATA  3 , 20 , 19 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 13 , 34 , 53 , 20 , 2 ,"", 0 , 0 ,"PATHWAY", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  21 , 16 , 35 , 46 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  21 , 16 , 49 , 62 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+UBPCHH1G.Help:
+DATA ""
+DATA "Enter the Path as to the PC3000.  Usually this will be D: "
+DATA ""
+DATA ""
+
+UBPCHH1G.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

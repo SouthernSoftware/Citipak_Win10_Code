@@ -1,0 +1,15 @@
+DCCAR.FieldInfo:
+DATA  2 , 0 , 25 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 21 , 42 , 51 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  1 , 21 , 58 , 70 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+DCCAR.Help:
+DATA ""
+DATA "Press the F10 Key to Save this Information. "
+DATA "Press the ESC Key to Cancel Your Input. "
+
+DCCAR.Formulas:
+DATA ""
+DATA ""
+DATA ""
+

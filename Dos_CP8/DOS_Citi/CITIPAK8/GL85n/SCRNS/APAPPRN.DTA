@@ -1,0 +1,24 @@
+APAPPRN.FieldInfo:
+DATA  5 , 41 , 8 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 10 , 39 , 45 , 7 , 2 ,"", 0 , 0 ,"DEPTNUMB", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  8 , 12 , 39 , 56 , 18 , 2 ,"", 0 , 0 ,"PONUMB", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  26 , 14 , 39 , 54 , 16 , 22 ,"", 0 , 0 ,"DEVSPEC", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  42 , 16 , 26 , 39 , 0 , 24 ,"", 0 , 0 ,"OK2", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  42 , 16 , 41 , 55 , 0 , 24 ,"", 0 , 0 ,"CANCEL2", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+APAPPRN.Help:
+DATA ""
+DATA "Enter the Dept. Number to Print.  No Dept will print all Dept's. "
+DATA "Enter the PO Number or type 'ALL' to print all PO's. "
+DATA "Select the device to output the report to. "
+DATA "Press this button to print then vendor list. "
+DATA "Press this button or Esc to cancel. "
+
+APAPPRN.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

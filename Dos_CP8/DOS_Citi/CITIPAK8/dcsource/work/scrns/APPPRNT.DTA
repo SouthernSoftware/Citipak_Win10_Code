@@ -1,0 +1,21 @@
+APPPRNT.FieldInfo:
+DATA  4 , 15 , 3 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 12 , 47 , 61 , 15 , 22 ,"", 0 , 0 ,"PRINTTO", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  16 , 16 , 21 , 31 , 0 , 24 ,"", 0 , 0 ,"F3KEY", 0 , 0 , 0 ,-61 , 0 , 0 ,""
+DATA  16 , 16 , 33 , 44 , 0 , 24 ,"", 0 , 0 ,"F10KEY2", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  16 , 16 , 47 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+APPPRNT.Help:
+DATA ""
+DATA "Select Where to Send this Report. "
+DATA "Press the F3 Key to Print an Alignment Test. "
+DATA "Press the F10 to Print. "
+DATA "Press the ESC Key to Cancel This Report. "
+
+APPPRNT.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

@@ -1,0 +1,23 @@
+ren NCPFPRNT.BAS NCPFPRNT.
+
+for %%1 in (*.bas) do (echo %%1 ^ bc %%1 /lr/o/ot/g2;)
+
+ren NCPFPRNT. NCPFPRNT.BAS
+bc NCPFPRNT /lr/o/ot/g2/X;
+bc UBMISC /lr/o/ot/g2/ah;
+bc comnaux /lr/o/ot/g2/ah;
+bc ubmtread /lr/o/ot/g2/ah;
+bc ubcust /lr/o/ot/g2/ah;
+BC UBSETFIN /lr/O/OT/G2/AH;
+BC UBCUSTRE /lr/O/OT/G2/AH;
+bc ubmenu /lr/o/ot/g2;
+bc ubzap /lr/o/ot/g2/AH;
+bc ubnotprn /lr/o/ot/g2/AH;
+
+rem bc ubelspec /lr/o/ot/g2;
+
+bc formedit /lr/o/ot/g2/ah;
+
+LINK @UBNOTPRN.RSP
+
+rem DEL *.obj

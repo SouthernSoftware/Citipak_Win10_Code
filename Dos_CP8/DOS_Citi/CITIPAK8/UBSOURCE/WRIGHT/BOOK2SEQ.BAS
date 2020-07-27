@@ -1,0 +1,39 @@
+DEFINT A-Z
+DECLARE FUNCTION FileSize& (FileName$)
+DECLARE FUNCTION QPTrim$ (Text$)
+
+  '$INCLUDE: 'newcust.BI'
+
+  CLS
+  PRINT
+  PRINT
+  PRINT "Creating sequence numbers. . ."
+  REDIM UBCustRec(1) AS NewUBCustRecType
+  UBCustRecLen = LEN(UBCustRec(1))
+  PRINT
+  PRINT
+
+  UBFile = FREEFILE
+  OPEN "UBCUST.dat" FOR RANDOM SHARED AS UBFile LEN = UBCustRecLen
+  NumOfRecs& = LOF(UBFile) \ UBCustRecLen
+  FOR Cnt& = 1 TO NumOfRecs&
+    LOCATE , 1
+    PRINT "Processing:"; Cnt&; " of"; NumOfRecs&;
+    GET UBFile, Cnt&, UBCustRec(1)
+    'IF Cnt& = 1947 THEN STOP
+    IF UBCustRec(1).DelFlag = 0 THEN
+      Book = VAL(UBCustRec(1).Book)
+      SEQ& = VAL(UBCustRec(1).SeqNumb)
+      Bk$ = QPTrim$(STR$(Book))
+      Sq$ = QPTrim$(STR$(SEQ&))
+      NSeq$ = Bk$ + Sq$
+      UBCustRec(1).SEQ = VAL(NSeq$)
+      PUT UBFile, Cnt&, UBCustRec(1)
+    END IF
+  NEXT
+  CLOSE UBFile
+PRINT
+PRINT
+PRINT
+PRINT "Done."
+

@@ -1,0 +1,63 @@
+   PRINT #RptHandle, ""
+   PRINT #RptHandle, TAB(31); "TOWN OF DUMFRIES"
+   PRINT #RptHandle, TAB(24); "BUSINESS LICENSE APPLICATION"
+   PRINT #RptHandle, TAB(31); "For Year: "; Form$(2, 0)
+   PRINT #RptHandle, ""
+   PRINT #RptHandle, ""
+   PRINT #RptHandle, TAB(5); "Business Name: "; ARCustRec(1).CustName
+   PRINT #RptHandle, TAB(5); "              -----------------------------------------------------------"
+   PRINT #RptHandle, TAB(5); "Street Address of Business: "
+   PRINT #RptHandle, TAB(5); "                           ----------------------------------------------"
+   PRINT #RptHandle, TAB(5); "Zoning of Business Location: "
+   PRINT #RptHandle, TAB(5); "                            ---------------------------------------------"
+   PRINT #RptHandle, TAB(5); "Telephone Number: "
+   PRINT #RptHandle, TAB(5); "                 --------------------------------------------------------"
+   PRINT #RptHandle, TAB(5); "_________________________________________________________________________"
+   PRINT #RptHandle, TAB(5); "Applicant's Name: "; ARCustRec(1).BILLNAME
+   PRINT #RptHandle, TAB(5); "                 --------------------------------------------------------"
+   PRINT #RptHandle, TAB(5); "Applicant's Address: "; ARCustRec(1).Address1
+   PRINT #RptHandle, TAB(5); "                    -----------------------------------------------------"
+   PRINT #RptHandle, TAB(5); "Telephone Number: "; ARCustRec(1).HPhone
+   PRINT #RptHandle, TAB(5); "                 --------------------------------------------------------"
+   REM 22 lines printed here
+   PRINT #RptHandle, TAB(5); "TYPE OF BUSINESS LICENSE APPLYING FOR:"
+   PRINT #RptHandle, TAB(5); ""
+   PRINT #RptHandle, TAB(5); "_______ Contracting or Construction $30.00 or 12 cents per $100.00 gross"
+   PRINT #RptHandle, TAB(5); "           receipts whichever is greater."
+   PRINT #RptHandle, ""
+   PRINT #RptHandle, TAB(5); "_______ Retail Sales $30.00 or 15 cents per $100.00 whichever is greater."
+   PRINT #RptHandle, TAB(5); ""
+   PRINT #RptHandle, TAB(5); "_______ Financial, Real Estate or Professional Service $30.00 or "
+   PRINT #RptHandle, TAB(5); "           40 cents per $100.00 whichever is greater."
+   PRINT #RptHandle, ""
+   PRINT #RptHandle, TAB(5); "_______ Repair, Personal or Business Service $30.00 or 20 cents per $100.00"
+   PRINT #RptHandle, TAB(5); "            whichever is greater."
+   PRINT #RptHandle, TAB(5); ""
+   PRINT #RptHandle, TAB(5); "_______ Other (Specify) ______________________________________________"
+   PRINT #RptHandle, TAB(5); ""
+   PRINT #RptHandle, TAB(5); "Estimate of ______________ gross receipts or preceding year's gross "
+   PRINT #RptHandle, TAB(5); "receipts ______________________. Enclose copy of most recent schedule C"
+   PRINT #RptHandle, TAB(5); "or other comparable federal document."
+   PRINT #RptHandle, TAB(5); "AMOUNT OF LICENSE TAX FOR YEAR JAN. 1, THROUGH DEC. 31, 20___ IS:$_______"
+   PRINT #RptHandle, TAB(5); "ANY SPECIAL CONDITIONS OR REQUIREMENTS, IF ANY, UNDER WHICH LICENSED "
+   PRINT #RptHandle, ""
+   PRINT #RptHandle, TAB(5); "ACTIVITY SHALL BE CONDUCTED: ____________________________________________"
+   PRINT #RptHandle, ""
+   PRINT #RptHandle, TAB(5); "_________________________________________________________________________"
+   PRINT #RptHandle, ""
+   PRINT #RptHandle, TAB(5); "_________________________________________________________________________"
+   PRINT #RptHandle, ""
+   PRINT #RptHandle, TAB(5); "I certify that the statements and figures set forth on this application"
+   PRINT #RptHandle, TAB(5); "are true to the best of my knowledge."
+   PRINT #RptHandle, TAB(5); "                                      ___________________________________"
+   PRINT #RptHandle, TAB(5); "                                            Signature of Applicant"
+   PRINT #RptHandle, TAB(5); ""
+   PRINT #RptHandle, TAB(5); "To Avoid Late Penalty Charge of 10%, License Renewals Must Be Made Before "
+   PRINT #RptHandle, TAB(5); "Feb 1."
+   PRINT #RptHandle, TAB(5);
+   PRINT #RptHandle, TAB(5); "Return Application and Fee to:"
+   PRINT #RptHandle, TAB(5); Form$(4, 0)
+   PRINT #RptHandle, TAB(5); Form$(5, 0)
+   PRINT #RptHandle, TAB(5); Form$(6, 0)
+   PRINT #RptHandle, CHR$(12);
+

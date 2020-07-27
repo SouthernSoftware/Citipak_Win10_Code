@@ -1,0 +1,24 @@
+SCRPT.FieldInfo:
+DATA  5 , 34 , 10 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 10 , 36 , 55 , 20 , 22 ,"", 0 , 0 ,"REPORDER", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  21 , 12 , 36 , 42 , 4 , 4 ,"", 0 , 0 ,"TAXRATE",-1 , 0 , 0 , 0 ,-3.402823D+38 , 3.402823D+38 ,""
+DATA  25 , 14 , 36 , 45 , 10 , 22 ,"", 0 , 0 ,"OUTPUTTO", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  35 , 17 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  35 , 17 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+SCRPT.Help:
+DATA ""
+DATA "Choose the Order to Print the Report. "
+DATA "Enter the Tax Rate per $100 Valuation.  Example .50 for 50 cent per $100 valuation. "
+DATA "Select the Output Device. "
+DATA "Press the <F10> Key to Process Your Report. "
+DATA "Press the <ESC> Key to Cancel Your Input. "
+
+SCRPT.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

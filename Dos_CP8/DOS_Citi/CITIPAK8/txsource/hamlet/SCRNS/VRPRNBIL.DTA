@@ -1,0 +1,15 @@
+VRPRNBIL.FieldInfo:
+DATA  2 , 8 , 24 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 7 , 39 , 44 , 4 , 18 ,"", 0 , 0 ,"FIRSTBL",-1 , 0 , 0 , 0 , 0 , 99999 ,""
+DATA  5 , 8 , 39 , 44 , 4 , 18 ,"", 0 , 0 ,"LASTBL",-1 , 0 , 0 , 0 , 0 , 99999 ,""
+
+VRPRNBIL.Help:
+DATA ""
+DATA ""
+DATA ""
+
+VRPRNBIL.Formulas:
+DATA ""
+DATA ""
+DATA ""
+

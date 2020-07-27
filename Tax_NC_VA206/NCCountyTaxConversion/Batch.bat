@@ -1,0 +1,2 @@
+DEL *.TMP
+exit

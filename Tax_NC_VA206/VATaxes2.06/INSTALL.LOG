@@ -1,0 +1,79 @@
+***  Installation Started 12/14/2017 10:55  ***
+Title: CitiPak Version 2.05 Installation
+Source: C:\Users\dwatson\Desktop\CitiInstallSub.EXE
+File Copy: C:\Windows\System32\dbgrid32.ocx
+Made Dir: C:\CPWork\BACKUP
+Version: Following file not copied.
+File Overwrite: C:\Windows\System32\msstdfmt.dll
+File Copy: C:\Program Files (x86)\Common Files\Designer\msderun.dll
+File Copy: C:\Windows\System32\msde.dll
+File Copy: C:\Windows\System32\msbind.dll
+File Copy: C:\CPWork\UNWISE.EXE
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\CitiPak Version 2.05
+RegDB Val: CitiPak Version 2.05
+RegDB Name: DisplayName
+RegDB Root: 2
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\CitiPak Version 2.05
+RegDB Val: C:\CPWork\UNWISE.EXE C:\CPWork\INSTALL.LOG
+RegDB Name: UninstallString
+RegDB Root: 2
+File Copy: C:\CPWork\ACTRPT2.DLL
+File Copy: C:\CPWork\ARVIEW2.OCX
+File Copy: C:\CPWork\EXCLEXPT.DLL
+File Copy: C:\CPWork\PROPLIST.OCX
+File Copy: C:\CPWork\TEXTEXPT.DLL
+File Copy: C:\CPWork\msvbvm50.dll
+File Copy: C:\CPWork\RESIZE.DLL
+File Copy: C:\CPWork\BTN32A20.OCX
+File Copy: C:\CPWork\CAL32X30.OCX
+File Copy: C:\CPWork\DPP32X30.OCX
+File Copy: C:\CPWork\EDT32X30.OCX
+File Copy: C:\CPWork\FLP32A30.OCX
+File Copy: C:\CPWork\FPFLP30.OCX
+File Copy: C:\CPWork\FPOUTBAR.OCX
+File Copy: C:\CPWork\FPSPR35.OCX
+File Copy: C:\CPWork\IMP32X30.OCX
+File Copy: C:\CPWork\MEM32X30.OCX
+File Copy: C:\CPWork\SPR32X35.OCX
+File Copy: C:\CPWork\TAB32X30.OCX
+File Copy: C:\CPWork\Comct332.ocx
+File Copy: C:\CPWork\atl.dll
+File Copy: C:\CPWork\msvcrt.dll
+File Copy: C:\CPWork\MSMask32.ocx
+File Copy: C:\CPWork\nCiti1a.ico
+Self-Register: C:\Windows\System32\dbgrid32.ocx
+Self-Register: C:\Windows\System32\msstdfmt.dll
+Self-Register: C:\Program Files (x86)\Common Files\Designer\msderun.dll
+Self-Register: C:\Windows\System32\msde.dll
+Self-Register: C:\Windows\System32\msbind.dll
+Self-Register: C:\Windows\System32\oleaut32.dll
+Self-Register: C:\Windows\System32\olepro32.dll
+Self-Register: C:\Windows\System32\stdole2.tlb
+Self-Register: C:\Windows\System32\msvbvm60.dll
+Self-Register: C:\Windows\System32\comcat.dll
+Self-Register: C:\Windows\System32\mfc42.dll
+Self-Register: C:\Windows\System32\MSCOMCTL.OCX
+Self-Register: C:\Windows\System32\COMDLG32.OCX
+Self-Register: C:\CPWork\ACTRPT2.DLL
+Self-Register: C:\CPWork\ARVIEW2.OCX
+Self-Register: C:\CPWork\EXCLEXPT.DLL
+Self-Register: C:\CPWork\PROPLIST.OCX
+Self-Register: C:\CPWork\TEXTEXPT.DLL
+Self-Register: C:\CPWork\RESIZE.DLL
+Self-Register: C:\CPWork\BTN32A20.OCX
+Self-Register: C:\CPWork\CAL32X30.OCX
+Self-Register: C:\CPWork\DPP32X30.OCX
+Self-Register: C:\CPWork\EDT32X30.OCX
+Self-Register: C:\CPWork\FLP32A30.OCX
+Self-Register: C:\CPWork\FPFLP30.OCX
+Self-Register: C:\CPWork\FPOUTBAR.OCX
+Self-Register: C:\CPWork\FPSPR35.OCX
+Self-Register: C:\CPWork\IMP32X30.OCX
+Self-Register: C:\CPWork\MEM32X30.OCX
+Self-Register: C:\CPWork\SPR32X35.OCX
+Self-Register: C:\CPWork\TAB32X30.OCX
+Self-Register: C:\CPWork\Comct332.ocx
+Self-Register: C:\CPWork\atl.dll
+Could not Self-Register: C:\CPWork\msvcrt.dll
+Self-Register: C:\CPWork\MSMask32.ocx
+User Rights: Admin

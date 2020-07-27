@@ -1,0 +1,12 @@
+TRXOK.FieldInfo:
+DATA  1 , 0 , 32 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 15 , 34 , 46 , 0 , 24 ,"", 0 , 0 ,"OK", 0 , 0 , 0 , 13 , 0 , 0 ,""
+
+TRXOK.Help:
+DATA ""
+DATA ""
+
+TRXOK.Formulas:
+DATA ""
+DATA ""
+

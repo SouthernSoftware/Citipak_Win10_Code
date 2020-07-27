@@ -1,0 +1,53 @@
+5 KEY OFF
+  COLOR 11
+10 REM   (C)1987 Southern Software Systems   by Nick Picerno
+20 REM  Division of Southern Investment Co., Inc.
+30 REM  Title and Copyright Screen.
+40 REM  Copyright Registered on :
+60 REM
+70 CLS
+80 LOCATE 11, 1
+90 PRINT TAB(16); "  Southern Software Inc. : Tax Billing System"
+100 PRINT
+110 PRINT TAB(19); "  (C)1997 by Southern Software Inc."
+120 PRINT
+    PRINT TAB(19); "            Version 6.5"
+130 FOR x = 1 TO 500: NEXT x
+    OPEN "R", 1, "TBYEAR.DAT", 4: FIELD 1, 4 AS year$
+       IF LOF(1) > 0 THEN CLOSE : RUN "TBMENU"
+    CLOSE
+132 COLOR 10:   LOCATE 20, 13: PRINT "PLEASE ENTER CURRENT TAX YEAR (XXXX) .. "; : fl = -4: GOSUB 62000
+   IF LEN(in$) <> 4 THEN 132
+   IF VAL(in$) < 1988 THEN 132
+   COLOR 10: PRINT TAB(13); "Thank You!"
+   OPEN "R", 1, "TBYEAR.DAT", 4: FIELD 1, 4 AS year$
+   LSET year$ = in$: PUT 1, 1: CLOSE
+    
+     
+140 RUN "tbmenu"
+
+62000 COLOR 14: cf = 0: in$ = "": RO = CSRLIN: PO = POS(x): ZD = 0: ZS = 0: ZL = 0: IF fl = ZD THEN fl = 1
+62010 IF INKEY$ <> "" THEN 62010
+62020 PRINT STRING$(ABS(fl), 95); : LOCATE RO, PO
+62030 Z$ = INKEY$: IF Z$ = "" THEN 62030
+62040 IF Z$ <> CHR$(13) THEN 62060 ELSE PRINT STRING$(ABS(fl) - ZL, 32);
+62050 GOSUB 62200: RETURN
+62060 IF Z$ = CHR$(27) OR Z$ = CHR$(21) THEN cf = 1: RETURN
+62065 IF ASC(Z$) = 0 THEN 62030
+62070 IF LEN(Z$) > 1 THEN cf = ASC(RIGHT$(Z$, 1)) - 57: IF cf > 0 THEN RETURN ELSE cf = cf + 27: RETURN
+62080 IF Z$ = " " THEN 62130 ELSE IF Z$ = CHR$(29) THEN PRINT STRING$(ZL, 29); : GOTO 62000
+62090 IF Z$ <> CHR$(8) THEN 62130 ELSE IF ZL = 0 THEN 62030 ELSE PRINT CHR$(29); : PRINT "_"; : PRINT CHR$(29); : IF fl > 0 THEN 62110 ELSE IF Z$ = "," THEN 62120
+62100 IF Z$ = "." THEN ZD = 0: GOTO 62110 ELSE IF Z$ = "+" OR Z$ = "-" THEN ZS = 0
+62110 in$ = LEFT$(in$, LEN(in$) - 1)
+62120 ZL = ZL - 1: GOTO 62030
+62130 IF ABS(fl) = ZL THEN 62030 ELSE IF fl > 0 THEN IF Z$ >= " " AND Z$ <= "z" THEN 62180
+62140 IF Z$ = "." AND ZD = 0 THEN ZD = 1: GOTO 62180
+62150 IF Z$ = "," THEN PRINT ","; : ZL = ZL + 1: GOTO 62190
+62160 IF (Z$ = "-" OR Z$ = "+") AND ZS = 0 AND ZL = 0 THEN ZS = 1: GOTO 62180
+62170 IF Z$ < "0" OR Z$ > "9" THEN 62030
+62180 PRINT Z$; : in$ = in$ + Z$: ZL = ZL + 1
+62190 IF ABS(fl) = 1 THEN 62050 ELSE 62030
+62200 LOCATE RO, PO: PRINT in$: RETURN
+62210 GOSUB 62000: IF LEN(in$) THEN in$ = CHR$(ASC(in$) AND 223)
+62220 RETURN
+

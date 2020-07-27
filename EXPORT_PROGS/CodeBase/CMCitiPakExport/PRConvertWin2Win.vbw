@@ -1,0 +1,8 @@
+frmConvertWin2Win = 6, 9, 818, 613, , 77, 37, 907, 581, C
+frmWin2WinInProg = 130, 130, 689, 581, , 90, 100, 719, 551, C
+frmWin2WinMissingFiles = 26, 26, 737, 583, , 0, 0, 736, 624, C
+Win2WinStruct = 71, 14, 793, 626, 
+modWin2WinCommon = 78, 78, 669, 529, 
+clsCommandButton = 169, 82, 697, 533, 
+clsTextBoxOverRider = 0, 0, 0, 0, C
+modInItProceduresWin2Win = 104, 104, 695, 555, C

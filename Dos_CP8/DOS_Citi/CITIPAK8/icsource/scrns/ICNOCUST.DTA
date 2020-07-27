@@ -1,0 +1,15 @@
+ICNOCUST.FieldInfo:
+DATA  2 , 0 , 3 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 16 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"OKKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+DATA  1 , 16 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+
+ICNOCUST.Help:
+DATA ""
+DATA ""
+DATA "Press the F10 key to confirm your choice. "
+
+ICNOCUST.Formulas:
+DATA ""
+DATA ""
+DATA ""
+

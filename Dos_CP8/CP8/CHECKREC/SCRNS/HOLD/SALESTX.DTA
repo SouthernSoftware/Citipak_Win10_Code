@@ -1,0 +1,36 @@
+SALESTX.FieldInfo:
+DATA  9 , 53 , 3 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 9 , 39 , 39 , 1 , 14 ,"N Y", 0 , 0 ,"COMBINED", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  2 , 10 , 39 , 54 , 16 , 16 ,"", 0 , 0 ,"STACCT", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  18 , 11 , 39 , 54 , 16 , 16 ,"", 0 , 0 ,"COACCT", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  34 , 12 , 39 , 43 , 8 , 5 ,"", 0 , 0 ,"FACTOR",-1 , 0 , 0 , 0 , 0 , 1 ,""
+DATA  42 , 13 , 39 , 48 , 2 , 6 ,"", 0 , 0 ,"BEGDATE", 0 , 0 , 0 , 0 ,-29219 , 31368 ,""
+DATA  44 , 14 , 39 , 48 , 2 , 6 ,"", 0 , 0 ,"ENDDATE", 0 , 0 , 0 , 0 ,-29219 , 31368 ,""
+DATA  46 , 15 , 39 , 46 , 8 , 22 ,"", 0 , 0 ,"DEVSPEC", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  54 , 18 , 35 , 46 , 0 , 24 ,"", 0 , 0 ,"OKBTN", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  54 , 18 , 47 , 60 , 0 , 24 ,"", 0 , 0 ,"CANCEL", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+SALESTX.Help:
+DATA ""
+DATA "If you combine State and County Taxes in one G/L acct answer Y if you separate State and County Taxes answer N "
+DATA "Enter the G/L Account number for State Sales Tax "
+DATA "Enter the G/L Account for County Sales Tax "
+DATA "If you combine State and county sales tax, what is the factor used to calculate the state tax amt. For example, State Rate = 4% and the County Rate = 2%, then the factor would be .666."
+DATA "Enter the starting date for the report. "
+DATA "Enter the ending date of the report. "
+DATA "Output the report to the <S>creen or <P>rinter "
+DATA "Press this button to continue with the report. "
+DATA "Press this button to cancel the report. "
+
+SALESTX.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

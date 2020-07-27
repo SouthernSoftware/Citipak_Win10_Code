@@ -1,0 +1,140 @@
+TYPE EmployeeIndexType
+    DataRecNum    AS INTEGER
+END TYPE
+
+TYPE EmpNumType
+    EmpNum        AS STRING * 10
+END TYPE
+
+TYPE EmpDedType
+    DPct        AS STRING * 7
+    DAmt        AS DOUBLE
+    DOTI        AS STRING * 1
+END TYPE
+
+TYPE EmpWageDistType
+    DAcct       AS STRING * 14
+    DAmt        AS DOUBLE
+END TYPE
+
+TYPE EmpData1Type
+    EMPNO       AS STRING * 10     '1-10
+    EMPLNAME    AS STRING * 24     '11-34
+    EMPFNAME    AS STRING * 24     '35-58
+    Data1RecNum AS INTEGER         '59-60
+    TransRecNum AS INTEGER         '61-62
+    Deleted     AS INTEGER         '63-64
+    'KillFlag    AS STRING * 1
+    'FillerPad   AS STRING * 1
+END TYPE
+
+TYPE EmpData2Type
+'------ EMPMA1
+    EMPNO    AS STRING * 10
+    EMPSSN   AS STRING * 11
+    EMPLNAME AS STRING * 24
+    EMPFNAME AS STRING * 24
+    EMPADDR1 AS STRING * 36
+    EMPADDR2 AS STRING * 36
+    EMPCITY  AS STRING * 24
+    EMPSTATE AS STRING * 2
+    EMPZIP   AS STRING * 10
+    EMPBDAY  AS INTEGER
+    EMPGENDR AS STRING * 6
+    EMPRACE  AS STRING * 14
+    EMPRETNO AS STRING * 16
+    EMPRETTP AS STRING * 24
+    EMPDDACC AS STRING * 30
+    EMPJOB   AS STRING * 28
+    EMPWCCLS AS STRING * 12
+    EMPSTATS AS STRING * 10
+    EMPBCODE AS DOUBLE
+    EMPPTYPE AS STRING * 10
+    EMPPFREQ AS STRING * 16
+    EMPPRATE AS DOUBLE
+    EMPORATE AS DOUBLE
+    EMPHDATE AS INTEGER
+    EMPRDATE AS INTEGER
+    EMPTDATE AS INTEGER
+'------ EMPMA2
+    EMPFEDX  AS STRING * 1
+    EMPFEDO2 AS STRING * 1
+    EMPFEDO1 AS DOUBLE
+    EMPFEDS  AS STRING * 1
+    EMPFEDA  AS INTEGER       'num of allowance
+    EMPFEDAA AS DOUBLE
+    EMPSTAX  AS STRING * 1
+    EMPSTAO2 AS STRING * 1
+    EMPSTAO1 AS DOUBLE
+    EMPSTAS  AS STRING * 1
+    EMPSTAA  AS INTEGER       '
+    EMPSTAAA AS DOUBLE
+    EMPSOCX  AS STRING * 1
+    EMPMEDX  AS STRING * 1
+    EMPEIC   AS STRING * 1
+
+    EmpDed(1 TO 12)  AS EmpDedType
+
+'------ page 3
+    EMPEACT1 AS STRING * 14
+    EMPEAMT1 AS DOUBLE
+    EMPEACT2 AS STRING * 14
+    EMPEAMT2 AS DOUBLE
+    EMPEACT3 AS STRING * 14
+    EMPEAMT3 AS DOUBLE
+
+    EMPHP    AS STRING * 1
+
+    EDist(1 TO 8)   AS EmpWageDistType
+
+    EMPVACE  AS DOUBLE
+    EMPVUSED AS DOUBLE
+    EMPVBAL  AS DOUBLE
+
+    EMPSLE   AS DOUBLE
+    EMPSLUSE AS DOUBLE
+    EMPSLBAL AS DOUBLE
+
+    EMPCTE   AS DOUBLE
+    EMPCTUSE AS DOUBLE
+    EMPCTBAL AS DOUBLE
+    LeaveTbl AS INTEGER
+
+    UseHosp  AS STRING * 1
+    UseLife  AS STRING * 1
+
+    LastTransRec AS INTEGER
+
+    EmpPin   AS INTEGER
+    Deleted  AS INTEGER
+
+    'for new leave table stuff
+    Unused   AS STRING * 26
+
+END TYPE
+
+TYPE EmpData3Type
+    Data1RecNum     AS INTEGER
+    YTDGrossPay     AS DOUBLE
+    YTDSocGrossPay  AS DOUBLE
+    YTDMedGrossPay  AS DOUBLE
+    YTDFedGrossPay  AS DOUBLE
+    YTDStaGrossPay  AS DOUBLE
+    YTDOTPay        AS DOUBLE
+    YTDRegPay       AS DOUBLE
+    YTDNet          AS DOUBLE
+    YTDSocial       AS DOUBLE
+    YTDMedicare     AS DOUBLE
+    YTDFederal      AS DOUBLE
+    YTDState        AS DOUBLE
+    YTDRetire       AS DOUBLE
+    YTDDAmt(1 TO 12) AS DOUBLE
+    YTDDAmtT        AS DOUBLE
+    YTDEarn1        AS DOUBLE        'e
+    YTDEarn2        AS DOUBLE
+    YTDEarn3        AS DOUBLE
+    YTDEarnT        AS DOUBLE
+    YTDEIC          AS DOUBLE
+    YTDOther2       AS DOUBLE
+END TYPE
+

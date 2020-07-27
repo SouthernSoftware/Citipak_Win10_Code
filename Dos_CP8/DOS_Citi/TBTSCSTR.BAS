@@ -1,0 +1,921 @@
+10 REM (C)1987 SOUTHERN SOFTWARE SYSTEMS         by Nick Picerno
+20 REM tbcustrep
+30 REM Customer Report Menu
+40 REM Last Revision Date: 8-24-87
+50 REM by Nick Picerno
+ 
+   DEFINT A-Z
+   DECLARE FUNCTION QPTrim$ (a$)
+   DECLARE FUNCTION num2date$ (Num%)
+   DECLARE FUNCTION Date2Num% (Dat$)
+   DECLARE FUNCTION WaitKey% ()
+   DECLARE SUB PrintRptFile (RptTitle$, FileName$, LPTPort%, RetCode%, EntryPoint%)
+   DECLARE SUB PrintTitle (Title$)
+   DECLARE SUB PrintLoading ()
+   DECLARE SUB ShowCursor ()
+   DECLARE SUB HideCursor ()
+   
+'$INCLUDE: 'DefCnf.BI'
+'$INCLUDE: 'formedit.BI'
+'$INCLUDE: 'fieldinf.BI'
+'$INCLUDE: 'Qscr.BI'
+'$INCLUDE: 'SetCnf.BI'
+'$INCLUDE: 'lcTAX.BI'
+   
+60 CLS :
+  TBPath$ = "F:\"                    ' change to "F:\" Before compiling
+  CLOSE
+   p = 0: page = 0
+   OPEN "R", 1, TBPath$ + "tbyear.dat", 4: FIELD 1, 4 AS year$: GET 1, 1
+   CurrentYear$ = year$
+   CLOSE 1
+   ON ERROR GOTO networkerror
+
+     REDIM TransLink!(500)
+     REDIM TBRECust(1) AS TBRECust
+     REDIM TBRECustBal(1) AS TBREBAL
+     REDIM TBPPCust(1) AS TBPPCust
+     REDIM TBPPCustBal(1) AS TBPPBal
+     REDIM TBTrans(1) AS TBTrans
+
+     
+100 REM begin program
+110 SCREN$ = "2.00.00": SYSDATE$ = DATE$
+120 CLS : GOSUB 63500
+130 LOCATE 4, 1: COLOR 11
+200 PRINT TAB(22); "Tax Billing System Reports - Treasurer "
+    PRINT TAB(22); "            Supplemental"
+220 PRINT : PRINT
+230 PRINT TAB(24); "1. Print Master Customer Listing": PRINT
+250 PRINT TAB(24); "2. Print Customer Balances"
+260 PRINT
+270 PRINT TAB(24); "3. Customer Account Inquiry"
+
+280 PRINT
+310 LOCATE 15, 1: COLOR 11: PRINT TAB(25); "Selection No. (ESC-Master Menu) : "; : fl = -2: GOSUB 62000
+320 IF cf = 1 THEN CLOSE : RUN "tbtsmenu"
+325 IF LEN(in$) = 0 THEN 310
+330 IF VAL(in$) < 1 OR VAL(in$) > 3 THEN 310
+340 ON VAL(in$) GOTO 1000, 2000, 3000
+
+1000 REM
+1010 SCREN$ = "2.01.00": CLS : GOSUB 63500: COLOR 11: LOCATE 1, 32: PRINT "Customer Account Listing"
+1020 LOCATE 4, 1
+1030 COLOR 11: PRINT "Sort Specification: Sort by (A)ccount # or (L)ast Name (A,L  or ESC-ABORT) .. "; : fl = 1: GOSUB 62210
+1040 IF cf = 1 THEN 10
+1050 IF NOT (in$ = "A" OR in$ = "L" OR in$ = "M") THEN 1020
+1060 SortSpec$ = in$: LOCATE 4, 79: PRINT SortSpec$
+1070 LOCATE 6, 1: COLOR 11
+     PRINT "(R)eal or (P)ersonal (R,P or <ESC>-End) ..... "; : fl = 1: GOSUB 62210
+     IF cf = 1 THEN 10
+     IF NOT (in$ = "R" OR in$ = "P" OR in$ = "A") THEN 1070
+     taxtype$ = UCASE$(in$)
+
+
+1080 COLOR 11: LOCATE 8, 1
+     PRINT "Output Specification: Output to (S)creen or (P)rinter (S,P or ESC-ABORT) .. "; : fl = 1: GOSUB 62210
+1090 IF cf = 1 THEN 10
+1100 IF NOT (in$ = "S" OR in$ = "P") THEN 1070
+1105 devspec$ = in$: LOCATE 8, 77: PRINT devspec$
+1110 LOCATE 10, 1: COLOR 11: PRINT STRING$(79, "="): COLOR 10: LOCATE 13, 23: PRINT "Now Processing : Please be Patient!": COLOR 14
+1120 IF devspec$ = "S" THEN dev$ = "SCRN:" ELSE dev$ = "lpt1:"
+1130 OPEN "O", 10, dev$: WIDTH #10, 255
+1140 GOSUB 60000: IF devspec$ = "S" THEN CLS : GOSUB 1900 ELSE GOSUB 1900
+1150 IF LOF(1) / 512 = 0 THEN CLOSE : GOTO 10
+1160 IF SortSpec$ = "A" THEN
+        IF taxtype$ = "R" THEN
+         EndofFile = LOF(TBFile) / LEN(TBRECust(1))
+        ELSE
+         EndofFile = LOF(TBFile) / LEN(TBPPCust(1))
+        END IF
+     END IF
+
+     IF SortSpec$ = "L" THEN
+      IF taxtype$ = "R" THEN
+        OPEN TBPath$ + "TTSRNAME.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #4 LEN = 24
+        FIELD 4, 20 AS lastnam$, 4 AS mrec$: EndofFile = LOF(4) / 24
+        ELSE
+        OPEN TBPath$ + "TTSPNAME.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #4 LEN = 24
+        FIELD 4, 20 AS lastnam$, 4 AS mrec$: EndofFile = LOF(4) / 24
+      END IF
+     END IF
+1170 FOR X = 1 TO EndofFile
+     IF SortSpec$ = "L" THEN
+      GET 4, X
+      IF taxtype$ = "R" THEN
+       GET 1, CVS(mrec$), TBRECust(1)
+       ELSE
+       GET 1, CVS(mrec$), TBPPCust(1)
+      END IF
+      Account! = CVS(mrec$)
+      ELSE
+      IF taxtype$ = "R" THEN
+      GET 1, X, TBRECust(1)
+      ELSE
+      GET 1, X, TBPPCust(1)
+      END IF
+      Account! = X
+     END IF
+     
+1191 IF taxtype$ = "R" THEN
+     IF TBRECust(1).Deleted = "Y" THEN 1230
+     PRINT #10, Account!
+     PRINT #10, TBRECust(1).CustName
+     PRINT #10, TBRECust(1).Address1
+     PRINT #10, TBRECust(1).Address2
+     PRINT #10, RTRIM$(TBRECust(1).Address3)
+     ELSE
+     IF TBPPCust(1).Deleted = "Y" THEN 1230
+     PRINT #10, Account!
+     PRINT #10, TBPPCust(1).CustName
+     PRINT #10, TBPPCust(1).Address1; TAB(50); "Soc Sec #"; TBPPCust(1).SocSec
+     PRINT #10, TBPPCust(1).Address2; TAB(50); "Soc Sec #"; TBPPCust(1).SocSec2
+     PRINT #10, TBPPCust(1).City; ", "; TBPPCust(1).State; " "; TBPPCust(1).Zip
+     END IF
+     IF taxtype$ = "R" THEN
+     PRINT #10, "Prop Desc:"; TAB(12); TBRECust(1).PropDesc1; TAB(50); "Land Value: "; USING "$$######,#"; TBRECust(1).LandValue
+     PRINT #10, TAB(12); TBRECust(1).PropDesc2; TAB(50); "Bldg Value: "; USING "$$######,#"; TBRECust(1).BldgValue
+     PRINT #10, TAB(12); TBRECust(1).PropDesc3; TAB(50); "      Size: "; USING "#####.####"; VAL(TBRECust(1).Acres)
+     PRINT #10, TAB(12); TBRECust(1).PropDesc4; TAB(50); "  District: "; TBRECust(1).District
+     PRINT #10, "Map Numb:"; TAB(12); TBRECust(1).MapNumber; TAB(50); "     Class: "; TBRECust(1).ClassCode
+     lc = lc + 5
+     END IF
+     PRINT #10, STRING$(79, "-"): lc = lc + 5
+     CustCount = CustCount + 1
+     IF devspec$ = "S" THEN 1210 ELSE 1220
+1210 IF lc >= 14 THEN
+      LOCATE 23, 1: COLOR 11
+      PRINT "Press any key for next page (ESC-Quit)!"; : fl = 1
+      GOSUB 62000
+        IF cf = 1 THEN
+         CLOSE
+         GOTO 10
+        ELSE
+         CLS
+         GOSUB 1900
+         GOTO 1230
+        END IF
+      END IF
+1220 IF lc >= 55 THEN PRINT #10, CHR$(12); : GOSUB 1900
+1230 NEXT X: PRINT #10, "Total Customers .. "; USING "######,#"; CustCount
+     IF devspec$ = "S" THEN LOCATE 23, 1: COLOR 11: PRINT "All done, press any key for menu "; : fl = 1: GOSUB 62000 ELSE PRINT #10, CHR$(12);
+1240 CLOSE
+1250 GOTO 10
+
+1900 p = p + 1
+     PRINT #10, TAB(27); "Tax Customer Account Listing": PRINT #10, "Date: "; DATE$; TAB(68); "Page - "; USING "####"; p
+    IF ttyp$ = "R" THEN PRINT #10, "Real Estate Customers"
+     IF ttyp$ = "P" THEN PRINT #10, "Personal Property Customers"
+1910 PRINT #10, "Acct. #"
+     PRINT #10, STRING$(79, "="): lc = 7: RETURN
+
+2000 REM
+2001 Tot1# = 0: Tot2# = 0: TOT3# = 0
+     FOR ll = 0 TO 9: TOTTAX#(ll) = 0: NEXT ll
+2010 SCREN$ = "2.02.00": CLS : GOSUB 63500: COLOR 11: LOCATE 1, 32: PRINT "Customer Balance Listing"
+2020 LOCATE 4, 1
+2023 LOCATE 4, 1: PRINT STRING$(79, 32): LOCATE 4, 1
+2030 COLOR 11: PRINT "Sort Specification: Sort by (A)ccount or (L)ast Name (A,L or ESC-ABORT) ..... "; : fl = 1: GOSUB 62210
+2040 IF cf = 1 THEN 10
+2050 IF NOT (in$ = "A" OR in$ = "L") THEN 2023
+2060 SortSpec$ = in$: LOCATE 4, 79: PRINT SortSpec$
+2065 LOCATE 5, 1: COLOR 11
+     PRINT "(R)eal or (P)ersonal (R,P or <ESC>-Cancel) ... "; : fl = 1: GOSUB 62210
+     IF cf = 1 THEN 10
+     IF NOT (in$ = "R" OR in$ = "P" OR in$ = "A") THEN 2065
+     taxtype$ = in$
+     GOSUB 60000
+     GOSUB 60025
+2160 IF SortSpec$ = "A" THEN
+        IF taxtype$ = "R" THEN
+         EndofFile = LOF(TBFile) / LEN(TBRECust(1))
+        ELSE
+         EndofFile = LOF(TBFile) / LEN(TBPPCust(1))
+        END IF
+     END IF
+
+     IF SortSpec$ = "L" THEN
+      IF taxtype$ = "R" THEN
+        OPEN TBPath$ + "TTSRNAME.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #4 LEN = 24
+        FIELD 4, 20 AS lastnam$, 4 AS mrec$: EndofFile = LOF(4) / 24
+        ELSE
+        OPEN TBPath$ + "TTSPNAME.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #4 LEN = 24
+        FIELD 4, 20 AS lastnam$, 4 AS mrec$: EndofFile = LOF(4) / 24
+      END IF
+     END IF
+
+2110 LOCATE 10, 1: COLOR 11: PRINT "Print Past Due by Year (Y/N) .. "; : fl = 1: GOSUB 62210
+     IF NOT (in$ = "Y" OR in$ = "N") THEN 2110
+     brkdwn$ = in$
+     LOCATE 11, 1: COLOR 11: PRINT STRING$(79, "="): LOCATE 13, 23: PRINT "Now Processing : Please be Patient!": COLOR 14
+2120 ReportFile$ = "TBREBAL.PRN"
+     RptHandle% = 10
+     OPEN ReportFile$ FOR OUTPUT AS #RptHandle%
+     GOSUB 2900
+2170 FOR Cnt! = 1 TO EndofFile
+     IF SortSpec$ = "L" THEN
+      GET 4, Cnt!
+      IF taxtype$ = "R" THEN
+       GET TBFile, CVS(mrec$), TBRECust(1)
+       GET TBBalFile, CVS(mrec$), TBRECustBal(1)
+       ELSE
+       GET TBFile, CVS(mrec$), TBPPCust(1)
+       GET TBBalFile, CVS(mrec$), TBPPCustBal(1)
+      END IF
+       Account! = CVS(mrec$)
+       GOTO 2190
+     END IF
+
+      IF taxtype$ = "R" THEN
+      GET TBFile, Cnt!, TBRECust(1)
+      GET TBBalFile, Cnt!, TBRECustBal(1)
+      ELSE
+      GET TBFile, Cnt!, TBPPCust(1)
+      GET TBBalFile, Cnt!, TBPPCustBal(1)
+      END IF
+      Account! = Cnt!
+2190 PastDue# = 0
+     CurBal# = 0
+     IF taxtype$ = "R" THEN
+      IF TBRECust(1).Deleted = "Y" THEN 2230
+      IF LEFT$(TBRECust(1).ClassCode, 1) = "7" THEN 2230
+      ELSE
+      IF TBPPCust(1).Deleted = "Y" THEN 2230
+      END IF
+     
+     GOSUB FigureBalance
+     IF PastDue# + CurBal# = 0 THEN 2230
+     
+   IF taxtype$ = "R" THEN
+      PRINT #10, Account!; TAB(10); TBRECust(1).CustName;
+       PRINT #10, TAB(54); USING "######.##"; CurBal#;
+        PRINT #10, TAB(68); USING "######.##"; PastDue#
+      lc = lc + 1
+     IF brkdwn$ = "Y" THEN
+     FOR ll = 1 TO 5
+      TOTTAX#(ll) = TOTTAX#(ll) + TBRECustBal(1).TaxAmt(ll) + TBRECustBal(1).IntAmt(ll) + TBRECustBal(1).PenAmt(ll) + TBRECustBal(1).OthAmt(ll) + TBRECustBal(1).LateAmt(ll)
+      PRINT #10, TAB(((ll - 1) * 15) + 1); USING "######.##"; TBRECustBal(1).TaxAmt(ll) + TBRECustBal(1).IntAmt(ll) + TBRECustBal(1).PenAmt(ll) + TBRECustBal(1).OthAmt(ll) + TBRECustBal(1).LateAmt(ll); : NEXT ll
+     FOR ll = 6 TO 10
+      TOTTAX#(ll) = TOTTAX#(ll) + TBRECustBal(1).TaxAmt(ll) + TBRECustBal(1).IntAmt(ll) + TBRECustBal(1).PenAmt(ll) + TBRECustBal(1).OthAmt(ll) + TBRECustBal(1).LateAmt(ll)
+      PRINT #10, TAB(((ll - 6) * 15) + 1); USING "######.##"; (TBRECustBal(1).TaxAmt(ll) + TBRECustBal(1).IntAmt(ll) + TBRECustBal(1).PenAmt(ll) + TBRECustBal(1).OthAmt(ll) + TBRECustBal(1).LateAmt(ll)); : NEXT ll
+      PRINT #10, "": lc = lc + 2
+     END IF
+     Tot1# = Tot1# + CurBal#: Tot2# = Tot2# + PastDue#
+     TotCust! = TotCust! + 1
+   ELSE
+      PRINT #10, Account!; TAB(10); TBPPCust(1).CustName;
+       PRINT #10, TAB(54); USING "######.##"; CurBal#;
+        PRINT #10, TAB(68); USING "######.##"; PastDue#
+      lc = lc + 1
+     IF brkdwn$ = "Y" THEN
+     FOR ll = 1 TO 5
+      TOTTAX#(ll) = TOTTAX#(ll) + TBPPCustBal(1).PerPropTaxAmt(ll) + TBPPCustBal(1).FarmEquipAmt(ll) + TBPPCustBal(1).MachToolsAmt(ll) + TBPPCustBal(1).MerchCapAmt(ll) + TBPPCustBal(1).MobileHomeAmt(ll) + TBPPCustBal(1).LateFeeAmt(ll) + TBPPCustBal( _
+1).IntAmt(ll) + TBPPCustBal(1).PenAmt(ll)
+      PRINT #10, TAB(((ll - 1) * 15) + 1); USING "######.##"; TBPPCustBal(1).PerPropTaxAmt(ll) + TBPPCustBal(1).FarmEquipAmt(ll) + TBPPCustBal(1).MachToolsAmt(ll) + TBPPCustBal(1).MerchCapAmt(ll) + TBPPCustBal(1).MobileHomeAmt(ll) + TBPPCustBal(1). _
+LateFeeAmt(ll) + TBPPCustBal(1).IntAmt(ll) + TBPPCustBal(1).PenAmt(ll); : NEXT ll
+     FOR ll = 6 TO 10
+      TOTTAX#(ll) = TOTTAX#(ll) + TBPPCustBal(1).PerPropTaxAmt(ll) + TBPPCustBal(1).FarmEquipAmt(ll) + TBPPCustBal(1).MachToolsAmt(ll) + TBPPCustBal(1).MerchCapAmt(ll) + TBPPCustBal(1).MobileHomeAmt(ll) + TBPPCustBal(1).LateFeeAmt(ll) + TBPPCustBal( _
+1).IntAmt(ll) + TBPPCustBal(1).PenAmt(ll)
+      PRINT #10, TAB(((ll - 6) * 15) + 1); USING "######.##"; (TBPPCustBal(1).PerPropTaxAmt(ll) + TBPPCustBal(1).FarmEquipAmt(ll) + TBPPCustBal(1).MachToolsAmt(ll) + TBPPCustBal(1).MerchCapAmt(ll) + TBPPCustBal(1).MobileHomeAmt(ll) + TBPPCustBal(1). _
+LateFeeAmt(ll)) + TBPPCustBal(1).IntAmt(ll) + TBPPCustBal(1).PenAmt(ll); : NEXT ll
+      PRINT #10, "": lc = lc + 2
+     END IF
+    T1# = T1# + TBPPCust(1).CurYrPersPropTax
+    t2# = t2# + TBPPCust(1).CurYrFarmEquipTax
+    t3# = t3# + TBPPCust(1).CurYrMachToolsTax
+    t4# = t4# + TBPPCust(1).CurYrMerchCapTax
+    t5# = t5# + TBPPCust(1).CurYrMobileHomeTax
+    t6# = t6# + TBPPCust(1).CurYrLateFeeTax
+    t7# = t7# + TBPPCust(1).CurYrIntAmount
+    t8# = t8# + TBPPCust(1).CurYrPenAmount
+     Tot1# = Tot1# + CurBal#: Tot2# = Tot2# + PastDue#
+     TotCust! = TotCust! + 1
+     END IF
+2220 IF lc >= 55 THEN PRINT #10, CHR$(12); : GOSUB 2900
+2230 NEXT Cnt!
+       PRINT #10, STRING$(79, "-"):
+        PRINT #10, "Totals   Customers:"; USING "#####,#"; TotCust!;
+         PRINT #10, TAB(52); USING "#######,#.##"; Tot1#;
+          PRINT #10, TAB(66); USING "#######,#.##"; Tot2#
+        IF brkdwn$ = "Y" THEN 2232 ELSE 2235
+2232 FOR ll = 1 TO 5: PRINT #10, TAB(((ll - 1) * 15) + 1); USING "######.##"; TOTTAX#(ll); : NEXT ll
+     FOR ll = 6 TO 10: PRINT #10, TAB(((ll - 6) * 15) + 1); USING "######.##"; TOTTAX#(ll); : NEXT ll: PRINT #10, ""
+2235 PRINT CHR$(12);
+2240 CLOSE
+      CLS
+      LOCATE 1, 1
+      'Set Report Defaults
+      LPTPort% = 1
+      EntryPoint% = 1
+      Header$ = "Tax Balance Report"
+      PrintRptFile Header$, ReportFile$, LPTPort%, RetCode%, EntryPoint%
+      KILL ReportFile$
+
+2250 GOTO 10
+
+2900 p = p + 1
+     PRINT #10, TAB(27); "Tax Customer Balance Listing": PRINT #10, "Date: "; DATE$; TAB(68); "Page - "; USING "####"; p
+     PRINT #10, "":
+     IF taxtype$ = "R" THEN
+      PRINT #10, "Real Estate Customers - Supplemental"
+      ELSE
+      PRINT #10, "Personal Property Customers - Supplemental"
+     END IF
+2910 PRINT #10, "Acct #"; TAB(10); "Account Name"; TAB(54); "Current"; TAB(68); "Previous"
+     IF brkdwn$ = "Y" THEN 2920 ELSE PRINT #10, STRING$(79, "="): lc = 2: RETURN
+2920 FOR ll = 1 TO 5: PRINT #10, TAB(((ll - 1) * 15) + 1); "Year: "; VAL(CurrentYear$) - (ll); : NEXT ll
+2930 FOR ll = 6 TO 10: PRINT #10, TAB(((ll - 6) * 15) + 1); "Year: "; VAL(CurrentYear$) - (ll); : NEXT ll
+2940 PRINT #10, "": PRINT #10, STRING$(79, "="): lc = 4: RETURN
+
+
+3000 REM
+3010 SCREN$ = "2.03.00": CLS : GOSUB 63500
+3020 COLOR 11: LOCATE 1, 25: PRINT "Supplemental Customer Account Inquiry";
+3025 LOCATE 3, 1: COLOR 11
+     PRINT "(R)eal or (P)ersonal (R,P or <ESC>-End) ..... "; : fl = 1: GOSUB 62210
+     IF cf = 1 THEN 10
+     IF NOT (in$ = "R" OR in$ = "P" OR in$ = "A") THEN 3025
+     taxtype$ = UCASE$(in$)
+3030 LOCATE 4, 1: COLOR 11
+     PRINT "Enter Customer Account Number (TAB-Last Name : ESC-Menu) .. "; : fl = -6
+     GOSUB 62000
+     IF cf = 1 THEN
+      CLOSE : GOTO 10
+     END IF
+     IF cf = 2 THEN
+      GOSUB Namesearch
+      IF ggo = 1 THEN 3075
+      IF ggo = 0 THEN LOCATE 10, 1: PRINT "Account Not Found : Press Any Key to Continue "; : fl = 1: GOSUB 62000: GOTO 3000
+     END IF
+     Record! = VAL(in$)
+3075 CLOSE : GOSUB 60000: GOSUB 60025
+     IF taxtype$ = "R" THEN
+       IF Record! < 1 OR Record! > LOF(TBFile) / LEN(TBRECust(1)) THEN 3030
+       LOCK #TBFile, Record!
+       GET TBFile, Record!, TBRECust(1)
+       GET TBBalFile, Record!, TBRECustBal(1)
+       IF TBRECust(1).Deleted = "Y" THEN GOSUB Deleted: GOTO 3000
+       ELSE
+       IF Record! < 1 OR Record! > LOF(TBFile) / LEN(TBPPCust(1)) THEN 3030
+       LOCK #TBFile, Record!
+       GET TBFile, Record!, TBPPCust(1)
+       GET TBBalFile, Record!, TBPPCustBal(1)
+       IF TBPPCust(1).Deleted = "Y" THEN GOSUB Deleted: GOTO 3000
+     END IF
+
+     IF taxtype$ = "R" THEN
+       GOSUB DisplayReal
+        ELSE
+       GOSUB DisplayPersonal
+     END IF
+     CLOSE
+     GOTO 3000
+     
+DisplayReal:
+FOR ll = 3 TO 23: LOCATE ll, 1: PRINT STRING$(79, 32): NEXT ll
+GOSUB FigureBalance
+COLOR 11
+LOCATE 3, 1: PRINT "Real Estate Customer"
+PRINT "Account of ..."
+COLOR 15
+PRINT TBRECust(1).CustName; : COLOR 11: PRINT TAB(60); "Acct # "; : COLOR 15: PRINT Record!
+PRINT TBRECust(1).Address1; TAB(40); TBRECust(1).Comment1
+PRINT TBRECust(1).Address2; TAB(40); TBRECust(1).Comment2
+PRINT TBRECust(1).Address3; TAB(40); TBRECust(1).Comment3
+COLOR 11
+PRINT STRING$(79, "-")
+PRINT "      Map #: "; : COLOR 15: PRINT TBRECust(1).MapNumber
+COLOR 11
+PRINT " Land Value: "; : COLOR 15: PRINT USING "$$#######,#"; TBRECust(1).LandValue
+ COLOR 11
+ 
+ COLOR 11
+PRINT " Bldg Value: "; : COLOR 15: PRINT USING "$$#######,#"; TBRECust(1).BldgValue
+COLOR 11
+
+
+PRINT "Description: ": COLOR 15
+PRINT TBRECust(1).PropDesc1; TAB(40); TBRECust(1).PropDesc2
+PRINT TBRECust(1).PropDesc3; TAB(40); TBRECust(1).PropDesc4
+PRINT
+COLOR 11
+LOCATE 16, 1: PRINT STRING$(79, "-")
+PRINT "Total Account Balance: "; : COLOR 15: PRINT USING "$$#######,#.##"; CurBal# + PastDue#
+COLOR 11
+PRINT "          Current Due: "; : COLOR 15: PRINT USING "$$#######,#.##"; CurBal#
+COLOR 11
+PRINT "             Past Due: "; : COLOR 15: PRINT USING "$$#######,#.##"; PastDue#
+COLOR 11
+LOCATE 20, 1: PRINT STRING$(79, "-")
+LOCATE 21, 1: PRINT "Press <F1>-Transaction History   <F2>-Tax Balance by Year   <ESC>-End  "; : fl = 1
+GOSUB 62000
+IF cf = 11 THEN GOSUB RealHistory: GOTO DisplayReal
+IF cf = 12 THEN GOSUB RealBalance: GOTO DisplayReal
+CLOSE
+RETURN
+RealBalance:
+FOR ll = 3 TO 23: LOCATE ll, 1: PRINT STRING$(79, 32): NEXT ll
+GOSUB 60025
+GET TBBalFile, Record!, TBRECustBal(1)
+LOCATE 3, 1: COLOR 11
+PRINT "Account of ... "; TBRECust(1).CustName
+PRINT
+PRINT " Year"; TAB(10); "Tax Amount"; TAB(26); "Int't Amt"; TAB(40); "Pen'ty Amt"; TAB(63); " Balance"
+PRINT STRING$(79, "-")
+COLOR 15
+PRINT VAL(CurrentYear$); TAB(10); USING "#####,#.##"; TBRECust(1).CurYrTaxAmount;
+ PRINT TAB(25); USING "#####,#.##"; TBRECust(1).CurYrIntAmount;
+  PRINT TAB(40); USING "#####,#.##"; TBRECust(1).CurYrPenAmount;
+   PRINT TAB(60); USING "$$#####,#.##"; TBRECust(1).CurYrTaxAmount + TBRECust(1).CurYrIntAmount + TBRECust(1).CurYrPenAmount
+FOR Pyr = 1 TO 10
+PRINT VAL(CurrentYear$) - Pyr; TAB(10); USING "#####,#.##"; TBRECustBal(1).TaxAmt(Pyr);
+ PRINT TAB(25); USING "#####,#.##"; TBRECustBal(1).IntAmt(Pyr);
+  PRINT TAB(40); USING "#####,#.##"; TBRECustBal(1).PenAmt(Pyr);
+   PRINT TAB(60); USING "$$#####,#.##"; TBRECustBal(1).TaxAmt(Pyr) + TBRECustBal(1).IntAmt(Pyr) + TBRECustBal(1).PenAmt(Pyr)
+NEXT Pyr
+
+
+
+LOCATE 23, 1: PRINT "Press <ENTER> to Continue "; : fl = 1
+GOSUB 62000
+CLOSE TBBalFile
+RETURN
+
+DisplayPersonal:
+FOR ll = 3 TO 23: LOCATE ll, 1: PRINT STRING$(79, 32): NEXT ll
+GOSUB FigureBalance
+COLOR 11
+LOCATE 3, 1: PRINT "Personal Property Customer"
+PRINT "Account of ..."
+COLOR 15
+PRINT TBPPCust(1).CustName; : COLOR 11: PRINT TAB(60); "Acct # "; : COLOR 15: PRINT Record!
+PRINT TBPPCust(1).Address1
+PRINT TBPPCust(1).Address2
+PRINT RTRIM$(TBPPCust(1).City); ", "; TBPPCust(1).State; "  "; TBPPCust(1).Zip
+PRINT
+COLOR 11: PRINT "Personal Property Value: "; : COLOR 15: PRINT USING "$$#######,#"; TBPPCust(1).PersProp
+COLOR 11: PRINT "  Machinery/Tools Value: "; : COLOR 15: PRINT USING "$$#######,#"; TBPPCust(1).MachTools
+COLOR 11: PRINT "      Mobile Home Value: "; : COLOR 15: PRINT USING "$$#######,#"; TBPPCust(1).MobileHome
+COLOR 11: PRINT " Merchant Capital Value: "; : COLOR 15: PRINT USING "$$#######,#"; TBPPCust(1).MerchCap
+COLOR 11: PRINT "   Farm Equipment Value: "; : COLOR 15: PRINT USING "$$#######,#"; TBPPCust(1).FarmEquip
+COLOR 11
+LOCATE 16, 1: PRINT STRING$(79, "-")
+PRINT "Total Account Balance: "; : COLOR 15: PRINT USING "$$#######,#.##"; CurBal# + PastDue#
+COLOR 11
+PRINT "          Current Due: "; : COLOR 15: PRINT USING "$$#######,#.##"; CurBal#
+COLOR 11
+PRINT "             Past Due: "; : COLOR 15: PRINT USING "$$#######,#.##"; PastDue#
+COLOR 11
+LOCATE 20, 1: PRINT STRING$(79, "-")
+LOCATE 21, 1: PRINT "Press <F1>-Transaction History   <F2>-Tax Balance by Year   <ESC>-End  "; : fl = 1
+GOSUB 62000
+IF cf = 11 THEN GOSUB PersHistory: GOTO DisplayPersonal
+IF cf = 12 THEN GOSUB PersBalance: GOTO DisplayPersonal
+CLOSE
+RETURN
+PersBalance:
+FOR ll = 3 TO 23: LOCATE ll, 1: PRINT STRING$(79, 32): NEXT ll
+GOSUB 60025
+GET TBBalFile, Record!, TBPPCustBal(1)
+LOCATE 3, 1: COLOR 11
+PRINT "Account of ... "; TBPPCust(1).CustName
+PRINT
+PRINT " Year"; TAB(10); "Tax Amount"; TAB(26); "Int't Amt"; TAB(40); "Pen'ty Amt"; TAB(63); " Balance"
+PRINT STRING$(79, "-")
+COLOR 15
+PRINT VAL(CurrentYear$); TAB(10); USING "#####,#.##"; TBPPCust(1).CurYrPersPropTax + TBPPCust(1).CurYrFarmEquipTax + TBPPCust(1).CurYrMachToolsTax + TBPPCust(1).CurYrMerchCapTax + TBPPCust(1).CurYrMobileHomeTax + TBPPCust(1).CurYrLateFeeTax;
+ PRINT TAB(25); USING "#####,#.##"; TBPPCust(1).CurYrIntAmount;
+  PRINT TAB(40); USING "#####,#.##"; TBPPCust(1).CurYrPenAmount;
+   PRINT TAB(60); USING "$$#####,#.##"; TBPPCust(1).CurYrPersPropTax + TBPPCust(1).CurYrFarmEquipTax + TBPPCust(1).CurYrMachToolsTax + TBPPCust(1).CurYrMerchCapTax + TBPPCust(1).CurYrMobileHomeTax + TBPPCust(1).CurYrLateFeeTax + TBPPCust(1). _
+CurYrIntAmount + TBPPCust(1).CurYrPenAmount
+FOR Pyr = 1 TO 10
+PRINT VAL(CurrentYear$) - Pyr; TAB(10); USING "#####,#.##"; TBPPCustBal(1).PerPropTaxAmt(Pyr) + TBPPCustBal(1).FarmEquipAmt(Pyr) + TBPPCustBal(1).MachToolsAmt(Pyr) + TBPPCustBal(1).MerchCapAmt(Pyr) + TBPPCustBal(1).MobileHomeAmt(Pyr) + TBPPCustBal(1 _
+).LateFeeAmt(Pyr);
+ PRINT TAB(25); USING "#####,#.##"; TBPPCustBal(1).IntAmt(Pyr);
+  PRINT TAB(40); USING "#####,#.##"; TBPPCustBal(1).PenAmt(Pyr);
+   PRINT TAB(60); USING "$$#####,#.##"; TBPPCustBal(1).PerPropTaxAmt(Pyr) + TBPPCustBal(1).FarmEquipAmt(Pyr) + TBPPCustBal(1).MachToolsAmt(Pyr) + TBPPCustBal(1).MerchCapAmt(Pyr) + TBPPCustBal(1).MobileHomeAmt(Pyr) + TBPPCustBal(1).LateFeeAmt(Pyr) +  _
+TBPPCustBal(1).IntAmt(Pyr) + TBPPCustBal(1).PenAmt(Pyr)
+NEXT Pyr
+LOCATE 23, 1: PRINT "Press <ENTER> to Continue or <F5>-Down : <F6>-Up "; : fl = 1
+GOSUB 62000
+IF cf = 15 THEN
+ LOCATE 23, 1: PRINT STRING$(79, 32)
+ LOCATE 23, 1: COLOR 11
+ PRINT "Enter Your Initials Please .. "; : fl = 3
+ GOSUB 62000
+ Initials$ = UCASE$(in$)
+ OPEN "TBCLOG" FOR RANDOM ACCESS READ WRITE SHARED AS #14 LEN = 64
+ FIELD 14, 3 AS init$, 10 AS cdate$, 30 AS who$, 4 AS ARecord$
+ LSET cdate$ = DATE$
+ LSET init$ = Initials$
+ LSET who$ = TBPPCust(1).CustName
+ LSET ARecord$ = MKS$(Record!)
+ PUT 14, LOF(14) / 64 + 1
+ CLOSE 14
+     
+ FOR ll = 10 TO 2 STEP -1
+  TBPPCustBal(1).PerPropTaxAmt(ll) = TBPPCustBal(1).PerPropTaxAmt(ll - 1)
+  TBPPCustBal(1).FarmEquipAmt(ll) = TBPPCustBal(1).FarmEquipAmt(ll - 1)
+  TBPPCustBal(1).MachToolsAmt(ll) = TBPPCustBal(1).MachToolsAmt(ll - 1)
+  TBPPCustBal(1).MerchCapAmt(ll) = TBPPCustBal(1).MerchCapAmt(ll - 1)
+  TBPPCustBal(1).MobileHomeAmt(ll) = TBPPCustBal(1).MobileHomeAmt(ll - 1)
+  TBPPCustBal(1).LateFeeAmt(ll) = TBPPCustBal(1).LateFeeAmt(ll - 1)
+  TBPPCustBal(1).IntAmt(ll) = TBPPCustBal(1).IntAmt(ll - 1)
+  TBPPCustBal(1).PenAmt(ll) = TBPPCustBal(1).PenAmt(ll - 1)
+ NEXT ll
+ ll = 1
+  TBPPCustBal(1).PerPropTaxAmt(ll) = TBPPCust(1).CurYrPersPropTax
+  TBPPCustBal(1).FarmEquipAmt(ll) = TBPPCust(1).CurYrFarmEquipTax
+  TBPPCustBal(1).MachToolsAmt(ll) = TBPPCust(1).CurYrMachToolsTax
+  TBPPCustBal(1).MerchCapAmt(ll) = TBPPCust(1).CurYrMerchCapTax
+  TBPPCustBal(1).MobileHomeAmt(ll) = TBPPCust(1).CurYrMobileHomeTax
+  TBPPCustBal(1).LateFeeAmt(ll) = TBPPCust(1).CurYrLateFeeTax
+  TBPPCustBal(1).IntAmt(ll) = TBPPCust(1).CurYrIntAmount
+  TBPPCustBal(1).PenAmt(ll) = TBPPCust(1).CurYrPenAmount
+  TBPPCust(1).CurYrPersPropTax = 0
+  TBPPCust(1).CurYrFarmEquipTax = 0
+  TBPPCust(1).CurYrMachToolsTax = 0
+  TBPPCust(1).CurYrMerchCapTax = 0
+  TBPPCust(1).CurYrMobileHomeTax = 0
+  TBPPCust(1).CurYrLateFeeTax = 0
+  TBPPCust(1).CurYrIntAmount = 0
+  TBPPCust(1).CurYrPenAmount = 0
+  PUT TBFile, Record!, TBPPCust(1)
+  PUT TBBalFile, Record!, TBPPCustBal(1)
+  GOTO PersBalance
+
+END IF
+IF cf = 16 THEN
+ LOCATE 23, 1: PRINT STRING$(79, 32)
+ LOCATE 23, 1: COLOR 11
+ PRINT "Enter Your Initials Please .. "; : fl = 3
+ GOSUB 62000
+ Initials$ = UCASE$(in$)
+ OPEN "TBCLOG" FOR RANDOM ACCESS READ WRITE SHARED AS #14 LEN = 64
+ FIELD 14, 3 AS init$, 10 AS cdate$, 30 AS who$, 4 AS ARecord$
+ LSET cdate$ = DATE$
+ LSET init$ = Initials$
+ LSET who$ = TBPPCust(1).CustName
+ LSET ARecord$ = MKS$(Record!)
+ PUT 14, LOF(14) / 64 + 1
+ CLOSE 14
+  ll = 1
+  TBPPCust(1).CurYrPersPropTax = TBPPCustBal(1).PerPropTaxAmt(ll)
+  TBPPCust(1).CurYrFarmEquipTax = TBPPCustBal(1).FarmEquipAmt(ll)
+  TBPPCust(1).CurYrMachToolsTax = TBPPCustBal(1).MachToolsAmt(ll)
+  TBPPCust(1).CurYrMerchCapTax = TBPPCustBal(1).MerchCapAmt(ll)
+  TBPPCust(1).CurYrMobileHomeTax = TBPPCustBal(1).MobileHomeAmt(ll)
+  TBPPCust(1).CurYrLateFeeTax = TBPPCustBal(1).LateFeeAmt(ll)
+  TBPPCust(1).CurYrIntAmount = TBPPCustBal(1).IntAmt(ll)
+  TBPPCust(1).CurYrPenAmount = TBPPCustBal(1).PenAmt(ll)
+  FOR ll = 1 TO 9
+  TBPPCustBal(1).PerPropTaxAmt(ll) = TBPPCustBal(1).PerPropTaxAmt(ll + 1)
+  TBPPCustBal(1).FarmEquipAmt(ll) = TBPPCustBal(1).FarmEquipAmt(ll + 1)
+  TBPPCustBal(1).MachToolsAmt(ll) = TBPPCustBal(1).MachToolsAmt(ll + 1)
+  TBPPCustBal(1).MerchCapAmt(ll) = TBPPCustBal(1).MerchCapAmt(ll + 1)
+  TBPPCustBal(1).MobileHomeAmt(ll) = TBPPCustBal(1).MobileHomeAmt(ll + 1)
+  TBPPCustBal(1).LateFeeAmt(ll) = TBPPCustBal(1).LateFeeAmt(ll + 1)
+  TBPPCustBal(1).IntAmt(ll) = TBPPCustBal(1).IntAmt(ll + 1)
+  TBPPCustBal(1).PenAmt(ll) = TBPPCustBal(1).PenAmt(ll + 1)
+ NEXT ll
+ PUT TBFile, Record!, TBPPCust(1)
+  PUT TBBalFile, Record!, TBPPCustBal(1)
+  GOTO PersBalance
+
+END IF
+CLOSE TBBalFile
+RETURN
+
+     
+RealHistory:
+GOSUB 61000
+GOSUB RealHeading
+TR! = TBRECust(1).FirstTrans
+GOSUB RealTransLink
+IF Counter = 0 THEN
+ LOCATE 10, 1: COLOR 15
+ PRINT "No History For This Account : Press <ENTER> to Continue "; : fl = 1
+ GOSUB 62000
+ CLOSE TBTransFile
+ RETURN
+END IF
+COLOR 15
+FOR Cnt! = Counter TO 1 STEP -1
+GET TBTransFile, TransLink!(Cnt!), TBTrans(1)
+PRINT num2date$(TBTrans(1).TransDate);
+ PRINT TAB(12); TBTrans(1).TrDesc;
+  PRINT TAB(30); "";
+  IF TBTrans(1).TrType = 1 THEN PRINT "Tax Bill";
+  IF TBTrans(1).TrType = 2 THEN PRINT "Payment";
+  IF TBTrans(1).TrType = 3 THEN PRINT "Interest";
+  IF TBTrans(1).TrType = 4 THEN PRINT "Penalty";
+  IF TBTrans(1).TrType = 5 THEN PRINT "Release";
+  IF TBTrans(1).TrType = 6 THEN PRINT "Beg Bal";
+  IF TBTrans(1).TrType < 1 OR TBTrans(1).TrType > 6 THEN PRINT "Undef";
+ PRINT TAB(40); USING "$$#####,#.##"; TBTrans(1).TransAmt;
+  PRINT TAB(55); USING "$$#####,#.##"; TBTrans(1).TrRunningBal
+  NEXT Cnt!
+  LOCATE 23, 1: COLOR 11
+  PRINT "Press <ENTER> to Continue! "; : fl = 1
+  GOSUB 62000
+  CLOSE TBTransFile
+  RETURN
+
+RealHeading:
+COLOR 11
+CLS
+PRINT TAB(20); "Tax Customer - Account History - Supplemental"
+PRINT TAB(26); "  * Real Estate Customer *"; TAB(60); "Date: "; DATE$
+PRINT
+PRINT " Account of: "; : COLOR 15: PRINT TBRECust(1).CustName
+COLOR 11
+PRINT "Account Bal: "; : COLOR 15: PRINT USING "$$######,#.##"; CurBal# + PastDue#
+COLOR 11
+PRINT
+PRINT "Tr Date"; TAB(12); "Description"; TAB(30); "Tr Type"; TAB(43); "Tr Amount"; TAB(60); "Run Balance"
+PRINT STRING$(79, "-")
+RETURN
+
+RealTransLink:
+ Counter = 0
+Realtrlink1:
+ IF TR! = 0 THEN RETURN
+ Counter = Counter + 1
+ TransLink!(Counter) = TR!
+ GET TBTransFile, TR!, TBTrans(1)
+ TR! = TBTrans(1).TrNextTrans
+ GOTO Realtrlink1
+
+PersHistory:
+GOSUB 61000
+GOSUB PersHeading
+TR! = TBPPCust(1).FirstTrans
+GOSUB PersTransLink
+IF Counter = 0 THEN
+ LOCATE 10, 1: COLOR 15
+ PRINT "No History For This Account : Press <ENTER> to Continue "; : fl = 1
+ GOSUB 62000
+ CLOSE TBTransFile
+ RETURN
+END IF
+COLOR 15
+FOR Cnt! = Counter TO 1 STEP -1
+GET TBTransFile, TransLink!(Cnt!), TBTrans(1)
+PRINT num2date$(TBTrans(1).TransDate);
+ PRINT TAB(12); TBTrans(1).TrDesc;
+  PRINT TAB(30); "";
+  IF TBTrans(1).TrType = 1 THEN PRINT "Tax Bill";
+  IF TBTrans(1).TrType = 2 THEN PRINT "Payment";
+  IF TBTrans(1).TrType = 3 THEN PRINT "Interest";
+  IF TBTrans(1).TrType = 4 THEN PRINT "Penalty";
+  IF TBTrans(1).TrType = 5 THEN PRINT "Release";
+  IF TBTrans(1).TrType = 6 THEN PRINT "Beg Bal";
+  IF TBTrans(1).TrType < 1 OR TBTrans(1).TrType > 6 THEN PRINT "Undef";
+ PRINT TAB(40); USING "$$#####,#.##"; TBTrans(1).TransAmt;
+  PRINT TAB(59); USING "**$#####,#.##"; TBTrans(1).TrRunningBal
+  NEXT Cnt!
+  LOCATE 23, 1: COLOR 11
+  PRINT "Press <ENTER> to Continue! "; : fl = 1
+  GOSUB 62000
+  CLOSE TBTransFile
+  RETURN
+  RETURN
+
+PersHeading:
+COLOR 11
+CLS
+PRINT TAB(26); "Tax Customer - Account History"
+PRINT TAB(26); "  * Pers Property Customer *"; TAB(60); "Date: "; DATE$
+PRINT
+PRINT " Account of: "; : COLOR 15: PRINT TBPPCust(1).CustName
+COLOR 11
+PRINT "Account Bal: "; : COLOR 15: PRINT USING "$$######,#.##"; CurBal# + PastDue#
+COLOR 11
+PRINT
+PRINT "Tr Date"; TAB(12); "Description"; TAB(30); "Tr Type"; TAB(43); "Tr Amount"; TAB(60); "Run Balance"
+PRINT STRING$(79, "-")
+RETURN
+
+PersTransLink:
+ Counter = 0
+Perstrlink1:
+ IF TR! = 0 THEN RETURN
+ Counter = Counter + 1
+ TransLink!(Counter) = TR!
+ GET TBTransFile, TR!, TBTrans(1)
+ TR! = TBTrans(1).TrNextTrans
+ GOTO Perstrlink1
+
+60000  IF taxtype$ = "R" THEN
+         TBFile = FREEFILE
+         OPEN TBPath$ + "TTRSCUST.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #TBFile LEN = LEN(TBRECust(1))
+        ELSE
+         TBFile = FREEFILE
+         OPEN TBPath$ + "TTPSCUST.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #TBFile LEN = LEN(TBPPCust(1))
+         END IF
+        RETURN
+
+60025 TBBalFile = FREEFILE
+      IF taxtype$ = "R" THEN
+      OPEN TBPath$ + "TTRSBAL.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #TBBalFile LEN = LEN(TBRECustBal(1))
+      ELSE
+      OPEN TBPath$ + "TTPSBAL.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #TBBalFile LEN = LEN(TBPPCustBal(1))
+      END IF
+60030 RETURN
+
+61000 TBTransFile = FREEFILE
+      OPEN TBPath$ + "TTTRANS.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #TBTransFile LEN = LEN(TBTrans(1))
+61020 RETURN
+
+62000 COLOR 14: cf = 0: in$ = "": RO = CSRLIN: PO = POS(Xy): ZD = 0: ZS = 0: ZL = 0: IF fl = ZD THEN fl = 1
+62010 IF INKEY$ <> "" THEN 62010
+62020 PRINT STRING$(ABS(fl), 95); : LOCATE RO, PO
+62030 z$ = INKEY$: IF z$ = "" THEN 62030
+62040 IF z$ <> CHR$(13) THEN 62060 ELSE PRINT STRING$(ABS(fl) - ZL, 32);
+62050 GOSUB 62200: RETURN
+62060 IF z$ = CHR$(27) OR z$ = CHR$(21) THEN cf = 1: RETURN
+      IF z$ = CHR$(9) THEN cf = 2: RETURN
+      IF LEN(z$) < 2 THEN 62065
+      IF ASC(LEFT$(z$, 1)) = 0 AND ASC(MID$(z$, 2, 1)) = 59 THEN cf = 11: RETURN
+      IF ASC(LEFT$(z$, 1)) = 0 AND ASC(MID$(z$, 2, 1)) = 60 THEN cf = 12: RETURN
+      IF ASC(LEFT$(z$, 1)) = 0 AND ASC(MID$(z$, 2, 1)) = 61 THEN cf = 13: RETURN
+      IF ASC(LEFT$(z$, 1)) = 0 AND ASC(MID$(z$, 2, 1)) = 62 THEN cf = 14: RETURN
+      IF ASC(LEFT$(z$, 1)) = 0 AND ASC(MID$(z$, 2, 1)) = 63 THEN cf = 15: RETURN
+      IF ASC(LEFT$(z$, 1)) = 0 AND ASC(MID$(z$, 2, 1)) = 64 THEN cf = 16: RETURN
+
+62065 IF ASC(z$) = 0 THEN 62030
+62070 IF LEN(z$) > 1 THEN cf = ASC(RIGHT$(z$, 1)) - 57: IF cf > 0 THEN RETURN ELSE cf = cf + 27: RETURN
+62080 IF z$ = " " THEN 62130 ELSE IF z$ = CHR$(29) THEN PRINT STRING$(ZL, 29); : GOTO 62000
+62090 IF z$ <> CHR$(8) THEN 62130 ELSE IF ZL = 0 THEN 62030 ELSE PRINT CHR$(29); : PRINT "_"; : PRINT CHR$(29); : IF fl > 0 THEN 62110 ELSE IF z$ = "," THEN 62120
+62100 IF z$ = "." THEN ZD = 0: GOTO 62110 ELSE IF z$ = "+" OR z$ = "-" THEN ZS = 0
+62110 in$ = LEFT$(in$, LEN(in$) - 1)
+62120 ZL = ZL - 1: GOTO 62030
+62130 IF ABS(fl) = ZL THEN 62030 ELSE IF fl > 0 THEN IF z$ >= " " AND z$ <= "z" THEN 62180
+62140 IF z$ = "." AND ZD = 0 THEN ZD = 1: GOTO 62180
+62150 IF z$ = "," THEN PRINT ","; : ZL = ZL + 1: GOTO 62190
+62160 IF (z$ = "-" OR z$ = "+") AND ZS = 0 AND ZL = 0 THEN ZS = 1: GOTO 62180
+62170 IF z$ < "0" OR z$ > "9" THEN 62030
+62180 PRINT z$; : in$ = in$ + z$: ZL = ZL + 1
+62190 IF ABS(fl) = 1 THEN 62050 ELSE 62030
+62200 LOCATE RO, PO: PRINT in$: RETURN
+62210 GOSUB 62000: IF LEN(in$) THEN in$ = CHR$(ASC(in$) AND 223)
+62220 RETURN
+63500 LOCATE 1, 1: COLOR 10: PRINT "Sys. Date: "; SYSDATE$; TAB(70); SCREN$: PRINT STRING$(79, "_"): RETURN
+
+Namesearch:
+ LOCATE 8, 1:
+ COLOR 11
+ PRINT "Enter Last Name (Partial Accepted : ESC - End) .. "; : fl = 25
+ GOSUB 62000
+ IF cf = 1 THEN
+  ggo = 0
+  FOR LLL = 8 TO 13: PRINT STRING$(79, 32): NEXT LLL
+  RETURN
+ END IF
+ nn$ = in$
+ nn = LEN(nn$)
+ IF nn > 20 THEN nn = 20
+ nn$ = LEFT$(nn$, nn)
+
+ IF taxtype$ = "R" THEN
+  TBIDXFile = FREEFILE
+  OPEN TBPath$ + "TBSRNAME.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #TBIDXFile LEN = 24
+  FIELD TBIDXFile, 20 AS lastnam$, 4 AS mrec$
+  GOSUB 60000
+  FOR ll = 1 TO LOF(TBIDXFile) / 24
+  GET TBIDXFile, ll
+  IF LEFT$(lastnam$, nn) = nn$ THEN GOTO n1
+n3:
+  NEXT ll
+  FOR LLL = 8 TO 13: PRINT STRING$(79, 32): NEXT LLL
+  ggo = 0
+  RETURN
+
+n1:
+GET TBFile, CVS(mrec$), TBRECust(1)
+LOCATE 11, 1: COLOR 11
+nme$ = TBRECust(1).CustName
+COLOR 10
+FOR LLL = 10 TO 12: LOCATE LLL, 1: PRINT STRING$(79, 32): NEXT LLL
+LOCATE 11, 1: COLOR 11
+PRINT "Full Account Name: "; : COLOR 15: PRINT nme$
+COLOR 11
+PRINT "   Account Number: "; : COLOR 15: PRINT CVS(mrec$)
+n2:
+LOCATE 13, 1: COLOR 11
+PRINT "Correct Account (Y/N/Q) .. "; : fl = 1: GOSUB 62210
+IF NOT (in$ = "Y" OR in$ = "N" OR in$ = "Q") THEN GOTO n2
+IF in$ = "Q" THEN
+  FOR LLL = 8 TO 13: LOCATE LLL, 1: PRINT STRING$(79, 32): NEXT LLL
+  CLOSE
+  ggo = 0
+  RETURN
+END IF
+IF in$ = "Y" THEN
+  ggo = 1: Record! = CVS(mrec$)
+  FOR LLL = 8 TO 13:  LOCATE LLL, 1: PRINT STRING$(79, 32): NEXT LLL
+  CLOSE
+  RETURN
+END IF
+IF in$ = "N" THEN GOTO n3
+GOTO n2
+END IF
+
+
+  TBIDXFile = FREEFILE
+  OPEN TBPath$ + "TTSPNAME.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #TBIDXFile LEN = 24
+  FIELD TBIDXFile, 20 AS lastnam$, 4 AS mrec$
+  GOSUB 60000
+  FOR ll = 1 TO LOF(TBIDXFile) / 24
+  GET TBIDXFile, ll
+  IF LEFT$(lastnam$, nn) = nn$ THEN GOTO PPn1
+PPn3:
+  NEXT ll
+  LOCATE 8, 1: PRINT STRING$(79, 32)
+  ggo = 0
+  RETURN
+
+PPn1:
+GET TBFile, CVS(mrec$), TBPPCust(1)
+LOCATE 11, 1: COLOR 11
+nme$ = TBPPCust(1).CustName
+COLOR 10
+FOR LLL = 10 TO 12: LOCATE LLL, 1: PRINT STRING$(79, 32): NEXT LLL
+LOCATE 11, 1: COLOR 11
+PRINT "Full Account Name: "; : COLOR 15: PRINT nme$
+COLOR 11
+PRINT "   Account Number: "; : COLOR 15: PRINT CVS(mrec$)
+PPn2:
+LOCATE 13, 1: COLOR 11
+PRINT "Correct Account (Y/N/Q) .. "; : fl = 1: GOSUB 62210
+IF NOT (in$ = "Y" OR in$ = "N" OR in$ = "Q") THEN GOTO PPn2
+IF in$ = "Q" THEN
+  FOR LLL = 8 TO 13: LOCATE LLL, 1: PRINT STRING$(79, 32): NEXT LLL
+  CLOSE
+  ggo = 0
+  RETURN
+END IF
+IF in$ = "Y" THEN
+  ggo = 1: Record! = CVS(mrec$)
+  FOR LLL = 8 TO 13: LOCATE LLL, 1: PRINT STRING$(79, 32): NEXT LLL
+  CLOSE
+  RETURN
+END IF
+IF in$ = "N" THEN GOTO PPn3
+GOTO PPn2
+
+FigureBalance:
+     CurBal# = 0: PastDue# = 0
+     IF taxtype$ = "R" THEN
+     CurBal# = TBRECust(1).CurYrTaxAmount + TBRECust(1).CurYrIntAmount + TBRECust(1).CurYrPenAmount + TBRECust(1).CurYrOthAmount
+     CurBal# = INT((CurBal# * 100) + .5) / 100
+     FOR ll = 1 TO 10
+     TBRECustBal(1).OthAmt(ll) = 0
+     PastDue# = PastDue# + TBRECustBal(1).TaxAmt(ll) + TBRECustBal(1).IntAmt(ll) + TBRECustBal(1).PenAmt(ll) + TBRECustBal(1).OthAmt(ll) + TBRECustBal(1).LateAmt(ll)
+     PastDue# = INT((PastDue# * 100) + .5) / 100
+     NEXT ll
+     ELSE
+     CurBal# = TBPPCust(1).CurYrPersPropTax + TBPPCust(1).CurYrFarmEquipTax + TBPPCust(1).CurYrMachToolsTax + TBPPCust(1).CurYrMerchCapTax + TBPPCust(1).CurYrMobileHomeTax + TBPPCust(1).CurYrLateFeeTax + TBPPCust(1).CurYrIntAmount + TBPPCust(1). _
+CurYrPenAmount
+     CurBal# = INT((CurBal# * 100) + .5) / 100
+     FOR ll = 1 TO 10
+     PastDue# = PastDue# + TBPPCustBal(1).PerPropTaxAmt(ll) + TBPPCustBal(1).FarmEquipAmt(ll) + TBPPCustBal(1).MachToolsAmt(ll) + TBPPCustBal(1).MerchCapAmt(ll) + TBPPCustBal(1).MobileHomeAmt(ll) + TBPPCustBal(1).LateFeeAmt(ll) + TBPPCustBal(1). _
+IntAmt(ll) + TBPPCustBal(1).PenAmt(ll)
+     PastDue# = INT((PastDue# * 100) + .5) / 100
+     NEXT ll
+
+
+     END IF
+     RETURN
+
+Deleted:
+    LOCATE 23, 1: COLOR 15
+    PRINT "This Account Has Been Deleted! Press <ENTER> to Continue"; :
+    fl = 1
+    GOSUB 62000
+    LOCATE 23, 1: PRINT STRING$(79, 32)
+    RETURN
+
+networkerror:
+     REM ERROR CODES
+     Number = ERR
+     SELECT CASE ERR
+          CASE IS = 24, 25
+               LOCATE 23, 1: PRINT STRING$(79, 32): LOCATE 23, 1: COLOR 28
+               PRINT "Error Message:"; : COLOR 15: PRINT "Device Time-out! Make Sure Printer Is ON-LINE:Press ENTER to Resume Printing";
+               fl = 1: GOSUB 62000: LOCATE 23, 1: PRINT STRING$(79, 32)
+               RESUME
+          CASE IS = 27
+               LOCATE 23, 1: PRINT STRING$(79, 32): LOCATE 23, 1: COLOR 28
+               PRINT "Error Message:"; : COLOR 15: PRINT "Printer Is OUT OF PAPER! Load Paper : Press ENTER to Resume Printing";
+               fl = 1: GOSUB 62000: LOCATE 23, 1: PRINT STRING$(79, 32)
+               RESUME
+
+          CASE ELSE
+               CLS
+               LOCATE 15, 1: COLOR 28: PRINT "Error Message: "; : COLOR 15: PRINT "Error "; Number; " Has Occured in Line "; ERL
+               PRINT "Write Down Message and Hit <ESC> Key to exit."
+               fl = 1: GOSUB 62000: IF cf = 1 THEN CLOSE : GOTO 10 ELSE GOSUB 62000
+            
+     END SELECT
+

@@ -1,0 +1,18 @@
+SAVE1ST.FieldInfo:
+DATA  3 , 0 , 3 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 16 , 24 , 35 , 0 , 24 ,"", 0 , 0 ,"REVIEW", 0 , 0 , 0 , 27 , 0 , 0 ,""
+DATA  1 , 16 , 37 , 47 , 0 , 24 ,"", 0 , 0 ,"ABANDON", 0 , 0 , 0 , 88 , 0 , 0 ,""
+DATA  1 , 16 , 49 , 58 , 0 , 24 ,"", 0 , 0 ,"SAVE", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+
+SAVE1ST.Help:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+
+SAVE1ST.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

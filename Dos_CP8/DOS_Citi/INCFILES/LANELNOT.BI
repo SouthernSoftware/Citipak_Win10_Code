@@ -1,0 +1,62 @@
+  PRINT #UBRpt,       'Lane SC
+  PRINT #UBRpt,
+  PRINT #UBRpt, TAB(6); UBCustRec(1).CustName
+  PRINT #UBRpt, TAB(6); UBCustRec(1).ADDR1
+  PRINT #UBRpt, TAB(6); UBCustRec(1).ADDR2
+  PRINT #UBRpt, TAB(6); QPTrim$(UBCustRec(1).City); "  "; UBCustRec(1).State; "   "; Zip$
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt, TAB(10); "TOWN OF LANE"
+  PRINT #UBRpt, TAB(10); "P.O. Box 39"
+  PRINT #UBRpt, TAB(10); "LANE, SC 29564"
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt, "~"; TAB(78); "~"
+  PRINT #UBRpt, TAB(10); "REMINDER NOTICE!!!"
+  PRINT #UBRpt, TAB(10); "IF YOUR CHECK HAS ALREADY BEEN MAILED, PLEASE DISREGARD THIS NOTICE!"
+  PRINT #UBRpt, TAB(10); "OUR RECORDS INDICATE WE HAVE NOT YET RECEIVED YOUR PAYMENT FOR YOUR"
+  PRINT #UBRpt, TAB(10); "UTILITIES SERVICE.  IF PAYMENT IS NOT RECEIVED BY "; PDate$; " SERVICE"
+  PRINT #UBRpt, TAB(10); "WILL BE DISCONNECTED, AND A $50.00 RE-CONNECTION FEE WILL BE CHARGED"
+  PRINT #UBRpt, TAB(10); "IN ADDITION TO ALL AMOUNTS DUE."
+  PRINT #UBRpt,
+  PRINT #UBRpt, TAB(10); " Account# "; Acct$
+  PRINT #UBRpt, TAB(10); "Location# "; Location$; TAB(35); NDate$; TAB(50); "AMOUNT DUE:"; FUsing$(STR$(TotalBal#), "$$,######.##")
+  PRINT #UBRpt,
+  PRINT #UBRpt, TAB(10); "THANK YOU,"
+  PRINT #UBRpt, TAB(10); "TOWN OF LANE                             WATER DEPARTMENT"
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt, "~"; TAB(78); "~"
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt,
+  PRINT #UBRpt, TAB(6); UBCustRec(1).CustName
+  PRINT #UBRpt, TAB(6); UBCustRec(1).ADDR1
+  PRINT #UBRpt, TAB(6); UBCustRec(1).ADDR2
+  PRINT #UBRpt, TAB(6); QPTrim$(UBCustRec(1).City); "  "; UBCustRec(1).State; "   "; Zip$
+  PRINT #UBRpt, CHR$(12)
+

@@ -1,0 +1,24 @@
+LATERPT.FieldInfo:
+DATA  5 , 37 , 10 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 10 , 36 , 55 , 20 , 22 ,"", 0 , 0 ,"REPORDER", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  21 , 12 , 36 , 42 , 7 , 22 ,"", 0 , 0 ,"DETAIL", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  28 , 14 , 36 , 45 , 10 , 22 ,"", 0 , 0 ,"OUTPUTTO", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  38 , 17 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  38 , 17 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+LATERPT.Help:
+DATA ""
+DATA "Choose the Order to Print the Report. "
+DATA ""
+DATA "Select the Output Device. "
+DATA "Press the <F10> Key to Process Your Report. "
+DATA "Press the <ESC> Key to Cancel Your Input. "
+
+LATERPT.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

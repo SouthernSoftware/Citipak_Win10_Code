@@ -1,0 +1,140 @@
+  'SDS Format org. from Town of Richlands, NC  05/15/96
+  ToPrint$ = SPACE$(80)
+
+  MaxTopStub = 19        'actually 21
+
+  PrintFile = FREEFILE
+  OPEN "APCHECK.PRN" FOR OUTPUT AS PrintFile
+  OpenVendorFile VendorFile, NumVRecs
+  OpenAPLedgerFile APLedgerFile, NumTran&, RecLen
+
+  DoStubHeader = True
+
+  FOR Cnt = StartCnt TO VCnt
+    TChkAmt# = 0
+    TopStubCnt = 0
+    GET VendorFile, ChkInfo(Cnt).VendorRecNum, VENDOR
+    FOR Cnt2 = ChkInfo(Cnt).ListFirst TO ChkInfo(Cnt).ListLast
+      GET APLedgerFile, InvList(Cnt2).LedgerRecNum, APLedgerRec(1)
+      IF Cnt2 = ChkInfo(Cnt).ListFirst THEN
+        ChkInfo(Cnt).StartChk = TCheckNum&
+      END IF
+      GOSUB PRINTChkInfo        'go print some stuff
+    NEXT
+    ChkInfo(Cnt).LastChk = TCheckNum&
+    ChkInfo(Cnt).ChkAmt = TChkAmt#
+    ChkInfo(Cnt).ChkDate = CheckDate
+    GOSUB FinishChk
+  NEXT
+  CLOSE
+
+  KillFile "APCHKINF.DAT"
+  FPutAH "APCHKINF.DAT", ChkInfo(1), ChkInfoRecLen, VCnt
+
+  ToPrint$ = ""
+  ERASE APLedgerRec, PayListRec, ChkInfo, InvList
+  PrintRptFile "", "APCHECK.PRN", LPTPort%, RetCode%, 0         'EntryPoint%
+
+  GOTO ExitCheckPrinting
+
+PRINTChkInfo:
+
+  IF TopStubCnt = MaxTopStub THEN
+    GOSUB PrintVoidChk
+  END IF
+  IF DoStubHeader THEN
+    GOSUB StubHeader
+  END IF
+
+  ToPrint$ = SPACE$(80)
+  'MID$(ToPrint$, 6) = FUsing(" " + QPTrim$(APLedgerRec(1).DOCNum), "########")
+  MID$(ToPrint$, 1) = LEFT$(APLedgerRec(1).DOCNum, 8)
+  MID$(ToPrint$, 9) = Num2Date$(APLedgerRec(1).TRDate)
+  MID$(ToPrint$, 20) = LEFT$(APLedgerRec(1).Comment, 28)
+  MID$(ToPrint$, 49) = FUsing(STR$(APLedgerRec(1).Amt), ",######.##")
+  MID$(ToPrint$, 71) = FUsing(STR$(APLedgerRec(1).Amt), ",######.##")
+  PRINT #PrintFile, ToPrint$
+  TChkAmt# = Round(TChkAmt# + APLedgerRec(1).Amt)
+  TopStubCnt = TopStubCnt + 1
+
+  RETURN
+
+FinishChk:
+  FOR CntZZ = TopStubCnt TO MaxTopStub - 1
+    PRINT #PrintFile,
+  NEXT
+
+  LSET ToPrint$ = ""
+  PRINT #PrintFile,
+  MID$(ToPrint$, 1) = RIGHT$(QPTrim$(STR$(TCheckNum&)), 6)
+  MID$(ToPrint$, 9) = ConvDateStr1$(Num2Date$(CheckDate))
+  MID$(ToPrint$, 71) = FUsing(STR$(TChkAmt#), "#######.##")
+  PRINT #PrintFile, ToPrint$
+
+  '-------body of check
+  LSET ToPrint$ = ""
+  PRINT #PrintFile, '"Top of Check"
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile, TAB(49); ConvDateStr1$(Num2Date$(CheckDate));
+  PRINT #PrintFile, TAB(61); RIGHT$(QPTrim$(STR$(TCheckNum&)), 6);            'Num2Date$(CheckDate);
+  PRINT #PrintFile, TAB(67); FUsing(STR$(TChkAmt#), "$$#######.##")  'Vendor.VNum
+  PRINT #PrintFile,
+  PRINT #PrintFile, TAB(12); SpellNumber$(FUsing(STR$(TChkAmt#), "#########.##"))
+  PRINT #PrintFile,
+  PRINT #PrintFile, TAB(12); QPTrim$(VENDOR.PayToNAME)
+  PRINT #PrintFile, TAB(12); QPTrim$(VENDOR.PaytoAddr)
+  PRINT #PrintFile, TAB(12); QPTrim$(VENDOR.PayToAddr2)
+  PRINT #PrintFile, TAB(12); QPTrim$(VENDOR.PayToCity); " "; QPTrim$(VENDOR.PayToState); " "; QPTrim$(VENDOR.PayToZip)
+  
+  LSET ToPrint$ = ""
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile, '"Bottom of Form"
+  DoStubHeader = True
+  TCheckNum& = TCheckNum& + 1
+
+  RETURN
+
+PrintVoidChk:
+  PRINT #PrintFile, '"Top of Void"
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  FOR CntZZ = 11 TO MaxTopStub
+    PRINT #PrintFile, "         VOID  VOID  VOID  VOID  VOID  VOID  VOID  VOID  VOID  "
+  NEXT
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, '"Bottom of Void"
+
+  TopStubCnt = 0
+  TCheckNum& = TCheckNum& + 1
+  DoStubHeader = True
+  RETURN
+
+StubHeader:
+  PRINT #PrintFile, '"Top of Form"
+  PRINT #PrintFile, 'TAB(10); VENDOR.VNAME
+  PRINT #PrintFile,
+  'PRINT #PrintFile,
+  TopStubCnt = 4 '5
+  DoStubHeader = False
+  RETURN
+

@@ -1,0 +1,73 @@
+
+10 REM (C)1987 SOUTHERN SOFTWARE SYSTEMS         by Nick Picerno
+20 REM tbmenu
+30 REM main tax billing system menu
+40 REM Last Revision Date: 8-26-87
+50 REM by Nick Picerno
+60 CLS
+100 GOSUB 63000: REM get town in town$
+110 SCREN$ = "Main": SYSDATE$ = DATE$
+120 CLS : GOSUB 63500
+130 LOCATE 4, 1: COLOR 11
+200 PRINT TAB(31); "Tax Billing System"
+210 PRINT TAB(28); "Commissioners Master Menu"
+220 PRINT
+230 PRINT TAB(25); "1. Customer Maintenance"
+240 PRINT
+250 PRINT TAB(25); "2. Customer Reports"
+    PRINT
+    PRINT TAB(25); "3. Certify the Land Book"
+    PRINT
+    PRINT TAB(25); "4. Certify the Personal Property Book"
+    PRINT
+    PRINT TAB(25); "5. Export Data for Kenbridge"
+    PRINT
+    PRINT TAB(25); "6. Goto Supplemental System"
+    PRINT
+    PRINT TAB(25); "7. Prior Year Data Review"
+    PRINT
+    PRINT TAB(25); "8. Export Data for Data Synch"
+    
+310 LOCATE 23, 1: COLOR 11: PRINT TAB(28); "Selection No. (ESC-End) : "; : fl = -1: GOSUB 62000
+320 IF CF = 1 THEN CLOSE : CLS : END
+325 IF LEN(IN$) = 0 THEN 310
+330 IF VAL(IN$) < 1 OR VAL(IN$) > 8 THEN 310
+340 ON VAL(IN$) GOTO 410, 420, 430, 440, 450, 460, 470, 480
+
+410 RUN "tbccm"
+420 RUN "tbccustr"
+430 RUN "tbRECERT"
+440 RUN "tbppcert"
+450 RUN "tbexp"
+460 RUN "tbscmenu"
+470 RUN "tbcrevw"
+480 RUN "tbtotexp"
+
+
+62000 CF = 0: COLOR 14: IN$ = "": RO = CSRLIN: PO = POS(X): ZD = 0: ZS = 0: ZL = 0: IF fl = ZD THEN fl = 1
+62010 IF INKEY$ <> "" THEN 62010
+62020 PRINT STRING$(ABS(fl), 95); : LOCATE RO, PO
+62030 Z$ = INKEY$: IF Z$ = "" THEN 62030
+62040 IF Z$ <> CHR$(13) THEN 62060 ELSE PRINT STRING$(ABS(fl) - ZL, 32);
+62050 GOSUB 62200: RETURN
+62060 IF Z$ = CHR$(27) OR Z$ = CHR$(21) THEN CF = 1: RETURN
+62065 IF ASC(Z$) = 0 THEN 62030
+62070 IF LEN(Z$) > 1 THEN CF = ASC(RIGHT$(Z$, 1)) - 57: IF CF > 0 THEN RETURN ELSE CF = CF + 27: RETURN
+62080 IF Z$ = " " THEN 62130 ELSE IF Z$ = CHR$(29) THEN PRINT STRING$(ZL, 29); : GOTO 62000
+62090 IF Z$ <> CHR$(8) THEN 62130 ELSE IF ZL = 0 THEN 62030 ELSE PRINT CHR$(29); : PRINT "_"; : PRINT CHR$(29); : IF fl > 0 THEN 62110 ELSE IF Z$ = "," THEN 62120
+62100 IF Z$ = "." THEN ZD = 0: GOTO 62110 ELSE IF Z$ = "+" OR Z$ = "-" THEN ZS = 0
+62110 IN$ = LEFT$(IN$, LEN(IN$) - 1)
+62120 ZL = ZL - 1: GOTO 62030
+62130 IF ABS(fl) = ZL THEN 62030 ELSE IF fl > 0 THEN IF Z$ >= " " AND Z$ <= "z" THEN 62180
+62140 IF Z$ = "." AND ZD = 0 THEN ZD = 1: GOTO 62180
+62150 IF Z$ = "," THEN PRINT ","; : ZL = ZL + 1: GOTO 62190
+62160 IF (Z$ = "-" OR Z$ = "+") AND ZS = 0 AND ZL = 0 THEN ZS = 1: GOTO 62180
+62170 IF Z$ < "0" OR Z$ > "9" THEN 62030
+62180 PRINT Z$; : IN$ = IN$ + Z$: ZL = ZL + 1
+62190 IF ABS(fl) = 1 THEN 62050 ELSE 62030
+62200 LOCATE RO, PO: PRINT IN$: RETURN
+62210 GOSUB 62000: IF LEN(IN$) THEN IN$ = CHR$(ASC(IN$) AND 223)
+62220 RETURN
+63000 OPEN "R", 3, "wbtown.dat": FIELD 3, 40 AS TOWNNAME$: GET 3, 1: TOWN$ = TOWNNAME$: CLOSE 3: RETURN
+63500 COLOR 10: LOCATE 1, 1: PRINT "Sys. Date: "; SYSDATE$; TAB(70); SCREN$: PRINT STRING$(79, "_"): RETURN
+

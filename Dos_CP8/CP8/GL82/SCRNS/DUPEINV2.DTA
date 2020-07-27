@@ -1,0 +1,18 @@
+DUPEINV2.FieldInfo:
+DATA  3 , 0 , 4 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 14 , 27 , 38 , 0 , 24 ,"", 0 , 0 ,"OKBTN", 0 , 0 , 0 , 13 , 0 , 0 ,""
+DATA  1 , 14 , 44 , 55 , 0 , 24 ,"", 0 , 0 ,"CANBTN", 0 , 0 , 0 , 27 , 0 , 0 ,""
+DATA  1 , 14 , 44 , 55 , 0 , 24 ,"", 0 , 0 ,"OKBTN2", 0 , 0 , 0 , 13 , 0 , 0 ,""
+
+DUPEINV2.Help:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+
+DUPEINV2.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

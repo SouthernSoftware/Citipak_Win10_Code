@@ -1,0 +1,81 @@
+ %% PLEASE DO NOT MODIFY OR DELETE THIS FILE! %% 
+ %% This file contains information about the installation of an application. %% 
+ %% It will be used to automatically remove all application components from your computer if you choose to do so. %% 
+
+
+NOTE: Beginning of the bootstrapper section
+
+CONFIG: Title: "WreckDraw"
+
+ACTION: TempFile: "C:\WINDOWS\setup132.exe"
+(File was not found or was an older version -- new file copied)
+
+ACTION: RegKey: "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion", "SharedDLLs"
+
+ACTION: SharedFile: "C:\WINDOWS\SYSTEM\stkit432.dll"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "C:\WINDOWS\SYSTEM\VB40032.DLL"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SystemFile: "C:\WINDOWS\SYSTEM\ven2232.olb"
+(File currently on disk was already up to date)
+
+ACTION: SharedFile: "C:\WINDOWS\SYSTEM\olepro32.dll"
+(File currently on disk was already up to date)
+
+ACTION: SystemFile: "C:\WINDOWS\SYSTEM\msvcrt20.dll"
+(File currently on disk was already up to date)
+
+ACTION: SharedFile: "C:\WINDOWS\SYSTEM\msvcrt40.dll"
+(File currently on disk was already up to date)
+
+NOTE: The file 'ctl3d32.dll' was not copied because it is intended for use under Windows NT only.  It is not needed under Windows 95.
+
+ACTION: SystemFile: "C:\WINDOWS\SYSTEM\ctl3d32.dll"
+(File currently on disk was already up to date)
+
+ACTION: ExeSelfRegister: "C:\WINDOWS\setup132.exe"
+
+ACTION: DllSelfRegister: "C:\WINDOWS\SYSTEM\olepro32.dll"
+
+NOTE: End of the bootstrapper section
+
+NOTE: Now spawning the main Setup program 'C:\WINDOWS\setup132.exe'....
+
+ACTION: SharedFile: "C:\WINDOWS\SYSTEM\COMCTL32.OCX"
+(File currently on disk was already up to date)
+
+ACTION: SharedFile: "C:\WINDOWS\SYSTEM\MFC40.DLL"
+(File currently on disk was already up to date)
+
+ACTION: SharedFile: "C:\WINDOWS\SYSTEM\MSRDO32.DLL"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "C:\WINDOWS\SYSTEM\PICCLP32.OCX"
+(File was not found or was an older version -- new file copied)
+
+ACTION: SharedFile: "C:\WINDOWS\SYSTEM\SPIN32.OCX"
+(File was not found or was an older version -- new file copied)
+
+ACTION: PrivateFile: "C:\Police-Pak\wreckdraw.exe"
+(File was not found or was an older version -- new file copied)
+
+ACTION: DllSelfRegister: "C:\WINDOWS\SYSTEM\COMCTL32.OCX"
+
+ACTION: DllSelfRegister: "C:\WINDOWS\SYSTEM\MFC40.DLL"
+
+ACTION: DllSelfRegister: "C:\WINDOWS\SYSTEM\MSRDO32.DLL"
+
+ACTION: DllSelfRegister: "C:\WINDOWS\SYSTEM\PICCLP32.OCX"
+
+ACTION: DllSelfRegister: "C:\WINDOWS\SYSTEM\SPIN32.OCX"
+
+ACTION: ExeSelfRegister: "C:\Police-Pak\wreckdraw.exe"
+
+ACTION: ShellLink: "", "WreckDraw"
+
+ACTION: RegKey: "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion", "App Paths\wreckdraw.exe"
+
+ACTION: RegValue: "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\wreckdraw.exe", ""
+

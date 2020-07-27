@@ -1,0 +1,153 @@
+SUB CustMessageSystem (RecNo&)
+  
+  CustRec& = RecNo&
+  
+  REDIM ScrnArray(0)
+  
+  REDIM UBCustRec(1) AS NewUBCustRecType
+  UBCustRecLen = LEN(UBCustRec(1))
+  
+  REDIM UBMessRec(1) AS UBMessRecType
+  UBMessRecLen = LEN(UBMessRec(1))
+  
+  UBCust = FREEFILE
+  OPEN "UBCUST.DAT" FOR RANDOM SHARED AS UBCust LEN = UBCustRecLen
+  GET UBCust, CustRec&, UBCustRec(1)
+  CLOSE
+  
+  LibName$ = "UB"
+  ScrnName$ = "UBCUSMES"
+  
+  ' Define Fields
+  NumFlds = LibNumberOfFields(LibName$, ScrnName$)
+  
+  ' Define Quick Screen Form Editing Arrays
+  REDIM Frm(1) AS FormInfo
+  REDIM Form$(NumFlds, 2)
+  REDIM Fld(NumFlds) AS FieldInfo
+  Frm(1).StayOnField = True
+  
+  StartEl = 0
+  LibGetFldDef LibName$, ScrnName$, StartEl, Fld(), Form$(), ErrCode
+  
+  FirstTime = True
+  
+  Action = 1
+  
+  DisplayUBScrn ScrnName$
+  QPrintRC STR$(CustRec&), 3, 20, -1
+  QPrintRC UBCustRec(1).CustName, 4, 20, -1
+  QPrintRC UBCustRec(1).Status, 3, 67, -1
+  
+  DO
+    EditForm Form$(), Fld(), Frm(1), Cnf, Action
+    
+    IF FirstTime THEN
+      FirstTime = False
+      GOSUB LoadMessageInfo
+      Action = 1
+    END IF
+    
+    SELECT CASE Frm(1).KeyCode
+    CASE F3Key
+      GOSUB ClearRecord
+      GOSUB ClearForm
+      Action = 1
+    CASE F5Key
+      GOSUB SaveRecord
+      GOSUB PrintMessage
+    CASE F10Key
+      SaveScrn ScrnArray()
+      DisplayUBScrn "UPDATDSK"
+      GOSUB SaveRecord
+      RestScrn ScrnArray()
+      DisplayUBScrn "UPDATEOK"
+      WaitForAction
+      ExitFlag = True
+      RestScrn ScrnArray()
+      Done = True
+    CASE ESC
+      EXIT SUB
+    CASE ELSE
+      Done = False
+    END SELECT
+  LOOP UNTIL Done
+  
+ExitMessageInquiry:
+  EXIT SUB
+  '***************
+  
+LoadMessageInfo:
+  MessageRecord = UBCustRec(1).MessageRec
+  IF MessageRecord > 0 THEN
+    UBMess = FREEFILE
+    OPEN "UBMESAGE.DAT" FOR RANDOM SHARED AS UBMess LEN = UBMessRecLen
+    GET UBMess, MessageRecord, UBMessRec(1)
+    CLOSE
+    BCopy VARSEG(UBMessRec(1)), VARPTR(UBMessRec(1)), SSEG(Form$(0, 0)), SADD(Form$(0, 0)), UBMessRecLen, 0
+    CALL UnPackBuffer(0, 0, Form$(), Fld())
+  END IF
+RETURN
+  
+SaveRecord:
+  UBMess = FREEFILE
+  OPEN "UBMESAGE.DAT" FOR RANDOM SHARED AS UBMess LEN = UBMessRecLen
+  IF MessageRecord = 0 THEN
+    MessageRecord = LOF(UBMess) / LEN(UBMessRec(1)) + 1
+  END IF
+  
+  BCopy SSEG(Form$(0, 0)), SADD(Form$(0, 0)), VARSEG(UBMessRec(1)), VARPTR(UBMessRec(1)), UBMessRecLen, 0
+  PUT UBMess, MessageRecord, UBMessRec(1)
+  CLOSE
+  
+  UBCust = FREEFILE
+  OPEN "UBCUST.DAT" FOR RANDOM SHARED AS UBCust LEN = UBCustRecLen
+  GET UBCust, CustRec&, UBCustRec(1)
+  UBCustRec(1).MessageRec = MessageRecord
+  PUT UBCust, CustRec&, UBCustRec(1)
+  CLOSE
+RETURN
+  
+ClearRecord:
+  IF MessageRecord > 0 THEN
+    REDIM UBMessRec(1) AS UBMessRecType
+    UBMess = FREEFILE
+    OPEN "UBMESAGE.DAT" FOR RANDOM SHARED AS UBMess LEN = UBMessRecLen
+    PUT UBMess, MessageRecord, UBMessRec(1)
+    CLOSE
+  END IF
+RETURN
+  
+ClearForm:
+  FOR F = 1 TO NumFlds
+    LSET Form$(F, 0) = ""
+  NEXT F
+RETURN
+
+PrintMessage:
+  SaveScrn ScrnArray()
+  Dash$ = STRING$(80, "-")
+  REDIM UBSetUpRec(1) AS UBSetupRecType
+  LoadUBSetUpFile UBSetUpRec(), UBSetupLen
+  TownName$ = UBSetUpRec(1).UTILNAME
+  ERASE UBSetUpRec
+  UBRpt = FREEFILE
+  OPEN "UBCUSMSG.RPT" FOR OUTPUT AS UBRpt
+
+  PRINT #UBRpt, "Customer Messages Listing."; TAB(64); "Date: "; DATE$
+  PRINT #UBRpt, "NAME: "; UBCustRec(1).CustName; "Acct:"; STR$(CustRec&)
+  PRINT #UBRpt, "Message Text"; TAB(70); "Entry Date"
+  PRINT #UBRpt, Dash$
+  FOR MsgLine = 1 TO 15
+    PRINT #UBRpt, UBMessRec(1).MessLine(MsgLine).Line; TAB(70); UBMessRec(1).MessLine(MsgLine).LineDate
+  NEXT
+  PRINT #UBRpt, Dash$
+  PRINT #UBRpt, CHR$(12)
+  CLOSE UBRpt
+  PrintRptFile "Customer Message Listing.", "UBCUSMSG.RPT", 1, RetCode, EntryPoint
+  RestScrn ScrnArray()
+  Action = 1
+
+RETURN
+  
+END SUB

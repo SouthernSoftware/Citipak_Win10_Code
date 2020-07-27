@@ -1,0 +1,27 @@
+CMNWCODE.FieldInfo:
+DATA  6 , 46 , 15 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 9 , 33 , 39 , 7 , 2 ,"", 0 , 0 ,"MISCCODE", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  8 , 10 , 33 , 57 , 25 , 2 ,"", 0 , 0 ,"DESC", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  33 , 11 , 33 , 46 , 14 , 2 ,"", 0 , 0 ,"GLACCTNO", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  47 , 16 , 35 , 46 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  47 , 16 , 18 , 32 , 0 , 24 ,"", 0 , 0 ,"F7KEY", 0 , 0 , 0 ,-65 , 0 , 0 ,""
+DATA  47 , 16 , 49 , 62 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+CMNWCODE.Help:
+DATA ""
+DATA "Enter the Misc Code Here. "
+DATA "Enter the Code Description. "
+DATA "Enter the General Ledger Account Number to Credit.  Do not enter any '-' between the numbers please. "
+DATA "Press the F10 Key to Save Your Input. "
+DATA "Press the F7 Key to Print A Listing of the Misc Codes. "
+DATA "Press the ESC Key to Cancel Your Input. "
+
+CMNWCODE.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

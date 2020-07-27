@@ -1,0 +1,5 @@
+Line 13: Property Icon in frmTaxCustLookup had an invalid file reference.
+Line 25: Property Tag in fpList1 must be a quoted string
+Line 119: Property ColDesigner in fpList1 had an invalid file reference.
+Line 156: Property ButtonDesigner in cmdExit had an invalid file reference.
+Line 193: Property ButtonDesigner in cmdSearch had an invalid file reference.

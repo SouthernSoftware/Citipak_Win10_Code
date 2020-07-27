@@ -1,0 +1,3 @@
+CLS
+LPRINT CHR$(27); CHR$(40); CHR$(115); CHR$(49); CHR$(50); CHR$(72)
+

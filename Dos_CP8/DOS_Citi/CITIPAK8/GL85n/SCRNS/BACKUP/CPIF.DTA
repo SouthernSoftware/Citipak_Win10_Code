@@ -1,0 +1,21 @@
+CPIF.FieldInfo:
+DATA  4 , 4 , 6 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 11 , 48 , 49 , 2 , 22 ,"", 0 , 0 ,"MODSPEC", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  3 , 13 , 48 , 57 , 2 , 6 ,"", 0 , 0 ,"MODDATE", 0 , 0 , 0 , 0 ,-29219 , 31368 ,""
+DATA  5 , 16 , 32 , 45 , 0 , 24 ,"", 0 , 0 ,"OKBUTTON", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  5 , 16 , 46 , 60 , 0 , 24 ,"", 0 , 0 ,"CNCLBTN", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+CPIF.Help:
+DATA ""
+DATA "Select the type transactions that you want to bring into the general ledger. "
+DATA ""
+DATA "Press this button or <F10> to print the report. "
+DATA "Press this button or <Esc> to cancel. "
+
+CPIF.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

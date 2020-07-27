@@ -1,0 +1,11 @@
+frmMainMenu = 52, 52, 845, 697, , 26, 26, 439, 449, C
+clsCommandButton = 44, 44, 628, 487, 
+clsTextBoxOverRider = 110, 110, 813, 553, C
+frmMainPassWord = 104, 104, 897, 718, , 78, 78, 611, 501, C
+modInitProcedures = 88, 88, 673, 531, 
+frmModuleInfo = 132, 132, 727, 575, , 110, 110, 705, 553, C
+modCaptainsLog = 110, 110, 703, 553, C
+modPassOut = 127, 180, 947, 705, 
+frmEnterEditPass = 2, 111, 625, 554, C, 154, 154, 777, 597, C
+frmUserSelect = 132, 132, 755, 575, , 110, 110, 733, 553, C
+modCommon = 66, 66, 689, 509, 

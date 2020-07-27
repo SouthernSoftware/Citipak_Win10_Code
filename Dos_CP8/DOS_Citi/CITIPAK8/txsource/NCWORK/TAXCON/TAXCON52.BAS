@@ -1,0 +1,127 @@
+' White Lake 2003 file to update late list only
+DEFINT A-Z
+DECLARE FUNCTION Date2Num% (TheDate$)
+DECLARE SUB BalanceListing ()
+DECLARE SUB OpenTaxCustFile (NumOfTaxRecs%, TaxFile%)
+DECLARE SUB OpenTaxPropFile (NumOfPropRecs%, PropTaxFile%)
+DECLARE SUB OpenTaxPersFile (NumOfPersRecs%, PersTaxFile%)
+DECLARE SUB DisplayTaxScrn (ScrnName$)
+DECLARE SUB CustomerListing ()
+DECLARE SUB TAXCustomerMenu ()
+DECLARE SUB PrintRptFile (RptTitle$, FileName$, LPTPort%, RetCode%, EntryPoint%)
+DECLARE SUB SortT (SEG Element AS ANY, NumElements%, Direction%, StructSize%, MemberOff%, MemberSize%)
+DECLARE SUB ClearBack ()
+DECLARE SUB SendDist2GL ()
+DECLARE SUB ClearScrn ()
+DECLARE SUB PrintHelp (H$)
+DECLARE SUB PrintTitle (Title$)
+DECLARE SUB PIProcessMenu (JrnlType%)
+DECLARE FUNCTION MsgBox% (LibName$, FormName$)
+DECLARE FUNCTION Exist% (FileName$)
+DECLARE FUNCTION WEnvTest% ()
+DECLARE FUNCTION Round# (B#)
+  '$INCLUDE: 'DefCnf.BI'
+DECLARE SUB TitleBox (Row%, LeftCol%, BoxWidth%, Title$, Cnf AS ANY)
+DECLARE FUNCTION QPTrim$ (Text$)
+DECLARE FUNCTION Monitor% ()
+DECLARE SUB ShowCursor ()
+DECLARE SUB VertMenu (Item$(), Choice, MaxLen, BoxBot, Ky$, Action, Cnf AS Config)
+DECLARE SUB HideCursor ()
+DECLARE SUB CursorOff ()
+DECLARE SUB TextCursor (MouseFg%, MouseBg%)
+DECLARE SUB WaitForAction ()
+  CONST False = 0, True = NOT False
+  
+  '$INCLUDE: 'formedit.BI'
+  '$INCLUDE: 'fieldinf.BI'
+  '$INCLUDE: 'qscr.BI'
+  '$INCLUDE: 'SetCnf.BI'
+  '$INCLUDE: 'TaxCust.BI'
+  '$INCLUDE: 'Taxfiles.BI'
+  '$INCLUDE: 'PROPAbst.BI'
+
+'White Lake NC Version
+  
+  DIM SHARED TaxCustRec(1) AS TaxCustType
+  DIM SHARED PropertyRec(1) AS PropertyRecType
+  DIM SHARED PersRec(1) AS PersonalRecType
+  
+
+  
+  STACK 5000
+  BalanceListing
+  
+  END
+
+SUB BalanceListing
+  DIM A$(120)
+  OpenTaxCustFile NumOfTaxRecs, TaxFile
+  OpenTaxPropFile NumOfPropRecs, PropTaxFile
+  OpenTaxPersFile NumOfPersRecs, PersTaxFile
+  CLS
+   OPEN "wlmstr.dat" FOR INPUT AS #11
+   Record = NumOfTaxRecs
+1  LINE INPUT #11, A$
+    PRINT A$
+   A$(1) = LEFT$(A$, 7)
+   A$(2) = MID$(A$, 128, 1)
+   IF A$(2) <> "L" THEN GOTO 1
+
+
+
+
+' search for existing account first
+ FOR Cnt& = 1 TO LOF(TaxFile) / LEN(TaxCustRec(1))
+ GET TaxFile, Cnt&, TaxCustRec(1)
+ IF TaxCustRec(1).CountyAcct = VAL(A$(1)) THEN
+     IF TaxCustRec(1).FirstPersRec > 0 THEN
+      GET PersTaxFile, TaxCustRec(1).FirstPersRec, PersRec(1)
+        PersRec(1).LateList = "Y"
+      PUT PersTaxFile, TaxCustRec(1).FirstPersRec, PersRec(1)
+     END IF
+     IF TaxCustRec(1).FirstPropRec > 0 THEN
+        PropRecord! = TaxCustRec(1).FirstPropRec
+       WHILE PropRecord! > 0
+        GET PropTaxFile, PropRecord!, PropertyRec(1)
+        PropertyRec(1).LateList = "Y"
+        PUT PropTaxFile, PropRecord!, PropertyRec(1)
+        PropRecord! = PropertyRec(1).NextRec
+        WEND
+     END IF
+
+
+
+
+   GOTO 1
+ END IF
+
+
+ NEXT Cnt&
+   GOTO 1
+   
+   CLOSE
+   EXIT SUB
+
+END SUB
+
+SUB OpenTaxCustFile (NumOfTaxRecs, TaxFile)
+  
+  TaxFile = FREEFILE
+  OPEN "TAXCUST.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #TaxFile LEN = LEN(TaxCustRec(1))
+  NumOfTaxRecs = LOF(TaxFile) / LEN(TaxCustRec(1))
+  
+END SUB
+
+SUB OpenTaxPersFile (NumOfPersRecs, PersTaxFile)
+  PersTaxFile = FREEFILE
+  OPEN "TAXPERS.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #PersTaxFile LEN = LEN(PersRec(1))
+  NumOfPersRecs = LOF(PersTaxFile) / LEN(PersRec(1))
+  
+END SUB
+
+SUB OpenTaxPropFile (NumOfPropRecs, PropTaxFile)
+  PropTaxFile = FREEFILE
+  OPEN "TAXPROP.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #PropTaxFile LEN = LEN(PropertyRec(1))
+  NumOfPropRecs = LOF(PropTaxFile) / LEN(PropertyRec(1))
+END SUB
+

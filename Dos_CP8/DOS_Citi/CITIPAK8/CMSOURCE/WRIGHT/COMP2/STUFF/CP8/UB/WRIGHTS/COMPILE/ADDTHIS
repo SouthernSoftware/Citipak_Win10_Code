@@ -1,0 +1,1 @@
+DECLARE SUB LibGetAddresses (LibName$, FrmName$, Handle%, Offset&, EndOffset&, ErrCode%)

@@ -1,0 +1,10 @@
+if exist prqlb.lib del /q PRqlb.lib
+ren ..\source\prfprint.bas ..\source\prfprint.
+FOR %A IN (..\source\*.BAS) DO (echo BC %A /O/FS;^BC %A /O/FS;)
+ren ..\source\prfprint. ..\source\prfprint.BAS
+echo BC ..\source\prfprint.bas /O/X/FS;
+BC ..\source\prfprint.bas /O/X/FS;
+lib @qlblib.rsp
+del /q *.obj
+wmakeqlb pr.lst,,nul,pro7 prqlb pr QBX;
+rem move /q pr.qlb ..\..\work

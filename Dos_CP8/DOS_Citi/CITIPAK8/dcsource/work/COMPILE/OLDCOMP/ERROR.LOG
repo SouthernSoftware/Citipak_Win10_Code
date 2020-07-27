@@ -1,0 +1,402 @@
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+12835 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45580 Bytes Available
+28410 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+ 1362   00AC      UBMeterRecLen = LEN(UBMeterRec(1))
+                                                  ^ Array not dimensioned
+ 15F6   00AC      UBMeterRecLen = LEN(UBMeterRec(1))
+                                                  ^ Array not dimensioned
+ 1999   00AC          SELECT CASE Compare3%(VARSEG(UBCustRec(1)), VARPTR(UBCustRec(1).SEARCHN), VARSEG(TempUBCustRec(1)), VARPTR(TempUBCustRec(1).SEARCHN), 10)
+                                                                                      ^ Element not defined
+                                                                                                                                                  ^ Element not defined
+ 1A00   00AC            SELECT CASE Compare3%(VARSEG(UBCustRec(1)), VARPTR(UBCustRec(1).FULLNAME), VARSEG(TempUBCustRec(1)), VARPTR(TempUBCustRec(1).FULLNAME), 35)
+                                                                                        ^ Element not defined
+                                                                                                                                                     ^ Element not defined
+ 1D31   00AC          SELECT CASE Compare3%(VARSEG(UBCustRec(1)), VARPTR(UBCustRec(1).Book), VARSEG(TempUBCustRec(1)), VARPTR(TempUBCustRec(1).Book), 8)
+                                                                                      ^ Element not defined
+                                                                                                                                               ^ Element not defined
+ 2231   00AC        UBSearchN$ = LEFT$(UBCustRec(1).SEARCHN, SearchLen)
+                                                    ^ Element not defined
+                                                           ^ Type mismatch
+ 2345   00AC          UBSearchN$ = LEFT$(UBCustRec(1).SEARCHN, SearchLen)
+                                                      ^ Element not defined
+                                                             ^ Type mismatch
+ 2410   00AC          LSET MChoice$(DCnt) = UBCustRec(1).SEARCHN
+                                                         ^ Element not defined
+                                                                ^ String expression required
+ 2410   00AC          MID$(MChoice$(DCnt), 14, 30) = UBCustRec(1).CADDR1
+                                                                  ^ Element not defined
+                                                                        ^ Type mismatch
+
+45580 Bytes Available
+25531 Bytes Free
+
+    2 Warning Error(s)
+   14 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45580 Bytes Available
+32188 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45580 Bytes Available
+33279 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+23103 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+10584 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+23166 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45580 Bytes Available
+20105 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45576 Bytes Available
+21537 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45576 Bytes Available
+ 8880 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45580 Bytes Available
+34555 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+43490 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45580 Bytes Available
+44895 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+25166 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45576 Bytes Available
+38907 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45576 Bytes Available
+34918 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+43490 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45580 Bytes Available
+43697 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+18060 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45580 Bytes Available
+41108 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45576 Bytes Available
+45421 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45576 Bytes Available
+44020 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+41823 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45576 Bytes Available
+34602 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45580 Bytes Available
+38599 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+37586 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45580 Bytes Available
+37792 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45580 Bytes Available
+35137 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+39295 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+42005 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45576 Bytes Available
+39425 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+42961 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45576 Bytes Available
+37799 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+ 2570 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+36525 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+43198 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45568 Bytes Available
+37102 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45586 Bytes Available
+18078 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45594 Bytes Available
+17941 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+Microsoft (R) BASIC Compiler Version 7.10
+Copyright (C) Microsoft Corporation 1982-1990. All rights reserved.
+
+45598 Bytes Available
+24907 Bytes Free
+
+    0 Warning Error(s)
+    0 Severe  Error(s)
+
+Microsoft (R) Segmented-Executable Linker  Version 5.10    
+Copyright (C) Microsoft Corp 1984-1990.  All rights reserved.
+
+Object Modules [.OBJ]: /NOE /SE:200 /exe CMMENU UBPAYMNT CMPJOUR FORMEDIT UBAUX01+
+Object Modules [.OBJ]: PREVAL+QSCALC+NONOTES+FORMLIB+SCRNLIB+SCRNDISP+NCPFPRNT+
+Object Modules [.OBJ]: COMNAUX+FILEIO+NOLOCAT+MAKEBOXS+WAZZWIND+WVERTMNT+VERTMENU
+Run File [CMMENU.exe]: CMMENU.EXE,
+List File [E:CMMENU.map]: nul,
+Libraries [.LIB]: pro;
+Temporary file C:\WINDOWS\TEMP\ln001585 has been created.
+Deleting e:\citipak8\compile\arbillin.obj
+Deleting e:\citipak8\compile\arcode.obj
+Deleting e:\citipak8\compile\arinit.obj
+Deleting e:\citipak8\compile\armenu.obj
+Deleting e:\citipak8\compile\arpaymen.obj
+Deleting e:\citipak8\compile\arreport.obj
+Deleting e:\citipak8\compile\arsetbal.obj
+Deleting e:\citipak8\compile\cmmenu.obj
+Deleting e:\citipak8\compile\cmpjour.obj
+Deleting e:\citipak8\compile\comnaux.obj
+Deleting e:\citipak8\compile\cpmenu.obj
+Deleting e:\citipak8\compile\dmakebox.obj
+Deleting e:\citipak8\compile\fileio.obj
+Deleting e:\citipak8\compile\formedit.obj
+Deleting e:\citipak8\compile\formlib.obj
+Deleting e:\citipak8\compile\jpraux1.obj
+Deleting e:\citipak8\compile\makeboxs.obj
+Deleting e:\citipak8\compile\mtitle.obj
+Deleting e:\citipak8\compile\ncpfprnt.obj
+Deleting e:\citipak8\compile\nocalc.obj
+Deleting e:\citipak8\compile\nolocat.obj
+Deleting e:\citipak8\compile\nonotes.obj
+Deleting e:\citipak8\compile\picklist.obj
+Deleting e:\citipak8\compile\praux03.obj
+Deleting e:\citipak8\compile\preval.obj
+Deleting e:\citipak8\compile\prfixemp.obj
+Deleting e:\citipak8\compile\qscalc.obj
+Deleting e:\citipak8\compile\scraux.obj
+Deleting e:\citipak8\compile\scrndisp.obj
+Deleting e:\citipak8\compile\scrnfile.obj
+Deleting e:\citipak8\compile\scrnlib.obj
+Deleting e:\citipak8\compile\spellnum.obj
+Deleting e:\citipak8\compile\ubaux01.obj
+Deleting e:\citipak8\compile\ubpaymnt.obj
+Deleting e:\citipak8\compile\vertmenu.obj
+Deleting e:\citipak8\compile\wazzwind.obj
+Deleting e:\citipak8\compile\wvertmnt.obj
+    37 file(s) deleted

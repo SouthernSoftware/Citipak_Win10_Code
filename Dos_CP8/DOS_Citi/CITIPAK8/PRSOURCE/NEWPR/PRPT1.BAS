@@ -1,0 +1,1778 @@
+DEFINT A-Z
+DECLARE SUB RPTSetupPRN (RPTNum%, Handle%)
+DECLARE SUB PRReportMenu ()
+DECLARE SUB ShowPctComp (BYVAL RecNo%, BYVAL NumOfRecs%)
+DECLARE SUB ShowProcessingScrn (RptTitle$)
+DECLARE SUB SEPPContRpt ()
+DECLARE SUB KillFile (FileName$)
+DECLARE SUB InitMouse (MooseFlag%)
+DECLARE FUNCTION Value# (E$, ErCode%)
+DECLARE FUNCTION Date2Num (DateIn$)
+DECLARE FUNCTION Exist% (FileName$)
+DECLARE FUNCTION FUsing$ (Number$, Image$)
+DECLARE FUNCTION FileSize& (FileName$)
+DECLARE FUNCTION LibNumberOfFields (LibName$, FrmName$)
+DECLARE FUNCTION MonthName$ (MonthNum%)
+DECLARE FUNCTION Num2Date$ (Number%)
+DECLARE FUNCTION QPStrI$ (Num%)
+DECLARE FUNCTION QPTrim$ (Text$)
+DECLARE FUNCTION QPRTrim$ (Text$)
+DECLARE FUNCTION QPValI% (Num$)
+DECLARE FUNCTION QPValL& (Num$)
+DECLARE FUNCTION Round# (DblNum#)
+DECLARE SUB BlockClear ()
+DECLARE SUB CursorOff ()
+DECLARE SUB DisplayMiscScrn (ScrnName$)
+DECLARE SUB ESCQuartlyWageRpt ()
+DECLARE SUB EditForm (Form$(), Fld() AS ANY, Frm AS ANY, Cnf AS ANY, Action)
+  
+DECLARE SUB UnPackBufer (FirstFld, LastFld, Form$(), Fld() AS ANY)
+  
+DECLARE SUB EmpEarnHistRpt ()
+  
+DECLARE SUB FClose (Handle%)
+DECLARE SUB FGetAH (FileName$, SEG Element AS ANY, ElSize%, NumEls%)
+DECLARE SUB FGetRTA (Handle%, SEG Dest AS ANY, RecNo&, RecSize%)
+DECLARE SUB FPutRTA (Handle%, SEG Dest AS ANY, RecNo&, RecSize%)
+DECLARE SUB FCreate (FileName$)
+DECLARE SUB FOpenS (FileName$, Handle%)
+DECLARE SUB FPut (Handle%, ToDisk$)
+DECLARE SUB FPutA (Handle%, SEG Element AS ANY, NumBytes AS ANY)
+DECLARE SUB GrossWageReport ()
+DECLARE SUB LibGetFldDef (LibName$, FrmName$, StartEl, Fld() AS ANY, Form$(), ErrCode)
+DECLARE SUB PayDedReport ()
+DECLARE SUB PayMenu (BYVAL MenuNum%, Choice%, NumOfItems%)
+DECLARE SUB PressButton (BYVAL KeyCode%, BYVAL ButtonRow%, BYVAL ButtonLCol%, BYVAL ButtonRCol%)
+DECLARE SUB PrintArray (FirstFld, LastFld, Form$(), Fld() AS ANY)
+DECLARE SUB PrintRptFile (RptTitle$, FileName$, LPTPort%, RetCode%, EntryPoint%)
+DECLARE SUB QPrintRC (Text$, Row, Col, FrameColor)
+DECLARE SUB RetirementRpt ()
+DECLARE SUB RestScrn (ScrnArray%())
+DECLARE SUB SaveScrn (ScrnArray%())
+DECLARE SUB ShowCursor ()
+DECLARE SUB HideCursor ()
+DECLARE SUB TextCursor (Fg, Bg)
+DECLARE SUB SupRetReport ()
+DECLARE SUB WaitForAction ()
+DECLARE SUB WazzWind (BYVAL TopRow%, BYVAL LeftCol%, BYVAL BotRow%, BYVAL RghtCol%, BYVAL FrameColor%, BYVAL FrameType%, BYVAL Shadow%)
+DECLARE FUNCTION Monitor% ()
+DECLARE FUNCTION WEnvTest% ()
+DECLARE SUB BCopy (FromSeg%, FromAdr%, ToSeg%, ToAdr%, NumBytes%, Dir%)
+  
+DECLARE FUNCTION IMinI% (SEG Element%, NumEls%)
+DECLARE FUNCTION IMaxI% (SEG Element%, NumEls%)
+DECLARE FUNCTION QPStrL$ (Num&)
+DECLARE SUB SortT (SEG Element AS ANY, NumElements%, Direction%, StructSize%, MemberOf%, MemberSize%)
+
+'$INCLUDE: 'DefCnf.bi'                  'Defines TYPE for monitor/color info.
+'$INCLUDE: 'FieldInf.bi'                '        "        field information
+'$INCLUDE: 'FormEdit.bi'                '        "        form editing info.
+'$INCLUDE: 'PRFiles.bi'
+'$INCLUDE: 'PREmpRec.bi'
+'$INCLUDE: 'Retire.Bi'
+'$INCLUDE: 'DedCodes.Bi'
+'$INCLUDE: 'ErnCodes.Bi'
+'$INCLUDE: 'Leave.Bi'
+'$INCLUDE: 'PRUNIT.Bi'
+'$INCLUDE: 'PRSYSCTR.Bi'
+'$INCLUDE: 'PRPPDEF.Bi'
+'$INCLUDE: 'PRTRANS.Bi'
+'$INCLUDE: 'PRTIMEIN.Bi'
+'$INCLUDE: 'oPRtypes.Bi'
+'$INCLUDE: 'PRRpts.BI'
+
+  CONST False = 0
+  CONST True = NOT False
+  
+  CrLf$ = CHR$(13) + CHR$(10)
+  
+  FF$ = CHR$(12)
+
+
+  TYPE EmpSortType
+    EmpNo AS STRING * 10
+    RecNo AS INTEGER
+  END TYPE
+
+
+SUB BenefitReport
+  
+  FirstTime = True
+  
+  MinHrs = -10000
+  Image1$ = ",####.##"
+  Image2$ = "###,###.##"
+  
+  REDIM Dash(1) AS STRING * 79
+  
+  REDIM Emp2Rec(1)     AS EmpData2Type
+  
+  REDIM Unit(1)        AS UnitFileRecType
+  REDIM Pg(1)          AS STRING * 3
+  REDIM ENumb(1)    AS STRING * 11
+  REDIM EName(1)    AS STRING * 19
+  REDIM VBal(1)    AS STRING * 13
+  REDIM SBal(1)    AS STRING * 13
+  REDIM CBal(1)    AS STRING * 13
+  REDIM LTbl(1)    AS STRING * 6
+  
+  MaxLines = 55
+  LineCnt = 0
+  Dash(1) = STRING$(77, "-") + CrLf$
+  
+  EmpRecSize = LEN(Emp2Rec(1))
+  
+  IdxRecLen = 2
+  IdxFileSize& = FileSize(EmpIdxLName)
+  NumOfRecs = IdxFileSize& \ IdxRecLen
+  
+  REDIM IdxBuff(1 TO NumOfRecs)
+  FGetAH EmpIdxNName, IdxBuff(1), IdxRecLen, NumOfRecs
+  
+  FGetAH UnitFileName, Unit(1), LEN(Unit(1)), 1
+  
+  RptTitle$ = "Benefits Accrual Report"
+  
+  REDIM Emp1Rec(1)           AS EmpData1Type
+  Emp1RecLen = LEN(Emp1Rec(1))
+  FOpenS EmpData1Name, EHandle1
+  FGetRTA EHandle1, Emp1Rec(1), CLNG(IdxBuff(1)), Emp1RecLen
+  FirstEmp& = VAL(Emp1Rec(1).EmpNo)
+  FGetRTA EHandle1, Emp1Rec(1), CLNG(IdxBuff(NumOfRecs)), Emp1RecLen
+  LastEmp& = VAL(Emp1Rec(1).EmpNo)
+  FClose EHandle1
+  
+  OKFlag = False
+  
+  REDIM TempScrn(1)
+  REDIM Frm(1) AS FormInfo
+  
+  FormName$ = "ACCRURPT"
+  NumFlds = LibNumberOfFields(MiscQLib, FormName$)
+  REDIM Form$(NumFlds, 2)       'DIM the form data array
+  REDIM Fld(NumFlds) AS FieldInfo               'DIM the field information array
+  StartEl = 0   'Load first form at array start
+  LibGetFldDef MiscQLib, FormName$, StartEl, Fld(), Form$(), ErrCode
+  
+  
+  '----- Set the "Action" flag to force the editor to initialize itself and
+  '      display the data on the form.
+  Action = 1
+  
+  '----- Setup TYPE for setting and reading form editing information.
+  
+  Frm(1).FldNo = 1              'Start editing on field #1
+  Frm(1).InsStat = False        'Set insert state (True = Insert on)
+  Frm(1).StartEl = 0            'Set form starting element to 0 and
+  
+  BlockClear
+  DisplayMiscScrn FormName$
+  
+  DO
+    EditForm Form$(), Fld(), Frm(1), Cnf, Action
+    IF FirstTime THEN
+      FirstTime = False
+      Form$(2, 0) = QPStrL(LastEmp&)
+      Form$(1, 0) = QPStrL(FirstEmp&)
+      Action = 2
+    END IF
+    SELECT CASE Frm(1).KeyCode
+    CASE F0Key
+      FirstEmp& = Value(Form$(1, 0), ErrCode)
+      LastEmp& = Value(Form$(2, 0), ErrCode)
+      IF LastEmp& >= FirstEmp& THEN
+        OKFlag = True
+      ELSE
+        CursorOff
+        SaveScrn TempScrn()
+        DisplayMiscScrn ReportParmError
+        WaitForAction
+        RestScrn TempScrn()
+        Frm(1).FldNo = 1
+        Action = 2
+        OKFlag = False
+      END IF
+    CASE EscKey
+      OKFlag = True
+      ExitFlag = True
+    END SELECT
+    
+  LOOP UNTIL OKFlag             'proper key not set
+  
+  CursorOff
+  
+  ERASE Form$, Fld, TempScrn, Frm, Emp1Rec
+  
+  IF ExitFlag THEN EXIT SUB
+  
+  BlockClear
+  'CursorOff
+  
+  ShowProcessingScrn RptTitle$
+  
+  RptName$ = "PRRPTS\BENEACCR.RPT"
+  
+  FCreate RptName$
+  FOpenS RptName$, RHandle
+  RPTSetupPRN 8, RHandle
+  FOpenS EmpData2Name, DHandle  'open employee data file
+  
+  GOSUB PrintBenefitHeader
+  
+  FOR RecNo = 1 TO NumOfRecs
+    FGetRTA DHandle, Emp2Rec(1), CLNG(IdxBuff(RecNo)), EmpRecSize
+    EmpNo& = Value(Emp2Rec(1).EmpNo, ErrCode)
+
+    IF EmpNo& = 56 THEN STOP
+
+    IF (EmpNo& < FirstEmp& OR EmpNo& > LastEmp&) OR Emp2Rec(1).Deleted OR Emp2Rec(1).EMPTDATE > -32767 THEN
+      GOTO SkipEmBene
+    END IF
+    GOSUB PrintEmpBalance
+    IF (LineCnt > MaxLines) AND RecNo < NumOfRecs THEN          'bottom of page?
+      FPut RHandle, FF$         'yes; form feed
+      GOSUB PrintBenefitHeader  'write title lines
+    END IF
+SkipEmBene:
+    ShowPctComp RecNo, NumOfRecs
+  NEXT
+  
+  FPut RHandle, FF$             'yes; form feed
+  RPTSetupPRN 0, RHandle
+  FClose DHandle
+  FClose RHandle
+  
+  ERASE Dash, Emp2Rec, Unit, Pg, IdxBuff
+  ERASE ENumb, EName, VBal, SBal, CBal, LTbl
+  
+  PrintRptFile RptTitle$, RptName$, 1, RetCode, 0
+  
+  
+  EXIT SUB
+  
+PrintBenefitHeader:
+  Page = Page + 1
+  RSET Pg(1) = STR$(Page)
+  UTemp$ = SPACE$(71)
+  LSET UTemp$ = Unit(1).UFEMPR
+  MID$(UTemp$, 62) = "Page:" + Pg(1) + CrLf$
+  FPut RHandle, UTemp$
+  
+  FPut RHandle, "Benefits Accrual Report" + CrLf$
+  FPut RHandle, "Report Date: " + DATE$ + CrLf$
+  FPut RHandle, "                                   Vacation   Sick Leave    Comp Time  Leave" + CrLf$
+  FPut RHandle, "Emp #      Name                     Balance      Balance      Balance  Table" + CrLf$
+
+  FPut RHandle, Dash(1)
+  LineCnt = 6
+  RETURN
+  
+PrintEmpBalance:
+  IF Emp2Rec(1).EMPCTBAL < MinHrs THEN
+    Emp2Rec(1).EMPCTBAL = 0
+  END IF
+  IF Emp2Rec(1).EMPVBAL < MinHrs THEN
+    Emp2Rec(1).EMPVBAL = 0
+  END IF
+  IF Emp2Rec(1).EMPSLBAL < MinHrs THEN
+    Emp2Rec(1).EMPSLBAL = 0
+  END IF
+  
+  LSET ENumb(1) = QPTrim$(Emp2Rec(1).EmpNo)
+  LSET EName(1) = QPTrim$(Emp2Rec(1).EMPLNAME) + ", " + QPTrim$(Emp2Rec(1).EMPFNAME)
+  RSET VBal(1) = FUsing(STR$(Emp2Rec(1).EMPVBAL), Image2$)
+  RSET SBal(1) = FUsing(STR$(Emp2Rec(1).EMPSLBAL), Image2$)
+  RSET CBal(1) = FUsing(STR$(Emp2Rec(1).EMPCTBAL), Image2$)
+  RSET LTbl(1) = STR$(Emp2Rec(1).LeaveTbl)
+  
+  FPut RHandle, ENumb(1) + EName(1) + VBal(1) + SBal(1) + CBal(1) + LTbl(1) + CrLf$
+  LineCnt = LineCnt + 1
+  RETURN
+  
+END SUB
+
+SUB GrossWageReport
+  
+  REDIM TempScrn(1)
+  
+  ExitFlag = False
+  FirstTime = True
+  
+  OKFlag = False
+  
+  REDIM Frm(1) AS FormInfo
+  
+  FormName$ = "GWAGERPT"
+  NumFlds = LibNumberOfFields(MiscQLib, FormName$)
+  REDIM Form$(NumFlds, 2)       'DIM the form data array
+  REDIM Fld(NumFlds) AS FieldInfo               'DIM the field information array
+  StartEl = 0   'Load first form at array start
+  LibGetFldDef MiscQLib, FormName$, StartEl, Fld(), Form$(), ErrCode
+  
+  
+  '----- Set the "Action" flag to force the editor to initialize itself and
+  '      display the data on the form.
+  Action = 1
+  
+  '----- Setup TYPE for setting and reading form editing information.
+  
+  Frm(1).FldNo = 1              'Start editing on field #1
+  Frm(1).InsStat = False        'Set insert state (True = Insert on)
+  Frm(1).StartEl = 0            'Set form starting element to 0 and
+  
+  BlockClear
+  DisplayMiscScrn FormName$
+  
+  DO
+    EditForm Form$(), Fld(), Frm(1), Cnf, Action
+    IF FirstTime THEN
+      FirstTime = False
+      Form$(2, 0) = DATE$
+      Action = 2
+    END IF
+    
+    SELECT CASE Frm(1).KeyCode
+    CASE F0Key
+      LowDate = Date2Num(Form$(1, 0))
+      HiDate = Date2Num(Form$(2, 0))
+      IF HiDate >= LowDate THEN
+        OKFlag = True
+      ELSE
+        CursorOff
+        SaveScrn TempScrn()
+        DisplayMiscScrn ReportParmError
+        WaitForAction
+        RestScrn TempScrn()
+        Frm(1).FldNo = 1
+        Action = 2
+        OKFlag = False
+      END IF
+    CASE EscKey
+      OKFlag = True
+      ExitFlag = True
+    END SELECT
+    
+  LOOP UNTIL OKFlag             'proper key not set
+  
+  CursorOff
+  
+  ERASE Form$, Fld, TempScrn, Frm
+  
+  IF ExitFlag THEN EXIT SUB
+  Image1$ = ",####.##"
+  Image2$ = ",######.##"
+  Image3$ = "#######.##"
+  
+  REDIM Dash(1) AS STRING * 133
+  REDIM TransHRec(1)   AS TransRecType
+  REDIM Emp2Rec(1)     AS EmpData2Type
+  REDIM Unit(1)        AS UnitFileRecType
+  REDIM Pg(1)          AS STRING * 3
+  
+  REDIM GrsRpt(1 TO 3) AS GrossWageRptType
+  
+  REDIM EQWL1(1)       AS EQWRptRecType
+  
+  MaxLines = 57
+  LineCnt = 0
+  Dash(1) = STRING$(131, "-") + CrLf$
+  
+  EQWL1(1).CrLf = CrLf$
+  EQWL1Len = LEN(EQWL1(1))
+  
+  EmpRecSize = LEN(Emp2Rec(1))
+  TRecSize = LEN(TransHRec(1))
+  
+  IdxRecLen = 2
+  IdxFileSize& = FileSize(EmpIdxLName)
+  NumOfRecs = IdxFileSize& \ IdxRecLen
+  
+  REDIM IdxBuff(1 TO NumOfRecs)
+  FGetAH EmpIdxLName, IdxBuff(1), IdxRecLen, NumOfRecs
+  
+  FGetAH UnitFileName, Unit(1), LEN(Unit(1)), 1
+  
+  RptTitle$ = "Employee Gross Wage Report"
+  ShowProcessingScrn RptTitle$
+  
+  RptName$ = "PRRPTS\GROSWAGE.RPT"
+  
+  FCreate RptName$
+  FOpenS RptName$, RHandle
+  RPTSetupPRN 5, RHandle
+  
+  FOpenS TransHistFileName, THandle
+  FOpenS EmpData2Name, DHandle  'open employee data file
+  
+  GOSUB PrintGrossHeader
+  
+  FOR RecNo = 1 TO NumOfRecs
+    UsingThisOne = False
+    FGetRTA DHandle, Emp2Rec(1), CLNG(IdxBuff(RecNo)), EmpRecSize
+    IF Emp2Rec(1).LastTransRec <= 0 THEN
+      GOTO SkipEm4
+    END IF
+    TransRecNum& = CLNG(Emp2Rec(1).LastTransRec)
+    
+    DO
+      FGetRTA THandle, TransHRec(1), TransRecNum&, TRecSize
+      
+      SELECT CASE TransHRec(1).CheckDate
+        
+      CASE LowDate TO HiDate
+        GOSUB SumEmpGross
+        UsingThisOne = True
+      CASE ELSE
+      END SELECT
+      IF TransHRec(1).PrevTransRec <= 0 THEN    'if no more transactions
+        IF UsingThisOne THEN    'if there were any at all
+          GOSUB PrintEmpGrossTotals             'then write emp totals
+          IF LineCnt > MaxLines THEN            'bottom of page?
+            FPut RHandle, FF$   'yes; form feed
+            GOSUB PrintGrossHeader              'write title lines
+          END IF
+        END IF
+        EXIT DO
+      ELSE      'there are more trans to check
+        TransRecNum& = CLNG(TransHRec(1).PrevTransRec)
+      END IF
+    LOOP
+SkipEm4:
+    ShowPctComp RecNo, NumOfRecs
+  NEXT
+  
+  GOSUB PrintGrossGTotals
+
+  RPTSetupPRN 0, RHandle
+  
+  FClose DHandle
+  FClose THandle
+  FClose RHandle
+  
+  ERASE Dash, TransHRec, Emp2Rec, Unit, Pg, GrsRpt, IdxBuff, EQWL1
+  
+  PrintRptFile RptTitle$, RptName$, 1, RetCode, 0
+  
+  
+  EXIT SUB
+  
+PrintGrossHeader:
+  Page = Page + 1
+  RSET Pg(1) = QPStrI$(Page)
+  UTemp$ = SPACE$(133)
+  LSET UTemp$ = Unit(1).UFEMPR
+  MID$(UTemp$, 124) = "Page:" + Pg(1) + CrLf$
+  FPut RHandle, UTemp$
+  FPut RHandle, "Gross Wage Report" + CrLf$
+  FPut RHandle, Num2Date$(LowDate) + " thru " + Num2Date$(HiDate) + CrLf$
+  'FPut RHandle, "Emp #      Name                   Gross Pay   FedGross     FedTax   SocGross     SocTax   MedGross     MedTax   StaGross     StaTax" + CrLf$
+  FPut RHandle, "Emp #      Name                   Gross Pay   FedGross     FedTax   SocGross     SocTax   MedGross     MedTax        EIC     StaTax" + CrLf$
+  FPut RHandle, Dash(1)
+  LineCnt = 5
+  RETURN
+  
+SumEmpGross:
+  GrsRpt(1).GrossPay = Round(GrsRpt(1).GrossPay + TransHRec(1).GrossPay)
+  GrsRpt(1).FedGross = Round(GrsRpt(1).FedGross + TransHRec(1).FedGrossPay)
+  GrsRpt(1).FedTax = Round(GrsRpt(1).FedTax + TransHRec(1).FedTaxAmt)
+  GrsRpt(1).SocGross = Round(GrsRpt(1).SocGross + TransHRec(1).SocGrossPay)
+  GrsRpt(1).SocTax = Round(GrsRpt(1).SocTax + TransHRec(1).SocTaxAmt)
+  GrsRpt(1).MedGross = Round(GrsRpt(1).MedGross + TransHRec(1).MedGrossPay)
+  GrsRpt(1).MedTax = Round(GrsRpt(1).MedTax + TransHRec(1).MedTaxAmt)
+  GrsRpt(1).EIC = Round(GrsRpt(1).EIC + TransHRec(1).EICAmt)
+  GrsRpt(1).StaTax = Round(GrsRpt(1).StaTax + TransHRec(1).StaTaxAmt)
+  
+  
+  RETURN
+  
+PrintEmpGrossTotals:
+  LSET EQWL1(1).ENumb = QPTrim$(Emp2Rec(1).EmpNo)
+  LSET EQWL1(1).EName = QPTrim$(Emp2Rec(1).EMPLNAME) + ", " + QPTrim$(Emp2Rec(1).EMPFNAME)
+  RSET EQWL1(1).GPay = FUsing(STR$(GrsRpt(1).GrossPay), Image2$)
+  RSET EQWL1(1).FedGr = FUsing(STR$(GrsRpt(1).FedGross), Image2$)
+  RSET EQWL1(1).FedTx = FUsing(STR$(GrsRpt(1).FedTax), Image2$)
+  RSET EQWL1(1).SocGr = FUsing(STR$(GrsRpt(1).SocGross), Image2$)
+  RSET EQWL1(1).SocTx = FUsing(STR$(GrsRpt(1).SocTax), Image2$)
+  RSET EQWL1(1).MedGr = FUsing(STR$(GrsRpt(1).MedGross), Image2$)
+  RSET EQWL1(1).MedTx = FUsing(STR$(GrsRpt(1).MedTax), Image2$)
+  RSET EQWL1(1).EIC = FUsing(STR$(GrsRpt(1).EIC), Image2$)
+  RSET EQWL1(1).StaTx = FUsing(STR$(GrsRpt(1).StaTax), Image2$)
+  
+  FPutA RHandle, EQWL1(1), EQWL1Len
+  
+  LineCnt = LineCnt + 1
+  
+  'sum to quarter grand totals
+  GrsRpt(3).GrossPay = Round(GrsRpt(3).GrossPay + GrsRpt(1).GrossPay)
+  GrsRpt(3).FedGross = Round(GrsRpt(3).FedGross + GrsRpt(1).FedGross)
+  GrsRpt(3).FedTax = Round(GrsRpt(3).FedTax + GrsRpt(1).FedTax)
+  GrsRpt(3).SocGross = Round(GrsRpt(3).SocGross + GrsRpt(1).SocGross)
+  GrsRpt(3).SocTax = Round(GrsRpt(3).SocTax + GrsRpt(1).SocTax)
+  GrsRpt(3).MedGross = Round(GrsRpt(3).MedGross + GrsRpt(1).MedGross)
+  GrsRpt(3).MedTax = Round(GrsRpt(3).MedTax + GrsRpt(1).MedTax)
+  GrsRpt(3).EIC = Round(GrsRpt(3).EIC + GrsRpt(1).EIC)
+  GrsRpt(3).StaTax = Round(GrsRpt(3).StaTax + GrsRpt(1).StaTax)
+  
+  'clear for the next transaction record
+  GrsRpt(1) = GrsRpt(2)
+  
+  RETURN
+  
+PrintGrossGTotals:
+  LSET EQWL1(1).ENumb = ""
+  LSET EQWL1(1).EName = "        Totals:"
+  RSET EQWL1(1).GPay = FUsing(STR$(GrsRpt(3).GrossPay), Image3$)
+  RSET EQWL1(1).FedGr = FUsing(STR$(GrsRpt(3).FedGross), Image3$)
+  RSET EQWL1(1).FedTx = FUsing(STR$(GrsRpt(3).FedTax), Image3$)
+  RSET EQWL1(1).SocGr = FUsing(STR$(GrsRpt(3).SocGross), Image3$)
+  RSET EQWL1(1).SocTx = FUsing(STR$(GrsRpt(3).SocTax), Image3$)
+  RSET EQWL1(1).MedGr = FUsing(STR$(GrsRpt(3).MedGross), Image3$)
+  RSET EQWL1(1).MedTx = FUsing(STR$(GrsRpt(3).MedTax), Image3$)
+  RSET EQWL1(1).EIC = FUsing(STR$(GrsRpt(3).EIC), Image3$)
+  RSET EQWL1(1).StaTx = FUsing(STR$(GrsRpt(3).StaTax), Image3$)
+  
+  FPut RHandle, Dash(1)
+  FPutA RHandle, EQWL1(1), EQWL1Len
+  FPut RHandle, FF$
+  
+  RETURN
+  
+END SUB
+
+SUB PayDedReport
+  
+  SHARED Choice$()
+  
+  ExitFlag = False
+  
+  REDIM TempScrn(1)
+  REDIM Choice$(12, 1)          '
+  
+  REDIM DedCodes(1 TO 12) AS DedCodeRecType
+  FGetAH DedCodeFileName, DedCodes(1), LEN(DedCodes(1)), 12
+  
+  Choice$(0, 1) = "3"
+  
+  FOR Cnt = 1 TO 12
+    Choice$(Cnt, 1) = QPTrim$(DedCodes(Cnt).DCDESC1)
+  NEXT
+  
+  FirstTime = True
+  REDIM Frm(1) AS FormInfo
+  
+  FormName$ = "PRDEDRPT"
+  NumFlds = LibNumberOfFields(MiscQLib, FormName$)
+  REDIM Form$(NumFlds, 2)       'DIM the form data array
+  REDIM Fld(NumFlds) AS FieldInfo               'DIM the field information array
+  StartEl = 0   'Load first form at array start
+  LibGetFldDef MiscQLib, FormName$, StartEl, Fld(), Form$(), ErrCode
+  
+  
+  '----- Set the "Action" flag to force the editor to initialize itself and
+  '      display the data on the form.
+  Action = 1
+  
+  '----- Setup TYPE for setting and reading form editing information.
+  
+  Frm(1).FldNo = 1              'Start editing on field #1
+  Frm(1).InsStat = False        'Set insert state (True = Insert on)
+  Frm(1).StartEl = 0            'Set form starting element to 0 and
+  
+  BlockClear
+  DisplayMiscScrn FormName$
+  
+  DO
+    EditForm Form$(), Fld(), Frm(1), Cnf, Action
+    IF FirstTime THEN
+      FirstTime = False
+      Form$(2, 0) = DATE$
+      Form$(1, 0) = LEFT$(DATE$, 3) + "01-" + RIGHT$(DATE$, 4)
+      Action = 2
+    END IF
+    SELECT CASE Frm(1).KeyCode
+    CASE F0Key
+      LowDate = Date2Num(Form$(1, 0))
+      HighDate = Date2Num(Form$(2, 0))
+      TempDed$ = QPTrim$(Form$(3, 0))
+      FOR Cnt = 1 TO 12
+        IF TempDed$ = QPTrim$(DedCodes(Cnt).DCDESC1) THEN
+          DNum = Cnt
+          EXIT FOR
+        END IF
+      NEXT
+      
+      'process invalid report parms
+      IF HighDate >= LowDate AND DNum THEN
+        OKFlag = True
+      ELSE
+        CursorOff
+        SaveScrn TempScrn()
+        DisplayMiscScrn ReportParmError
+        WaitForAction
+        RestScrn TempScrn()
+        Action = 2
+        IF DNum THEN
+          Frm(1).FldNo = 1
+        ELSE
+          Frm(1).FldNo = 3
+        END IF
+        
+      END IF
+      '-=-=-=
+    CASE EscKey
+      OKFlag = True
+      ExitFlag = True
+    END SELECT
+    
+  LOOP UNTIL OKFlag             'proper key not set
+  
+  CursorOff
+  
+  ERASE Form$, Fld, Frm
+  
+  IF ExitFlag THEN EXIT SUB
+  
+  '  FF$ = CHR$(12)
+  
+  Image1$ = "$$,####.##"
+  Image2$ = "$$###,###.##"
+  
+  REDIM TransHRec(1)     AS TransRecType
+  REDIM Emp2Rec(1)  AS EmpData2Type
+  REDIM Unit(1)      AS UnitFileRecType
+  REDIM Pg(1)       AS STRING * 3
+  REDIM DedRpt(1)  AS DedRptType
+  
+  MaxLines = 55
+  EmpRecSize = LEN(Emp2Rec(1))
+  TRecSize = LEN(TransHRec(1))
+  
+  DedLineLen = LEN(DedRpt(1))
+  DedRpt(1).CrLf = CrLf$
+  
+  FGetAH UnitFileName, Unit(1), LEN(Unit(1)), 1
+  
+  IdxRecLen = 2
+  
+  IdxFileSize& = FileSize(EmpIdxLName)
+  NumOfRecs = IdxFileSize& \ IdxRecLen
+  
+  REDIM IdxBuff(1 TO NumOfRecs)
+  FGetAH EmpIdxLName, IdxBuff(1), IdxRecLen, NumOfRecs
+  
+  RptTitle$ = "Payroll Deduction Report"
+  ShowProcessingScrn RptTitle$
+  
+  RptName$ = "PRRPTS\DEDUCT" + QPStrI$(DNum) + ".RPT"
+  RptDate$ = "Start Date: " + Num2Date(LowDate) + "  Ending Date: " + Num2Date(HighDate) + CrLf$
+  RptDed$ = QPTrim$(DedCodes(DNum).DCDESC1) + " Deduction Report." + CrLf$
+  
+  FCreate RptName$
+  FOpenS RptName$, RHandle
+  RPTSetupPRN 6, RHandle
+  
+  FOpenS TransHistFileName, THandle
+  FOpenS EmpData2Name, DHandle  'open employee data file
+  
+  GOSUB DedHeader
+  
+  FOR RecNo = 1 TO NumOfRecs
+    UsingThisOne = False
+    DAmt# = 0
+    FGetRTA DHandle, Emp2Rec(1), CLNG(IdxBuff(RecNo)), EmpRecSize
+    IF Emp2Rec(1).EMPTDATE > 0 THEN
+      IF LowDate > Emp2Rec(1).EMPTDATE THEN
+        GOTO SkipEm2
+      END IF
+    END IF
+    IF Emp2Rec(1).LastTransRec <= 0 THEN
+      GOTO SkipEm2
+    END IF
+    
+    TransRecNum& = CLNG(Emp2Rec(1).LastTransRec)
+    
+    DO
+      FGetRTA THandle, TransHRec(1), TransRecNum&, TRecSize
+      SELECT CASE TransHRec(1).CheckDate
+      CASE LowDate TO HighDate
+        IF TransHRec(1).DAmt(DNum) <> 0 THEN
+          DAmt# = Round(DAmt# + TransHRec(1).DAmt(DNum))
+          UsingThisOne = True
+        END IF
+      CASE ELSE
+      END SELECT
+      IF TransHRec(1).PrevTransRec <= 0 THEN
+        IF UsingThisOne THEN
+          GOSUB PrintThisOne2
+          IF LineCnt > MaxLines THEN
+            FPut RHandle, FF$
+            GOSUB DedHeader
+          END IF
+        END IF
+        EXIT DO
+      ELSE
+        TransRecNum& = CLNG(TransHRec(1).PrevTransRec)
+      END IF
+    LOOP
+SkipEm2:
+    ShowPctComp RecNo, NumOfRecs
+  NEXT
+  
+  GOSUB GrandTots
+
+  RPTSetupPRN 0, RHandle
+
+  FClose DHandle
+  FClose THandle
+  FClose RHandle
+  
+  ERASE TransHRec, Emp2Rec, Unit, Pg, DedRpt, IdxBuff, DedCodes
+  
+  PrintRptFile RptTitle$, RptName$, 1, RetCode, 0
+  
+  EXIT SUB
+  
+  
+PrintThisOne2:
+  TotalDAmt# = Round(TotalDAmt# + DAmt#)
+  DedRpt(1).EmpName = LTRIM$(RTRIM$(Emp2Rec(1).EMPFNAME)) + " " + LTRIM$(RTRIM$(Emp2Rec(1).EMPLNAME))
+  DedRpt(1).SSN = LEFT$(Emp2Rec(1).EMPSSN, 3) + "-" + MID$(Emp2Rec(1).EMPSSN, 4, 2) + "-" + MID$(Emp2Rec(1).EMPSSN, 6, 4)
+  RSET DedRpt(1).DAmt = LTRIM$(RTRIM$(FUsing(STR$(DAmt#), Image1$)))
+  FPutA RHandle, DedRpt(1), DedLineLen
+  LineCnt = LineCnt + 1
+  RETURN
+  
+DedHeader:
+  Page = Page + 1
+  RSET Pg(1) = STR$(Page)
+  UTemp$ = SPACE$(71)
+  LSET UTemp$ = Unit(1).UFEMPR
+  MID$(UTemp$, 62) = "Page:" + Pg(1) + CrLf$
+  FPut RHandle, UTemp$
+  FPut RHandle, RptDed$
+  FPut RHandle, RptDate$
+  FPut RHandle, "Employee Name                       SS#                   Ded. Amount" + CrLf$
+  FPut RHandle, CrLf$
+  LineCnt = 5
+  
+  RETURN
+  
+GrandTots:
+  LSET DedRpt(1).EmpName = "Total: "
+  LSET DedRpt(1).SSN = ""
+  RSET DedRpt(1).DAmt = QPTrim$(FUsing(STR$(TotalDAmt#), Image2$))
+  FPut RHandle, CrLf$
+  FPutA RHandle, DedRpt(1), DedLineLen
+  FPut RHandle, FF$
+RETURN
+  
+  
+END SUB
+
+SUB RetirementRpt
+
+  SHARED PrnDef$()
+
+  FirstTime = True
+  
+  REDIM TempScrn(1)
+  REDIM Frm(1) AS FormInfo
+  
+  FormName$ = "ERETIRPT"
+  NumFlds = LibNumberOfFields(MiscQLib, FormName$)
+  REDIM Form$(NumFlds, 2)       'DIM the form data array
+  REDIM Fld(NumFlds) AS FieldInfo               'DIM the field information array
+  StartEl = 0   'Load first form at array start
+  LibGetFldDef MiscQLib, FormName$, StartEl, Fld(), Form$(), ErrCode
+  
+  '----- Set the "Action" flag to force the editor to initialize itself and
+  '      display the data on the form.
+  Action = 1
+  
+  'MaxLines = 60
+  '----- Setup TYPE for setting and reading form editing information.
+  
+  Frm(1).FldNo = 1              'Start editing on field #1
+  Frm(1).InsStat = False        'Set insert state (True = Insert on)
+  Frm(1).StartEl = 0            'Set form starting element to 0 and
+  
+  BlockClear
+  DisplayMiscScrn FormName$
+  
+  DO
+    EditForm Form$(), Fld(), Frm(1), Cnf, Action
+    IF FirstTime THEN
+      FirstTime = False
+      Form$(2, 0) = DATE$
+      Form$(1, 0) = LEFT$(DATE$, 3) + "01-" + RIGHT$(DATE$, 4)
+      Action = 2
+    END IF
+
+    SELECT CASE Frm(1).KeyCode
+    CASE F0Key
+      LowDate = Date2Num(Form$(1, 0))
+      HighDate = Date2Num(Form$(2, 0))
+      IF LowDate <= HighDate THEN
+        MonthNum = QPValI(LEFT$(Form$(2, 0), 2))
+        YearNum = QPValI(RIGHT$(Form$(2, 0), 4))
+        OKFlag = True
+      ELSE
+        CursorOff
+        SaveScrn TempScrn()
+        DisplayMiscScrn ReportParmError
+        WaitForAction
+        RestScrn TempScrn()
+        Frm(1).FldNo = 1
+        Action = 2
+        OKFlag = False
+      END IF
+    CASE EscKey
+      OKFlag = True
+      ExitFlag = True
+    END SELECT
+    
+  LOOP UNTIL OKFlag             'proper key not set
+  
+  CursorOff
+  
+  ERASE Form$, Fld, TempScrn, Frm
+  
+  IF ExitFlag THEN EXIT SUB
+  
+  CursorOff
+  
+  RptName$ = "PRRPTS\RETIRE.RPT"
+  
+  REDIM TransHRec(1)   AS TransRecType
+  REDIM Emp2Rec(1)     AS EmpData2Type
+  REDIM Unit(1)        AS UnitFileRecType
+  REDIM Pg(1)          AS STRING * 3
+  REDIM Dash(1)        AS STRING * 91
+  
+  Dash(1) = STRING$(91, "-")
+  
+  EmpRecSize = LEN(Emp2Rec(1))
+  TRecSize = LEN(TransHRec(1))
+  
+  IdxRecLen = 2
+  
+  IdxFileSize& = FileSize(EmpIdxLName)
+  NumOfRecs = IdxFileSize& \ IdxRecLen
+  
+  REDIM IdxBuff(1 TO NumOfRecs)
+  FGetAH EmpIdxLName, IdxBuff(1), IdxRecLen, NumOfRecs
+  FGetAH UnitFileName, Unit(1), LEN(Unit(1)), 1
+  MaxLines = 50
+  
+  '-=-=-=-=-=-=-=-=-=-=-=
+  
+  RptTitle$ = "Employee Retirement Report."
+  ShowProcessingScrn RptTitle$
+  
+  TCol = 40 - (LEN(RptTitle$) \ 2) + 1
+  PctRow = 11
+  
+  QPrintRC "Pass 1 of 2", PctRow, TCol, 112
+  
+  FCreate RptName$
+  FOpenS RptName$, RHandle
+  RPTSetupPRN 11, RHandle
+  FClose RHandle
+
+  OPEN RptName$ FOR APPEND AS #1
+
+  FOpenS TransHistFileName, THandle
+  FOpenS EmpData2Name, DHandle  'open employee data file
+  
+  GOSUB LRetRptHeader
+  
+  FOR RecNo = 1 TO NumOfRecs
+    UsingThisOne = False
+    RetWage# = 0
+    RETAMT# = 0
+    MatAmt# = 0
+    MatchCnt = 0
+    FGetRTA DHandle, Emp2Rec(1), CLNG(IdxBuff(RecNo)), EmpRecSize
+    IF Emp2Rec(1).LastTransRec <= 0 THEN
+      GOTO SkipEm6
+    END IF
+    
+    TransRecNum& = CLNG(Emp2Rec(1).LastTransRec)
+    
+    DO
+      FGetRTA THandle, TransHRec(1), TransRecNum&, TRecSize
+      SELECT CASE TransHRec(1).CheckDate
+      CASE LowDate TO HighDate
+        'IF TransHRec(1).CheckNum < 21681 OR TransHRec(1).CheckNum > 21684 THEN
+        IF UCASE$(LEFT$(LTRIM$(Emp2Rec(1).EMPRETTP), 1)) = "L" THEN
+          RetWage# = Round(RetWage# + TransHRec(1).RetGrossPay)
+          'TMRetAmt# = Round#(TransHRec(1).RetGrossPay * .0447)
+          'IF TMRetAmt# <> TransHRec(1).MatchRetAmt THEN
+          '  TransHRec(1).MatchRetAmt = TMRetAmt#
+          '  FPutRTA THandle, TransHRec(1), TransRecNum&, TRecSize
+          '  'STOP
+          'END IF
+          RETAMT# = Round(RETAMT# + TransHRec(1).RetireAmt)
+          MatAmt# = Round(MatAmt# + TransHRec(1).MatchRetAmt)
+          MatchCnt = MatchCnt + 1
+          UsingThisOne = True
+        END IF
+        'ELSE
+        '  STOP
+        'END IF
+      CASE ELSE
+      END SELECT
+      
+      IF TransHRec(1).PrevTransRec <= 0 THEN
+        IF UsingThisOne THEN
+          GOSUB PrintEmpRetLine
+          IF LineCnt >= MaxLines THEN
+            PRINT #1, FF$
+            GOSUB LRetRptHeader
+          END IF
+        END IF
+        EXIT DO
+      ELSE
+        TransRecNum& = CLNG(TransHRec(1).PrevTransRec)
+      END IF
+    LOOP
+    
+SkipEm6:
+    ShowPctComp RecNo, NumOfRecs
+  NEXT
+  GOSUB RetLTotals
+  
+  'start of PASS 2
+  
+  QPrintRC "Pass 2 of 2", PctRow, TCol, 112
+  
+  GTotal# = 0
+  RTotal# = 0
+  MTotal# = 0
+  GOSUB GRetRptHeader
+  
+  FOR RecNo = 1 TO NumOfRecs
+    UsingThisOne = False
+    RetWage# = 0
+    RETAMT# = 0
+    MatAmt# = 0
+    FGetRTA DHandle, Emp2Rec(1), CLNG(IdxBuff(RecNo)), EmpRecSize
+    IF INSTR(Emp2Rec(1).EMPLNAME, "SAUNDE") > 0 THEN
+      IF INSTR(Emp2Rec(1).EMPFNAME, "JAM") > 0 THEN
+        doem = -1
+        'STOP
+      END IF
+    ELSE
+      doem = 0
+    END IF
+    
+    IF Emp2Rec(1).LastTransRec <= 0 THEN
+      GOTO SkipEm7
+    END IF
+    
+    TransRecNum& = CLNG(Emp2Rec(1).LastTransRec)
+    
+    DO
+      FGetRTA THandle, TransHRec(1), TransRecNum&, TRecSize
+      SELECT CASE TransHRec(1).CheckDate
+      CASE LowDate TO HighDate
+        'IF TransHRec(1).CheckNum < 21681 OR TransHRec(1).CheckNum > 21684 THEN
+        IF UCASE$(LEFT$(LTRIM$(Emp2Rec(1).EMPRETTP), 1)) = "G" THEN
+          RetWage# = Round(RetWage# + TransHRec(1).RetGrossPay) 'was GrossPay
+          RETAMT# = Round(RETAMT# + TransHRec(1).RetireAmt)
+          MatAmt# = Round(MatAmt# + TransHRec(1).MatchRetAmt)
+          UsingThisOne = True
+        END IF
+      CASE ELSE
+      END SELECT
+      
+      IF TransHRec(1).PrevTransRec <= 0 THEN
+        IF UsingThisOne THEN
+          GOSUB PrintEmpRetLine
+          IF LineCnt >= MaxLines THEN
+            PRINT #1, FF$
+            GOSUB GRetRptHeader
+          END IF
+        END IF
+        EXIT DO
+      ELSE
+        TransRecNum& = CLNG(TransHRec(1).PrevTransRec)
+      END IF
+    LOOP
+    
+SkipEm7:
+    ShowPctComp RecNo, NumOfRecs
+  NEXT
+  
+  GOSUB RetLTotals
+  PRINT #1, PrnDef$(1);
+
+  FClose THandle
+  FClose DHandle                'open employee data file
+  'FClose RHandle                'open employee data file
+
+  CLOSE
+  
+  ERASE TransHRec, Emp2Rec, Unit, Pg, Dash, IdxBuff
+  
+  PrintRptFile RptTitle$, RptName$, 1, RetCode, 0
+  
+  EXIT SUB
+  
+  
+PrintEmpRetLine:
+  PRINT #1, LEFT$(Emp2Rec(1).EMPSSN, 3); "-"; MID$(Emp2Rec(1).EMPSSN, 4, 2); "-"; MID$(Emp2Rec(1).EMPSSN, 6, 4);
+  PRINT #1, TAB(14); LEFT$(Emp2Rec(1).EMPRETNO, 12);
+  PRINT #1, TAB(28); QPTrim$(Emp2Rec(1).EMPLNAME); ", "; QPTrim$(Emp2Rec(1).EMPFNAME);
+  PRINT #1, TAB(55); USING "#####,.##"; RetWage#; TAB(70); RETAMT#;
+  PRINT #1, TAB(83); USING "#####,.##"; MatAmt#
+  LineCnt = LineCnt + 1         'employeesprinted = employeesprinted + 1
+  GTotal# = Round(GTotal# + RetWage#)
+  RTotal# = Round(RTotal# + RETAMT#)
+  MTotal# = Round(MTotal# + MatAmt#)
+RETURN
+  
+RetLTotals:
+  PRINT #1, Dash(1)
+  PRINT #1, TAB(28); "Totals:";
+  PRINT #1, TAB(53); USING "#######,.##"; GTotal#; TAB(68); RTotal#;
+  PRINT #1, TAB(81); USING "#######,.##"; MTotal#
+  PRINT #1, FF$
+RETURN
+
+LRetRptHeader:
+  LPage = LPage + 1
+  PRINT #1, "Department of State Treasurer"; TAB(70); "     Page:"; LPage
+  PRINT #1, "North Carolina Law Enforcement Officers Benefit and Retirement Fund"
+  PRINT #1, "Monthly Report of Subject Wages And Retirement Contributions"
+  PRINT #1,
+  PRINT #1, "Reporting Unit: "; QPTrim$(Unit(1).UFEMPR); TAB(70); "Unit Code: "; Unit(1).UFRETIDL
+  PRINT #1, "Month: "; MonthName$(MonthNum); " "; YearNum
+  PRINT #1,
+  PRINT #1, "                                                   Wages Subject    Retirement     Employer"
+  PRINT #1, "Soc Sec #    Ret #         Employee Name           To Retirem't     Deductions        Match"
+  PRINT #1, Dash(1)
+  LineCnt = 10
+RETURN
+  
+GRetRptHeader:
+  GPage = GPage + 1
+  PRINT #1, "Department of State Treasurer"; TAB(70); "     Page:"; GPage
+  PRINT #1, "North Carolina Local Government Retirement System."
+  PRINT #1, "Monthly Report of Subject Wages And Retirement Contributions"
+  PRINT #1,
+  PRINT #1, "Reporting Unit: "; QPTrim$(Unit(1).UFEMPR); TAB(70); "Unit Code: "; Unit(1).UFRETID
+  PRINT #1, "Month: "; MonthName$(MonthNum); " "; YearNum
+  PRINT #1,
+  PRINT #1, "                                                   Wages Subject    Retirement     Employer"
+  PRINT #1, "Soc Sec #    Ret #         Employee Name           To Retirem't     Deductions        Match"
+  PRINT #1, Dash(1)
+  LineCnt = 10
+RETURN
+  
+END SUB
+
+SUB SupRetReport
+  
+  SHARED Choice$(), PrnDef$()
+  
+  REDIM TempScrn(1)
+  REDIM Choice$(12, 1)
+  REDIM Text$(1 TO 5)
+  
+  REDIM DedCodes(1 TO 12)  AS DedCodeRecType
+  FGetAH DedCodeFileName, DedCodes(1), LEN(DedCodes(1)), 12
+  
+  REDIM Unit(1)            AS UnitFileRecType
+  FGetAH UnitFileName, Unit(1), LEN(Unit(1)), 1
+
+  Text$(1) = "Supplemental Retirement Income Plan of NC"
+  Text$(2) = "BB&T Administrator"
+  Text$(3) = "Payroll Center Name: " + QPTrim$(Unit(1).UFEMPR)
+  Text$(4) = "Payroll Center Number: " + QPTrim$(Unit(1).BBTCNTNO)
+
+  Text1Len = LEN(Text$(1))
+  Text2Len = LEN(Text$(2))
+  Text3Len = LEN(Text$(3))
+  Text4Len = LEN(Text$(4))
+  
+  Choice$(0, 1) = "3,4"
+  
+  FOR Cnt = 1 TO 12
+    Choice$(Cnt, 1) = QPTrim$(DedCodes(Cnt).DCDESC1)
+  NEXT
+  
+  FirstTime = True
+  REDIM Frm(1) AS FormInfo
+  
+  FormName$ = "SRETIRPT"
+  NumFlds = LibNumberOfFields(MiscQLib, FormName$)
+  REDIM Form$(NumFlds, 2)              'DIM the form data array
+  REDIM Fld(NumFlds) AS FieldInfo      'DIM the field information array
+  StartEl = 0                          'Load first form at array start
+  LibGetFldDef MiscQLib, FormName$, StartEl, Fld(), Form$(), ErrCode
+  
+  '----- Set the "Action" flag to force the editor to initialize itself and
+  '      display the data on the form.
+  Action = 1
+  
+  '----- Setup TYPE for setting and reading form editing information.
+  
+  Frm(1).FldNo = 1              'Start editing on field #1
+  Frm(1).InsStat = False        'Set insert state (True = Insert on)
+  Frm(1).StartEl = 0            'Set form starting element to 0 and
+  
+  BlockClear
+  DisplayMiscScrn FormName$
+  
+  DO
+    EditForm Form$(), Fld(), Frm(1), Cnf, Action
+
+    IF FirstTime THEN
+      FirstTime = False
+      Form$(2, 0) = DATE$
+      Form$(1, 0) = LEFT$(DATE$, 3) + "01-" + RIGHT$(DATE$, 4)
+      Action = 2
+    END IF
+
+    SELECT CASE Frm(1).KeyCode
+    CASE F0Key
+      LowDate = Date2Num(Form$(1, 0))
+      HighDate = Date2Num(Form$(2, 0))
+      GPct# = VAL(Form$(5, 0))
+      LPct# = VAL(Form$(6, 0))
+      TempDed$ = QPTrim$(Form$(3, 0))
+      FOR Cnt = 1 TO 12
+        IF TempDed$ = QPTrim$(DedCodes(Cnt).DCDESC1) THEN
+          VCodeNum = Cnt
+          EXIT FOR
+        END IF
+      NEXT
+      TempDed$ = QPTrim$(Form$(4, 0))
+      FOR Cnt = 1 TO 12
+        IF TempDed$ = QPTrim$(DedCodes(Cnt).DCDESC1) THEN
+          LCodeNum = Cnt
+          EXIT FOR
+        END IF
+      NEXT
+      IF (HighDate >= LowDate) THEN             'AND GPct# > 0 THEN
+        OKFlag = True
+      ELSE
+        CursorOff
+        SaveScrn TempScrn()
+        DisplayMiscScrn ReportParmError
+        WaitForAction
+        RestScrn TempScrn()
+        Frm(1).FldNo = 1
+        Action = 2
+        OKFlag = False
+      END IF
+
+    CASE EscKey
+      OKFlag = True
+      ExitFlag = True
+    END SELECT
+    
+  LOOP UNTIL OKFlag             'proper key not set
+  
+  CursorOff
+  
+  ERASE Form$, Fld, TempScrn, Frm
+  
+  IF ExitFlag THEN EXIT SUB
+  
+  RptName$ = "PRRPTS\401K.RPT"
+  
+  VCalcAmt# = 0
+  LCalcAmt# = 0
+  GCalcAmt# = 0
+  
+  FF$ = CHR$(12)
+  
+  Image1$ = ",####.##"
+  Image2$ = "###,###.##"
+  
+  REDIM TransHRec(1)       AS TransRecType
+  REDIM Emp2Rec(1)         AS EmpData2Type
+  REDIM K401Rec(1 TO 2)    AS K401RptType
+  
+  EmpRecSize = LEN(Emp2Rec(1))
+  TRecSize = LEN(TransHRec(1))
+  
+  REDIM DedCodes(1 TO 12) AS DedCodeRecType
+  FGetAH DedCodeFileName, DedCodes(1), LEN(DedCodes(1)), 12
+  
+  RptTitle$ = "Supplemental Retirement Report."
+  ShowProcessingScrn RptTitle$
+  
+  EmpFile = FREEFILE
+  OPEN EmpData2Name FOR RANDOM AS EmpFile LEN = EmpRecSize
+  NumOfRec = LOF(EmpFile) / EmpRecSize
+  REDIM EmpLBuff(1 TO NumOfRec) AS EmpSortType
+  
+  FOR Cnt = 1 TO NumOfRec
+    GET #EmpFile, Cnt, Emp2Rec(1)
+    EmpRet$ = UCASE$(LEFT$(LTRIM$(Emp2Rec(1).EMPRETTP), 1))
+    SELECT CASE EmpRet$
+    CASE "L"
+      LCnt = LCnt + 1
+      REDIM PRESERVE EmpLBuff(1 TO LCnt) AS EmpSortType
+      EmpLBuff(LCnt).EmpNo = Emp2Rec(1).EmpNo
+      EmpLBuff(LCnt).RecNo = Cnt
+    CASE "G"
+      GCnt = GCnt + 1
+      REDIM PRESERVE EmpGBuff(1 TO GCnt) AS EmpSortType
+      EmpGBuff(GCnt).EmpNo = Emp2Rec(1).EmpNo
+      EmpGBuff(GCnt).RecNo = Cnt
+    END SELECT
+  NEXT
+  CLOSE EmpFile
+  
+  SortT EmpLBuff(1), LCnt, 0, 12, 0, 10
+  SortT EmpGBuff(1), GCnt, 0, 12, 0, 10
+  
+  'got input here
+  
+  FCreate RptName$
+  FOpenS RptName$, RHandle
+  RPTSetupPRN 12, RHandle
+  FClose RHandle
+  
+  OPEN RptName$ FOR APPEND AS #1
+  
+  FOpenS TransHistFileName, THandle
+  FOpenS EmpData2Name, DHandle  'open employee data file
+  
+  GOSUB K401Header
+  
+  FirstTime = True
+  
+  EmpRType$ = "L"
+  FOR RecNo = 1 TO LCnt
+    UsingThisOne = False
+    VCalcAmt# = 0
+    LCalcAmt# = 0
+    GCalcAmt# = 0
+    FGetRTA DHandle, Emp2Rec(1), CLNG(EmpLBuff(RecNo).RecNo), EmpRecSize
+    'IF Emp2Rec(1).EMPTDATE > 0 THEN
+    '  IF LowDate > Emp2Rec(1).EMPTDATE THEN
+    '    GOTO LSkipEm
+    '  END IF
+    'END IF
+    IF Emp2Rec(1).LastTransRec <= 0 THEN
+      GOTO LSkipEm
+    END IF
+    TransRecNum& = CLNG(Emp2Rec(1).LastTransRec)
+    DO
+      FGetRTA THandle, TransHRec(1), TransRecNum&, TRecSize
+      SELECT CASE TransHRec(1).CheckDate
+      CASE LowDate TO HighDate
+        IF VCodeNum > 0 THEN
+          IF TransHRec(1).DAmt(VCodeNum) <> 0 THEN
+            VCalcAmt# = Round(VCalcAmt# + TransHRec(1).DAmt(VCodeNum))
+            UsingThisOne = True
+          END IF
+        END IF
+        IF LCodeNum > 0 THEN
+          IF TransHRec(1).DAmt(LCodeNum) > 0 THEN
+            LCalcAmt# = Round(LCalcAmt# + TransHRec(1).DAmt(LCodeNum))
+            UsingThisOne = True
+          END IF
+        END IF
+        'IF TransHRec(1).Less401K = 0 THEN
+          GCalcAmt# = Round(GCalcAmt# + TransHRec(1).GrossPay)
+        'END IF
+        UsingThisOne = True
+      CASE ELSE
+      END SELECT
+      IF TransHRec(1).PrevTransRec <= 0 THEN
+        IF UsingThisOne THEN
+          EPct# = LPct#
+          GOSUB PrintThisOne
+        END IF
+        EXIT DO
+      ELSE
+        TransRecNum& = CLNG(TransHRec(1).PrevTransRec)
+      END IF
+    LOOP
+LSkipEm:
+    ShowPctComp RecNo, LCnt
+  NEXT
+  GOSUB PrintSubTotals
+  
+  FirstTime = True
+  EmpRType$ = "G"
+
+  FOR RecNo = 1 TO GCnt
+    UsingThisOne = False
+    VCalcAmt# = 0
+    LCalcAmt# = 0
+    GCalcAmt# = 0
+    FGetRTA DHandle, Emp2Rec(1), CLNG(EmpGBuff(RecNo).RecNo), EmpRecSize
+    'IF Emp2Rec(1).EMPTDATE > 0 THEN
+    '  IF LowDate > Emp2Rec(1).EMPTDATE THEN
+    '    GOTO GSkipEm
+    '  END IF
+    'END IF
+    IF Emp2Rec(1).LastTransRec <= 0 THEN
+      GOTO GSkipEm
+    END IF
+    TransRecNum& = CLNG(Emp2Rec(1).LastTransRec)
+    DO
+      FGetRTA THandle, TransHRec(1), TransRecNum&, TRecSize
+      SELECT CASE TransHRec(1).CheckDate
+      CASE LowDate TO HighDate
+        IF VCodeNum > 0 THEN
+          IF TransHRec(1).DAmt(VCodeNum) <> 0 THEN
+            VCalcAmt# = Round(VCalcAmt# + TransHRec(1).DAmt(VCodeNum))
+            UsingThisOne = True
+          END IF
+        END IF
+        IF LCodeNum > 0 THEN
+          IF TransHRec(1).DAmt(LCodeNum) > 0 THEN
+            LCalcAmt# = Round(LCalcAmt# + TransHRec(1).DAmt(LCodeNum))
+            UsingThisOne = True
+          END IF
+        END IF
+        'IF TransHRec(1).Less401K = 0 THEN
+          GCalcAmt# = Round(GCalcAmt# + TransHRec(1).GrossPay)
+        'END IF
+        UsingThisOne = True
+      CASE ELSE
+      END SELECT
+      IF TransHRec(1).PrevTransRec <= 0 THEN
+        IF UsingThisOne THEN
+          EPct# = GPct#
+          GOSUB PrintThisOne
+        END IF
+        EXIT DO
+      ELSE
+        TransRecNum& = CLNG(TransHRec(1).PrevTransRec)
+      END IF
+    LOOP
+GSkipEm:
+    ShowPctComp RecNo, GCnt
+  NEXT
+
+  GOSUB PrintSubTotals
+  GOSUB PrintGrandTots
+
+  FClose DHandle
+  FClose THandle
+  PRINT #1, PrnDef$(1);
+  CLOSE
+  
+  ERASE TransHRec, Emp2Rec, K401Rec, DedCodes
+  ERASE TempScrn, Text$, Unit, EmpLBuff, EmpGBuff
+  ERASE Form$, Fld, Frm
+  
+  PrintRptFile RptTitle$, RptName$, 1, RetCode, 0
+
+EXIT SUB
+  
+PrintThisOne:
+  IF EPct# > 0 OR VCalcAmt# > 0 OR LCalcAmt# > 0 THEN
+    TMatchAmt# = Round((GCalcAmt# * EPct#) * .01)
+    IF EmpRType$ = "G" AND VCalcAmt# = 0 THEN
+      IF LCalcAmt# = 0 THEN
+        GOTO SkipEMBubba
+      ELSE
+        TMatchAmt# = 0
+      END IF
+    ELSEIF EmpRType$ = "G" THEN
+      IF TMatchAmt# > VCalcAmt# THEN
+        TMatchAmt# = VCalcAmt#
+      END IF
+    END IF
+
+    TotalMatchAmt# = Round(TotalMatchAmt# + TMatchAmt#)
+    TotalVAmt# = Round(TotalVAmt# + VCalcAmt#)
+    TotalLAmt# = Round(TotalLAmt# + LCalcAmt#)
+    EPrinted = EPrinted + 1
+    REDIM K401Rec(1 TO 2)       AS K401RptType
+    K401Rec(1).EmpName = LTRIM$(RTRIM$(Emp2Rec(1).EMPFNAME)) + " " + LTRIM$(RTRIM$(Emp2Rec(1).EMPLNAME))
+    K401Rec(1).SSN = LEFT$(Emp2Rec(1).EMPSSN, 3) + "-" + MID$(Emp2Rec(1).EMPSSN, 4, 2) + "-" + MID$(Emp2Rec(1).EMPSSN, 6, 4)
+
+    RSET K401Rec(1).VAmt = LTRIM$(RTRIM$(FUsing(STR$(VCalcAmt#), Image1$)))
+    IF VCalcAmt# = 0 THEN
+      RSET K401Rec(1).VAmt = ".00"
+    END IF
+
+    RSET K401Rec(1).LAmt = LTRIM$(RTRIM$(FUsing(STR$(LCalcAmt#), Image1$)))
+    IF LCalcAmt# = 0 THEN
+      RSET K401Rec(1).LAmt = ".00"
+    END IF
+
+    RSET K401Rec(1).MAmt = LTRIM$(RTRIM$(FUsing(STR$(TMatchAmt#), Image1$)))
+    IF TMatchAmt# = 0 THEN
+      RSET K401Rec(1).MAmt = ".00"
+    END IF
+
+    RSET K401Rec(1).Batch = QPTrim$(Unit(1).BBTBATCH)
+    TempDate$ = Num2Date(HighDate)
+    K401Rec(1).HDate = LEFT$(TempDate$, 6) + RIGHT$(TempDate$, 2)
+    IF LEFT$(QPTrim$(Emp2Rec(1).EmpNo), 4) <> CurrEmpNo$ THEN
+      IF NOT FirstTime THEN
+        GOSUB PrintSubTotals
+        SubTotalMatchAmt# = Round(TMatchAmt#)
+        SubTotalVAmt# = Round(VCalcAmt#)
+        SubTotalLAmt# = Round(LCalcAmt#)
+      ELSE
+        SubTotalMatchAmt# = Round(TMatchAmt#)
+        SubTotalVAmt# = Round(VCalcAmt#)
+        SubTotalLAmt# = Round(LCalcAmt#)
+        SELECT CASE EmpRType$
+        CASE "L"
+          PRINT #1,
+          PRINT #1, "Law Enforcement";
+        CASE "G"
+          PRINT #1,
+          PRINT #1, "General";
+        END SELECT
+        FirstTime = False
+      END IF
+      CurrEmpNo$ = LEFT$(QPTrim$(Emp2Rec(1).EmpNo), 4)
+      PRINT #1, ""
+      PRINT #1, "  "; CurrEmpNo$
+    ELSE
+      SubTotalMatchAmt# = Round(SubTotalMatchAmt# + TMatchAmt#)
+      SubTotalVAmt# = Round(SubTotalVAmt# + VCalcAmt#)
+      SubTotalLAmt# = Round(SubTotalLAmt# + LCalcAmt#)
+    END IF
+    PRINT #1, K401Rec(1).EmpName; K401Rec(1).SSN; "   "; K401Rec(1).VAmt; " "; K401Rec(1).LAmt;
+    PRINT #1, "  "; K401Rec(1).MAmt; "    "; K401Rec(1).HDate
+  END IF
+  
+SkipEMBubba:
+RETURN
+  
+K401Header:
+  TempDate$ = DATE$
+  TempDate$ = LEFT$(TempDate$, 6) + RIGHT$(TempDate$, 2)
+  PRINT #1, SPACE$(48 - (Text1Len \ 2)); Text$(1); TAB(81); "Date: "; TempDate$
+  PRINT #1, SPACE$(48 - (Text2Len \ 2)); Text$(2); TAB(81); "Page: 1 "
+  PRINT #1, SPACE$(48 - (Text3Len \ 2)); Text$(3)
+  PRINT #1, SPACE$(48 - (Text4Len \ 2)); Text$(4)
+  PRINT #1,
+  PRINT #1, "                                                 Pre-Tax    Post-Tax     Employer"
+  PRINT #1, "Employee Name                       SS#          Vol Cont   Loan Pmts    Contrib'n      Date"
+RETURN
+  
+PrintGrandTots:
+  Totals$ = SPACE$(95)
+  RSET K401Rec(1).VAmt = LTRIM$(RTRIM$(FUsing(STR$(TotalVAmt#), Image2$)))
+  RSET K401Rec(1).LAmt = LTRIM$(RTRIM$(FUsing(STR$(TotalLAmt#), Image2$)))
+  RSET K401Rec(1).MAmt = LTRIM$(RTRIM$(FUsing(STR$(TotalMatchAmt#), Image2$)))
+  IF TotalVAmt# = 0 THEN
+    RSET K401Rec(1).VAmt = ".00"
+  END IF
+  IF TotalLAmt# = 0 THEN
+    RSET K401Rec(1).LAmt = ".00"
+  END IF
+  IF TotalMatchAmt# = 0 THEN
+    RSET K401Rec(1).MAmt = ".00"
+  END IF
+  LSET Totals$ = "Totals"
+  MID$(Totals$, 37) = STR$(EPrinted)
+  MID$(Totals$, 47) = K401Rec(1).VAmt
+  MID$(Totals$, 59) = K401Rec(1).LAmt
+  MID$(Totals$, 72) = K401Rec(1).MAmt
+  MID$(Totals$, 87) = LTRIM$(RTRIM$(FUsing(STR$(Round#(TotalVAmt# + TotalLAmt# + TotalMatchAmt#)), Image2$)))
+  
+  PRINT #1,
+  PRINT #1, Totals$
+  PRINT #1, FF$
+RETURN
+  
+PrintSubTotals:
+  Totals$ = SPACE$(95)
+  RSET K401Rec(2).VAmt = LTRIM$(RTRIM$(FUsing(STR$(SubTotalVAmt#), Image1$)))
+  RSET K401Rec(2).LAmt = LTRIM$(RTRIM$(FUsing(STR$(SubTotalLAmt#), Image1$)))
+  RSET K401Rec(2).MAmt = LTRIM$(RTRIM$(FUsing(STR$(SubTotalMatchAmt#), Image2$)))
+  IF SubTotalVAmt# = 0 THEN
+    RSET K401Rec(2).VAmt = ".00"
+  END IF
+  IF SubTotalLAmt# = 0 THEN
+    RSET K401Rec(2).LAmt = ".00"
+  END IF
+  IF SubTotalMatchAmt# = 0 THEN
+    RSET K401Rec(2).MAmt = ".00"
+  END IF
+  LSET Totals$ = "SubTotals"
+  MID$(Totals$, 47) = K401Rec(2).VAmt
+  MID$(Totals$, 59) = K401Rec(2).LAmt
+  MID$(Totals$, 72) = K401Rec(2).MAmt
+  MID$(Totals$, 87) = LTRIM$(RTRIM$(FUsing(STR$(Round#(SubTotalVAmt# + SubTotalLAmt# + SubTotalMatchAmt#)), Image2$)))
+  PRINT #1, Totals$
+RETURN
+
+END SUB
+
+SUB YTDFundReport
+
+  ExitFlag = False
+  FirstTime = True
+  OKFlag = False
+
+  REDIM Frm(1) AS FormInfo
+
+  FormName$ = "YTDFUND"
+  NumFlds = LibNumberOfFields(MiscQLib, FormName$)
+  REDIM Form$(NumFlds, 2)       'DIM the form data array
+  REDIM Fld(NumFlds) AS FieldInfo               'DIM the field information array
+  StartEl = 0   'Load first form at array start
+  LibGetFldDef MiscQLib, FormName$, StartEl, Fld(), Form$(), ErrCode
+  
+  '----- Set the "Action" flag to force the editor to initialize itself and
+  '      display the data on the form.
+  Action = 1
+  '----- Setup TYPE for setting and reading form editing information.
+  Frm(1).FldNo = 1              'Start editing on field #1
+  Frm(1).InsStat = False        'Set insert state (True = Insert on)
+  Frm(1).StartEl = 0            'Set form starting element to 0 and
+  
+  BlockClear
+  DisplayMiscScrn FormName$
+
+  DO
+    EditForm Form$(), Fld(), Frm(1), Cnf, Action
+    IF FirstTime THEN
+      FirstTime = False
+      Form$(1, 0) = RIGHT$(DATE$, 4)
+      'lset Form$(1, 0) =
+      Action = 2
+    END IF
+
+    SELECT CASE Frm(1).KeyCode
+    CASE F0Key
+      Year$ = Form$(1, 0)
+      LowDate = Date2Num("01-01-" + Year$)
+      HiDate = Date2Num("12-31-" + Year$)
+      OKFlag = True
+    CASE EscKey
+      ExitFlag = True
+    END SELECT
+
+  LOOP UNTIL OKFlag OR ExitFlag          'proper key not set
+
+  CursorOff
+
+  ERASE Form$, Fld, Frm
+
+  IF ExitFlag THEN EXIT SUB
+
+  RptName$ = "PRRPTS\YTDWAGE.RPT"
+  RptTitle$ = "YTD Wage Distribution Report."
+
+  REDIM THRec(1)          AS TransRecType
+  REDIM Unit(1)           AS UnitFileRecType
+  REDIM Pg(1)             AS STRING * 3
+  REDIM Dash(1)           AS STRING * 80
+  REDIM FundYTD(1 TO 1)   AS YTDFundRptType
+  REDIM ToDisk(1)         AS STRING * 78
+  REDIM SysRec(1)         AS RegDSysFileRecType
+  
+  FGetAH SysFileName, SysRec(1), LEN(SysRec(1)), 1
+  FGetAH UnitFileName, Unit(1), LEN(Unit(1)), 1
+
+  'FundNumLen = 5
+
+  FundNumLen = SysRec(1).AcctCnt
+  FundYTDLen = LEN(FundYTD(1))
+  FundCnt = 0
+  FirstFund = True
+
+  MaxLines = 59
+
+  Dash(1) = STRING$(80, "-")
+  Image1$ = "#####.##"
+  Image2$ = "######.##"
+  Image3$ = "#######.##"
+
+  TRecSize = LEN(THRec(1))
+  NumOfRecs& = FileSize(TransHistFileName) \ TRecSize
+  REDIM FundList(1 TO NumOfRecs&) AS LONG
+  
+  FCreate RptName$
+  FOpenS RptName$, RHandle
+  RPTSetupPRN 9, RHandle
+  FOpenS TransHistFileName, THandle
+
+  TCol = 40 - (LEN(RptTitle$) \ 2) + 5
+  PctRow = 11
+  ShowProcessingScrn RptTitle$
+
+  QPrintRC "Scanning Transactions", PctRow, TCol, 112
+
+  FOR Cnt = 1 TO NumOfRecs&
+    FGetRTA THandle, THRec(1), CLNG(Cnt), TRecSize
+    IF (THRec(1).CheckDate >= LowDate) AND (THRec(1).CheckDate <= HiDate) THEN
+      FOR Cnt2 = 1 TO 8           'eight possiable distributions
+        TAcct$ = THRec(1).TDist(Cnt2).DAcct
+        DO
+          DashPos = INSTR(TAcct$, "-")
+          IF DashPos THEN
+            TAcct$ = LEFT$(TAcct$, DashPos - 1) + MID$(TAcct$, DashPos + 1)
+          END IF
+        LOOP WHILE DashPos
+        IF LEN(QPTrim$(TAcct$)) > 0 THEN
+          TFundNum& = QPValL(LEFT$(TAcct$, FundNumLen))
+          GOSUB Parse2Fund
+        END IF
+      NEXT
+    END IF
+    ShowPctComp Cnt, NumOfRecs&
+  NEXT
+
+  FClose THandle
+
+  SortT FundYTD(1), FundCnt, 0, FundYTDLen, 0, -2
+  'sort by fund number
+  QPrintRC "  Summarizing Funds  ", PctRow, TCol, 112
+  GOSUB PrintRptHeader
+
+  FOR Cnt = 1 TO FundCnt
+    GOSUB PrintFundInfo
+    ShowPctComp Cnt, FundCnt
+  NEXT
+  FPut RHandle, FF$
+  TotalsFlag = True
+  GOSUB PrintRptHeader
+
+  FOR Cnt = 1 TO FundCnt
+    
+    RegTot# = 0
+    OTTot# = 0
+    RegWageTot# = 0
+    OTWageTot# = 0
+
+    FOR MonthCnt = 1 TO 12
+      RegTot# = Round(RegTot# + FundYTD(Cnt).Mths(MonthCnt).RegHrs)
+      RegWageTot# = Round(RegWageTot# + FundYTD(Cnt).Mths(MonthCnt).RegWage)
+      OTTot# = Round(OTTot# + FundYTD(Cnt).Mths(MonthCnt).OTHrs)
+      OTWageTot# = Round(OTWageTot# + FundYTD(Cnt).Mths(MonthCnt).OTWage)
+    NEXT
+    LSET ToDisk(1) = "  " + QPStrL(FundYTD(Cnt).FundNum)
+    MID$(ToDisk(1), 19) = FUsing(STR$(RegTot#), Image2$)
+    MID$(ToDisk(1), 34) = FUsing(STR$(OTTot#), Image2$)
+    MID$(ToDisk(1), 48) = FUsing(STR$(RegWageTot#), Image3$)
+    MID$(ToDisk(1), 63) = FUsing(STR$(OTWageTot#), Image3$)
+
+    FPut RHandle, ToDisk(1) + CrLf$
+    LineCnt = LineCnt + 1
+    IF LineCnt > MaxLines THEN
+      FPut RHandle, FF$
+      GOSUB PrintRptHeader
+    END IF
+  NEXT
+  FPut RHandle, FF$
+  RPTSetupPRN 0, RHandle
+  FClose RHandle
+  
+  ERASE THRec, Unit, Pg, Dash, FundYTD, FundList
+
+  PrintRptFile RptTitle$, RptName$, 1, RetCode, 0
+
+EXIT SUB
+
+
+Parse2Fund:
+
+  FundPointer = 0
+  NewFund = True     'assume this is a new fund
+
+  IF FirstFund THEN       'if this is the first fund processed
+    FirstFund = False     'skip search for fund part
+  ELSE
+    FOR FCnt = 1 TO FundCnt              'look through the fund list and see
+      IF FundList(FCnt) = TFundNum& THEN 'if this fund is already in the list
+        FundPointer = FCnt               'it is point to this fund in array
+        NewFund = False                  'Not a new fund
+        EXIT FOR                         '
+      END IF
+    NEXT
+  END IF
+
+  IF NewFund THEN                    'if this fund wasn't found in the list
+    FundCnt = FundCnt + 1            'total funds count
+    FundPointer = FundCnt            'set the array pointer to the new entry
+    REDIM PRESERVE FundYTD(1 TO FundCnt)  AS YTDFundRptType
+                                     'resize the YTD Fund array
+    FundList(FundCnt) = TFundNum&    'add this fund to the fund list
+    FundYTD(FundCnt).FundNum = TFundNum& 'set the new fund into the array
+  END IF
+
+  MonthNum = QPValI(LEFT$(Num2Date(THRec(1).CheckDate), 2))
+  'get the month of this transaction
+
+  FundYTD(FundPointer).Mths(MonthNum).RegHrs = Round(FundYTD(FundPointer).Mths(MonthNum).RegHrs + THRec(1).TDist(Cnt2).DRHrs)
+  FundYTD(FundPointer).Mths(MonthNum).OTHrs = Round(FundYTD(FundPointer).Mths(MonthNum).OTHrs + THRec(1).TDist(Cnt2).DOHrs)
+  FundYTD(FundPointer).Mths(MonthNum).RegWage = Round(FundYTD(FundPointer).Mths(MonthNum).RegWage + THRec(1).TDist(Cnt2).DRWage)
+  FundYTD(FundPointer).Mths(MonthNum).OTWage = Round(FundYTD(FundPointer).Mths(MonthNum).OTWage + THRec(1).TDist(Cnt2).DOWage)
+  'set trans data into the YTD Fund Array for the month
+
+'  FundYTD(FundPointer).Mths(MonthNum).VACHRS  =Round(FundYTD(FCnt).Mths(MonthNum).VACHRS  +
+'  FundYTD(FundPointer).Mths(MonthNum).SICKHRS =Round(FundYTD(FCnt).Mths(MonthNum).SICKHRS +
+'  FundYTD(FundPointer).Mths(MonthNum).HOLHRS  =Round(FundYTD(FCnt).Mths(MonthNum).HOLHRS  +
+'  FundYTD(FundPointer).Mths(MonthNum).CTHrs   =Round(FundYTD(FCnt).Mths(MonthNum).CTHrs   +
+'  FundYTD(FundPointer).Mths(MonthNum).CWHrs   =Round(FundYTD(FCnt).Mths(MonthNum).CWHrs   +
+          
+
+RETURN
+
+
+PrintRptHeader:
+  Page = Page + 1
+  RSET Pg(1) = STR$(Page)
+  UTemp$ = SPACE$(71)
+  LSET UTemp$ = Unit(1).UFEMPR
+  MID$(UTemp$, 62) = "Page:" + Pg(1) + CrLf$
+  FPut RHandle, UTemp$
+  FPut RHandle, "YTD Wage Distribution Report for Year: 19" + Year$ + CrLf$
+  FPut RHandle, "Report Date: " + DATE$ + CrLf$ + CrLf$
+  IF TotalsFlag THEN
+    FPut RHandle, "Totals" + CrLf$
+    FPut RHandle, "Fund No.            Reg Hrs         OT Hrs      Reg Wages       OT Wages" + CrLf$
+    LineCnt = 6
+  ELSE
+    FPut RHandle, "Fund No." + CrLf$
+    FPut RHandle, "Month               Reg Hrs         OT Hrs      Reg Wages       OT Wages" + CrLf$
+  END IF
+  FPut RHandle, Dash(1) + CrLf$
+RETURN
+
+PrintFundInfo:
+
+    NumPrinted = NumPrinted + 1
+    IF NumPrinted = 4 THEN
+      NumPrinted = 1
+      FPut RHandle, FF$
+      GOSUB PrintRptHeader
+    END IF
+    FPut RHandle, "Fund: " + QPStrL(FundYTD(Cnt).FundNum) + CrLf$
+'    RegTot# = 0
+'    OTTot# = 0
+    FOR MonthCnt = 1 TO 12
+ '     RegTot# = Round(RegTot# + FundYTD(Cnt).Mths(MonthCnt).RegHrs)
+ '     OTTot# = Round(OTTot# + FundYTD(Cnt).Mths(MonthCnt).OTHrs)
+
+      LSET ToDisk(1) = "  " + MID$("JanFebMarAprMayJunJulAugSepOctNovDec", (((MonthCnt - 1) * 3)) + 1, 3)
+      MID$(ToDisk(1), 20) = FUsing(STR$(FundYTD(Cnt).Mths(MonthCnt).RegHrs), Image1$)
+      MID$(ToDisk(1), 35) = FUsing(STR$(FundYTD(Cnt).Mths(MonthCnt).OTHrs), Image1$)
+      MID$(ToDisk(1), 49) = FUsing(STR$(FundYTD(Cnt).Mths(MonthCnt).RegWage), Image2$)
+      MID$(ToDisk(1), 64) = FUsing(STR$(FundYTD(Cnt).Mths(MonthCnt).OTWage), Image2$)
+
+      FPut RHandle, QPRTrim$(ToDisk(1)) + CrLf$
+    NEXT
+    FPut RHandle, CrLf$
+  '  LSET ToDisk(1) = "Totals:"
+  '  MID$(ToDisk(1), 19) = FUsing(STR$(RegTot#), "######.##")
+  '  MID$(ToDisk(1), 39) = FUsing(STR$(OTTot#), "######.##")
+  '  FPut RHandle, ToDisk(1) + CrLf$
+  '  FPut RHandle, CrLf$
+
+RETURN
+
+
+END SUB
+

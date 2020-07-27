@@ -1,0 +1,30 @@
+UBTRJOU.FieldInfo:
+DATA  7 , 27 , 15 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 9 , 36 , 45 , 2 , 6 ,"", 0 , 0 ,"BEGDATE", 0 , 0 , 0 , 0 ,-364 , 31368 ,""
+DATA  3 , 10 , 36 , 45 , 2 , 6 ,"", 0 , 0 ,"ENDDATE", 0 , 0 , 0 , 0 , 3654 , 31368 ,""
+DATA  5 , 11 , 36 , 55 , 20 , 22 ,"", 0 , 0 ,"TRTYPE", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  25 , 12 , 36 , 37 , 2 , 3 ,"", 0 , 0 ,"OPERATOR", 0 , 0 , 0 , 0 , 0 , 99 ,""
+DATA  27 , 13 , 36 , 36 , 1 , 14 ,"N Y", 0 , 0 ,"DETAIL", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  28 , 16 , 35 , 46 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  28 , 16 , 49 , 62 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+UBTRJOU.Help:
+DATA ""
+DATA "Enter the Beginning Transaction Date to Include on This Report. "
+DATA "Enter the Ending Transaction Date to Include on this Report. "
+DATA "Select From the List the Type of Transaction to Report On. "
+DATA "Enter the Operator Number to Select. Zero for All Operators. "
+DATA "This Field Signals the Transaction Reporting System to Show Detail of Transactions According to the Type of Transactions. For Example: Utility Bills will show the consumption detail."
+DATA ""
+DATA ""
+
+UBTRJOU.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

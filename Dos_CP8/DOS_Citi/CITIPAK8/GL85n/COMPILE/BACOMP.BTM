@@ -1,0 +1,58 @@
+cls
+setlocal
+set include=f:\citipak8\gl85n\bi's
+
+del *.obj
+del *.exe
+
+ren glrpt.bas glrpt.src
+ren glrpt2.bas glrpt2.src
+ren glrptrd.bas glrptrd.src
+ren ncpfprnt.bas ncpfprnt.src
+ren glcopyrg.bas glcopyrg.src
+
+for %%1 in (*.bas) do (echo %%1^bc %%1 /lr/o/ot/ah/g2;)
+
+ren glcopyrg.src glcopyrg.bas
+ren ncpfprnt.src ncpfprnt.bas
+ren glrpt.src glrpt.bas
+ren glrptrd.src glrptrd.bas
+ren glrpt2.src glrpt2.bas
+
+bc glcopyrg /lr/o/ot/g2/e/v;
+bc glrpt /lr/ah/o/ot/g2/e;
+bc glrpt2 /lr/ah/o/ot/g2/e;
+bc glrptrd /lr/ah/o/ot/g2/e;
+bc glCLOSE /lr/ah/o/ot/g2/x;
+bc ncpfprnt /lr/o/ot/g2/x;
+
+rem LINK @CPMENU.RSP
+LINK @GLMENU.RSP
+LINK @BGTEDIT.RSP
+LINK @BGTPREP.RSP
+LINK @GLGJED.RSP
+LINK @GLMAINT.RSP
+LINK @GLSYS.RSP
+LINK @GLFUND.RSP
+LINK @GLACCT.RSP
+LINK @GLDEPT.RSP
+LINK @GLBANK.RSP
+LINK @GLRPT.RSP
+rem LINK @GLRPTRD.RSP
+LINK @GLCOPYRG.RSP
+LINK @GLCLOSE.RSP
+LINK @GLUTIL.RSP
+rem Pause
+LINK @GLGETTR.RSP
+rem Pause
+LINK @APMENU.RSP
+LINK @APV.RSP
+LINK @APPO.RSP
+LINK @APINV.RSP
+LINK @APCHECK.RSP
+LINK @APRPT1.RSP
+rem LINK @APRPTRD.RSP
+Link @APLINK.RSP
+Link @AP1099.rsp
+rem Link @CPRDMENU.rsp
+endlocal

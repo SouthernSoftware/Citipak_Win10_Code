@@ -1,0 +1,21 @@
+BKCONRTP.FieldInfo:
+DATA  4 , 42 , 15 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 8 , 40 , 49 , 2 , 6 ,"", 0 , 0 ,"STARTDAT", 0 , 0 , 0 , 0 ,-29219 , 31368 ,""
+DATA  3 , 10 , 40 , 49 , 2 , 6 ,"", 0 , 0 ,"ENDDATE", 0 , 0 , 0 , 0 ,-29219 , 31368 ,""
+DATA  5 , 12 , 40 , 62 , 23 , 22 ,"", 0 , 0 ,"RATECODE", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  28 , 14 , 40 , 54 , 15 , 22 ,"", 0 , 0 ,"REVTYPE", 0 , 0 , 0 , 0 , 0 , 0 ,""
+
+BKCONRTP.Help:
+DATA ""
+DATA ""
+DATA ""
+DATA "Enter the Rate Code you want for Analysis, or Enter 'ALL' to do all Rate Codes. "
+DATA "Select the Type of Revenue that this rate code is used for. "
+
+BKCONRTP.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

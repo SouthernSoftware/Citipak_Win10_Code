@@ -1,0 +1,36 @@
+CHKINF1.FieldInfo:
+DATA  9 , 19 , 48 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 7 , 12 , 12 , 1 , 1 ,"", 0 , 0 ,"FILLFLD", 0 , 0 ,-1 , 0 , 0 , 0 ,""
+DATA  2 , 8 , 41 , 42 , 2 , 22 ,"", 0 , 0 ,"BANKCODE", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  4 , 10 , 41 , 48 , 8 , 16 ,"", 0 , 0 ,"CHKNUM", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  12 , 12 , 41 , 50 , 2 , 6 ,"", 0 , 0 ,"CHKDATE", 0 , 0 , 0 , 0 , 1 , 31368 ,""
+DATA  14 , 14 , 41 , 41 , 1 , 14 ,"N Y", 0 , 0 ,"SHOWDIST", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  15 , 16 , 41 , 45 , 5 , 22 ,"", 0 , 0 ,"PRNPORT", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  20 , 19 , 20 , 32 , 0 , 24 ,"", 0 , 0 ,"BUTTON1", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  20 , 19 , 35 , 50 , 0 , 24 ,"", 0 , 0 ,"BUTTON2", 0 , 0 , 0 ,-63 , 0 , 0 ,""
+DATA  20 , 19 , 52 , 65 , 0 , 24 ,"", 0 , 0 ,"BUTTON4", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+CHKINF1.Help:
+DATA ""
+DATA ""
+DATA "Enter the Bank Code of the checking account that you will be printing these checks from.  You may press <Enter> to select the Code from a list."
+DATA "Enter the number of the first check that will be printed on.ÿÿÿ The system will count the alignment tests that you do and will adjust the 1st printed check number accordingly."
+DATA "Enter the date you wish to appear on the checks. "
+DATA "Select 'Y' to print the accounting distributions on the check stub.  Applies only to Southern Software Standard Check Format only!!!"
+DATA "Enter the printer port to print check to. (1 or 2) "
+DATA " Press this to PRINT your Checks. "
+DATA " Press this to PRINT a Check alignment test. "
+DATA " Press this to Cancel Printing Checks. "
+
+CHKINF1.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

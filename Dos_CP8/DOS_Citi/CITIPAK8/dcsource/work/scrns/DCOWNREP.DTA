@@ -1,0 +1,24 @@
+DCOWNREP.FieldInfo:
+DATA  5 , 24 , 0 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 10 , 36 , 45 , 10 , 22 ,"", 0 , 0 ,"ORDER", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  11 , 12 , 36 , 39 , 4 , 2 ,"", 0 , 0 ,"TAXYR", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  15 , 14 , 36 , 45 , 10 , 22 ,"", 0 , 0 ,"WHERE", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  25 , 17 , 34 , 44 , 0 , 24 ,"", 0 , 0 ,"F10K", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  25 , 17 , 46 , 57 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+DCOWNREP.Help:
+DATA ""
+DATA "Choose the Order in Which to Print This Report. "
+DATA "Enter the Tax Year for Report Heading Description Only! "
+DATA "Choose Where to Send This Report. "
+DATA "Press the F10 Key to Process Your Report. "
+DATA "Press the ESC Key to Cancel Your Request. "
+
+DCOWNREP.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

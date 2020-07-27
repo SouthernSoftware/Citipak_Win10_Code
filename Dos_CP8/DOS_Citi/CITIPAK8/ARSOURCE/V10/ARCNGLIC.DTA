@@ -1,0 +1,18 @@
+ARCNGLIC.FieldInfo:
+DATA  3 , 2 , 3 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 14 , 46 , 55 , 2 , 6 ,"", 0 , 0 ,"EXPDATE", 0 , 0 , 0 , 0 , 5480 , 31368 ,""
+DATA  3 , 17 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  3 , 17 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+ARCNGLIC.Help:
+DATA ""
+DATA "ENTER THE DATE OF EXPIRATION CURRENTLY ON FILE FOR EACH CUSTOMER FOR WHOM YOU WISH TO CHANGE THE PRINT LICENSE FLAG TO 'YES'."
+DATA "PRESS THE <F10> KEY TO PROCESS THIS REQUEST. "
+DATA "PRESS THE <ESC> KEY TO CANCEL THIS PROCESS. "
+
+ARCNGLIC.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

@@ -1,0 +1,21 @@
+UBARREP.FieldInfo:
+DATA  4 , 4 , 10 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 13 , 50 , 59 , 2 , 6 ,"", 0 , 0 ,"BEGDATE", 0 , 0 , 0 , 0 , 5480 , 31368 ,""
+DATA  3 , 14 , 50 , 59 , 2 , 6 ,"", 0 , 0 ,"ENDDATE", 0 , 0 , 0 , 0 , 5480 , 31368 ,""
+DATA  5 , 16 , 35 , 46 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  5 , 16 , 49 , 62 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+UBARREP.Help:
+DATA ""
+DATA "Enter the Period Start Date.  This Date will be the beginning date to which a balance forward amount will be calculated. "
+DATA "Enter the Ending Date to Which the A/R Balance will be calculated thru.  The activity will be shown between these dates."
+DATA ""
+DATA ""
+
+UBARREP.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

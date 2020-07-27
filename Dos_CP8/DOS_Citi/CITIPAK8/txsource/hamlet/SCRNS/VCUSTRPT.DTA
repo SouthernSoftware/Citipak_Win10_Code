@@ -1,0 +1,27 @@
+VCUSTRPT.FieldInfo:
+DATA  6 , 38 , 11 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 10 , 36 , 55 , 20 , 22 ,"", 0 , 0 ,"REPORDER", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  21 , 12 , 36 , 36 , 1 , 14 ,"P R", 0 , 0 ,"CTYPE", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  22 , 14 , 36 , 42 , 7 , 22 ,"", 0 , 0 ,"DETAIL", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  29 , 16 , 36 , 45 , 10 , 22 ,"", 0 , 0 ,"OUTPUTTO", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  39 , 19 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  39 , 19 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+VCUSTRPT.Help:
+DATA ""
+DATA "Choose the Order to Print the Report. "
+DATA "Real or Personal Customer Type. "
+DATA ""
+DATA "Select the Output Device. "
+DATA "Press the <F10> Key to Process Your Report. "
+DATA "Press the <ESC> Key to Cancel Your Input. "
+
+VCUSTRPT.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

@@ -1,0 +1,36 @@
+CHKINF2.FieldInfo:
+DATA  9 , 26 , 49 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 7 , 41 , 42 , 2 , 3 ,"", 0 , 0 ,"BANKCODE", 0 , 0 , 0 , 0 , 0 , 99 ,""
+DATA  3 , 9 , 41 , 48 , 8 , 16 ,"", 0 , 0 ,"CHKNUM", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  11 , 11 , 41 , 48 , 8 , 16 ,"", 0 , 0 ,"NEWSTART", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  19 , 13 , 41 , 50 , 2 , 6 ,"", 0 , 0 ,"CHKDATE", 0 , 0 , 0 , 0 , 1 , 31368 ,""
+DATA  21 , 15 , 41 , 41 , 1 , 14 ,"N Y", 0 , 0 ,"SHOWDIST", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  22 , 17 , 41 , 45 , 5 , 22 ,"", 0 , 0 ,"PRNPORT", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  27 , 20 , 20 , 32 , 0 , 24 ,"", 0 , 0 ,"BUTTON1", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  27 , 20 , 35 , 50 , 0 , 24 ,"", 0 , 0 ,"BUTTON2", 0 , 0 , 0 ,-63 , 0 , 0 ,""
+DATA  27 , 20 , 52 , 65 , 0 , 24 ,"", 0 , 0 ,"BUTTON4", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+CHKINF2.Help:
+DATA ""
+DATA "Enter the Bank Code "
+DATA "Enter the number of the first check that will be printed on.ÿÿÿ The system will count the alignment tests that you do and will adjust the 1st printed check number accordingly."
+DATA "Enter the NEW Starting check number. "
+DATA "Enter the date you wish to appear on the checks. "
+DATA "Enter 'Y' to print the accounting distributions on the check stub if using our Standard Check Format. "
+DATA "Enter the printer port to print check to. (1 or 2) "
+DATA " Press this to PRINT your Checks. "
+DATA " Press this to PRINT a Check alignment test. "
+DATA " Press this to Cancel Printing Checks. "
+
+CHKINF2.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

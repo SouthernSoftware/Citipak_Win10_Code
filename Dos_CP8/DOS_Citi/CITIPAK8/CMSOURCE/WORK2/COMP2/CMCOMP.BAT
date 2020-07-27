@@ -1,0 +1,10 @@
+CALL c:\SETQBX
+for %%1 in (*.bas) do bc %%1 /o/ot/ah/g2/x;
+
+bc NCPFPRNT /o/ot/g2/X;
+bc comnaux /o/ot/g2/ah;
+bc ubopendr/o/ot/g2/x;
+
+LINK @CMMENU.RSP
+link @cmsendgl.rsp
+del *.obj

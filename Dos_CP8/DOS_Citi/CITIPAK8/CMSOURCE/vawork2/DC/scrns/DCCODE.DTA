@@ -1,0 +1,33 @@
+DCCODE.FieldInfo:
+DATA  8 , 67 , 8 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 9 , 38 , 42 , 5 , 2 ,"", 0 , 0 ,"CATCODE", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  6 , 10 , 38 , 67 , 30 , 2 ,"", 0 , 0 ,"VEHDESC", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  36 , 11 , 38 , 51 , 14 , 2 ,"", 0 , 0 ,"REVCR", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  50 , 12 , 38 , 51 , 14 , 2 ,"", 0 , 0 ,"CASHDR", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  64 , 14 , 38 , 47 , 4 , 4 ,"", 0 , 0 ,"STDFEE", 2 , 0 , 0 , 0 ,-3.402823D+38 , 3.402823D+38 ,""
+DATA  68 , 17 , 38 , 49 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  68 , 17 , 52 , 65 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+DATA  68 , 17 , 15 , 35 , 0 , 24 ,"", 0 , 0 ,"F7KEY", 0 , 0 , 0 ,-65 , 0 , 0 ,""
+
+DCCODE.Help:
+DATA ""
+DATA "Enter the Code to Use to Identify this Vehicle Decal Catagory. "
+DATA "Enter the Description of this catagory (ex. Passenger Cars). "
+DATA "Enter the G/L Revenue Account Number to Credit when payment is received for a decal of this type. "
+DATA "Enter the Cash Account that is debited when money is received. "
+DATA "Enter the Standard Fee to Charge for This Type of Decal. "
+DATA "Press the F10 Key to Save Your Entry. "
+DATA "Press the ESC Key to Cancel Your Input. "
+DATA "Press the F7 Key to Print the Catagory Listing. "
+
+DCCODE.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

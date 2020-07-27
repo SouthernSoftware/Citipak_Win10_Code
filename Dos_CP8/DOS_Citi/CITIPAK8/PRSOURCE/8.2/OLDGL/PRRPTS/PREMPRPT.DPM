@@ -1,0 +1,57 @@
+                  C O N F I D E N T I A L   D A T A   F I L E
+
+  Employee Information
+       Number 1                       Soc Sec No 2
+    Last Name 3                       First Name 4
+      Address 5
+      Address 6
+         City 7                            State 8       Zip 9
+    Birthdate 10                          Gender 11     Race 12
+   Ret Number 13                        Ret Type 14
+   DD Acct No 15
+  
+  Job Description
+        Title 16                                     W/C Code 17
+       Status 18         Benefit Pct 19             Pay Type 20
+    Frequency 21                Rate 22            O/T  Rate 23
+    Hire Date 24         Next Review 25            Term Date 26
+
+ Tax Withholding          Fixed
+             Exempt  Amt/Pct  Figure   Status   # Allowances   Addit W/H Amt
+   Federal     28  29      30         31         32       33
+   State       34  35      36         37         38       39
+   Social Security Exempt? 40     Medicare Exempt? 41   EIC Code 42
+
+ Misc Deductions                Amt          Pct       Inc O/T
+   1.                        43           44          45
+   2.                        46           47          48
+   3.                        49           50          51
+   4.                        52           53          54
+   5.                        55           56          57
+   6.                        58           59          60
+   7.                        61           62          63
+   8.                        64           65          66
+   9.                        67           68          69
+  10.                        70           71          72
+  11.                        73           74          75
+  12.                        76           77          78
+
+ Default Earning Codes      Account Number     Earnings
+   1.                      80               81
+   2.                      82               83
+   3.                      84               85
+
+ Wage Account Numbers          Default Distribution
+   1. 87                          88
+   2. 89                          90
+   3. 91                          92
+   4. 93                          94
+   5. 95                          96
+   6. 97                          98
+   7. 99                          100
+   8. 101                         102
+
+ Benefit Schedule          Earned        Used      Balance
+         Vacation       103        104         105
+       Sick Leave       106        107         108
+        Comp Time       109        110         111

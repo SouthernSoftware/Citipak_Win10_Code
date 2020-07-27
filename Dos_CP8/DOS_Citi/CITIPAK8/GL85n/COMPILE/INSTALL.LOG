@@ -1,0 +1,307 @@
+
+INSTALL.EXE v1.32 (C) Copyright 1994, Sensus Technologies, Inc. - Begin
+
+chk_for_stars() pass - 0
+do_dbd_chk()
+chk_for_stars() pass - 1
+proc_cfg()
+Installed version is pre-v1.19
+do_dbd_chk()
+get_all_parms()
+do_auth()
+def_auth_form()
+proc_auth_form()
+build_stars_cfg()
+proc_cfg()
+determine_op()
+setup_fields()
+create_zip_lists()
+add_list()
+Add to unzip list --> STARS.EXE
+add_list()
+Add to unzip list --> STEP.EXE
+add_list()
+Add to unzip list --> STARS1.DBD
+def_ins_form()
+proc_ins_form()
+proc_operation()
+do_backup()
+get_msg_severity()
+
+[53] - Deleting files...
+delete_files()
+get_msg_severity()
+
+[55] - Backing up Current STARS...
+copy_files()
+Copying file C:\STARS\STARS1.DBD
+Copying file C:\STARS\SNTL1.DBD
+copy_files()
+Copying file C:\STARS\VXUDFLT.CFG
+Copying file C:\STARS\COMPORTS.CFG
+Copying file C:\STARS\SSIAPPS.CFG
+Copying file C:\STARS\RFSSI.CFG
+Copying file C:\STARS\LOGO.CFG
+Copying file C:\STARS\SENSUS.CFG
+Copying file C:\STARS\02.CFG
+Copying file C:\STARS\01.CFG
+Copying file C:\STARS\01-02.CFG
+Copying file C:\STARS\01-04.CFG
+Copying file C:\STARS\03-04.CFG
+copy_files()
+Copying file C:\STARS\TRSOFT.HEX
+Copying file C:\STARS\SSI_APPS.HEX
+Copying file C:\STARS\OVRLAY.HEX
+Copying file C:\STARS\TRSOFTII.HEX
+copy_files()
+Copying file C:\STARS\STARS.EXE
+Copying file C:\STARS\ERCS.EXE
+copy_files()
+Copying file C:\STARS\ERCS.EXE
+get_msg_severity()
+
+[53] - Deleting files...
+delete_files()
+get_msg_severity()
+
+[54] - Copying files...
+verify_file()
+get_msg_severity()
+
+[54] - Copying files...
+copy_files()
+Copying file A:\STARS.CFG
+get_msg_severity()
+
+[54] - Copying files...
+verify_file()
+get_msg_severity()
+
+[54] - Copying files...
+copy_files()
+Copying file A:\INSTALL.EXE
+get_msg_severity()
+
+[54] - Copying files...
+verify_file()
+get_msg_severity()
+
+[54] - Copying files...
+copy_files()
+Copying file A:\PKUNZIP.EXE
+get_msg_severity()
+
+[54] - Copying files...
+verify_file()
+get_msg_severity()
+
+[54] - Copying files...
+copy_files()
+Copying file A:\STARSEX1.ZIP
+get_msg_severity()
+
+[54] - Copying files...
+verify_file()
+get_msg_severity()
+
+[54] - Copying files...
+copy_files()
+Copying file A:\STARSEX2.ZIP
+get_msg_severity()
+
+[54] - Copying files...
+verify_file()
+get_msg_severity()
+
+[54] - Copying files...
+copy_files()
+Copying file A:\STARSCFG.ZIP
+do_upgrade()
+get_msg_severity()
+
+[57] - Upgrade Current STARS...
+get_db()
+
+copy_db_files()
+copy_files()
+Copying file C:\STARS\STARS1A.DAT
+copy_files()
+Copying file C:\STARS\STARS1B.DAT
+copy_files()
+Copying file C:\STARS\STARS1C.DAT
+copy_files()
+Copying file C:\STARS\STARS1D.DAT
+copy_files()
+Copying file C:\STARS\STARS1E.DAT
+copy_files()
+Copying file C:\STARS\STARS1F.DAT
+copy_files()
+Copying file C:\STARS\STARS1G.DAT
+copy_files()
+Copying file C:\STARS\STARS1H.DAT
+copy_files()
+Copying file C:\STARS\STARS1I.DAT
+copy_files()
+Copying file C:\STARS\STARS1J.DAT
+copy_files()
+Copying file C:\STARS\STARS1K.DAT
+copy_files()
+Copying file C:\STARS\STARS1L.KEY
+copy_files()
+Copying file C:\STARS\STARS1M.KEY
+copy_files()
+Copying file C:\STARS\STARS1N.KEY
+copy_files()
+Copying file C:\STARS\STARS1O.KEY
+copy_files()
+Copying file C:\STARS\STARS1P.KEY
+do_pre_upgrade()
+pre_v119()
+add_list()
+Add to unzip list --> STARS1.119
+replace_hhfiles()
+add_list()
+Add to unzip list --> SSIAPPS.CFG
+add_list()
+Add to unzip list --> TRSOFT.HEX
+add_list()
+Add to unzip list --> TRSOFTII.HEX
+add_list()
+Add to unzip list --> SSI_APPS.HEX
+add_list()
+Add to unzip list --> OVRLAY.HEX
+replace_hhfiles()
+add_list()
+add_list()
+add_list()
+add_list()
+add_list()
+replace_miufiles()
+pre_v120()
+Modify RFSSI.CFG
+Modify VXUDFLT.CFG
+pre_v121()
+Modify RFSSI.CFG
+pre_v122()
+add_list()
+Add to unzip list --> STARS1.122
+pre_v125()
+add_list()
+Add to unzip list --> STARS1.125
+get_iedelim()
+8 - IE_DELIM records written
+pre_v127()
+add_list()
+Add to unzip list --> STARS1.127
+pre_v129()
+add_list()
+Add to unzip list --> STARS1.129
+pre_v132()
+add_list()
+Add to unzip list --> STARS1.132
+get_msg_severity()
+
+[58] - Working...
+unzip_files()
+save_screen()
+proc_zip_list()
+
+Create zip file list - CFGLIST.LST for STARSCFG.ZIP 
+delete_files()
+Deleted C:\STARS\STARSCFG.ZIP
+delete_files()
+Deleted C:\STARS\CFGLIST.LST
+proc_zip_list()
+
+Create zip file list - EX1LIST.LST for STARSEX1.ZIP 
+delete_files()
+Deleted C:\STARS\STARSEX1.ZIP
+delete_files()
+Deleted C:\STARS\EX1LIST.LST
+proc_zip_list()
+
+Create zip file list - EX2LIST.LST for STARSEX2.ZIP 
+delete_files()
+Deleted C:\STARS\STARSEX2.ZIP
+delete_files()
+Deleted C:\STARS\EX2LIST.LST
+restore_screen()
+
+Check for v1.19 db
+ren_dbd()
+New STARS.xxx - STARS1.119
+New SNTL.xxx  - SNTL1.119
+delete_files()
+Deleted C:\STARS\STARS1.DBD
+get_db()
+go_v119()
+
+Check for v1.20 db
+ren_dbd()
+New STARS.xxx - STARS1.120
+New SNTL.xxx  - SNTL1.120
+get_db()
+go_v120()
+add_new_rpts()
+ren_dbd()
+New STARS.xxx - STARS1.122
+New SNTL.xxx  - SNTL1.122
+delete_files()
+Deleted C:\STARS\STARS1.DBD
+go_v122()
+do_dbd_upd()
+
+Successfully updated file. 
+
+Check for v1.25 db
+ren_dbd()
+New STARS.xxx - STARS1.125
+New SNTL.xxx  - SNTL1.125
+delete_files()
+Deleted C:\STARS\STARS1.DBD
+get_db()
+go_v125()
+cr_iedelim()
+delete_files()
+Deleted C:\STARS\DELIMS.OUT
+
+Check for v1.27 db
+ren_dbd()
+New STARS.xxx - STARS1.127
+New SNTL.xxx  - SNTL1.127
+delete_files()
+Deleted C:\STARS\STARS1.DBD
+get_db()
+go_v127()
+ren_dbd()
+New STARS.xxx - STARS1.129
+New SNTL.xxx  - SNTL1.129
+delete_files()
+Deleted C:\STARS\STARS1.DBD
+
+Check for v1.32 db
+ren_dbd()
+New STARS.xxx - STARS1.132
+New SNTL.xxx  - SNTL1.132
+delete_files()
+Deleted C:\STARS\STARS1.DBD
+get_db()
+go_v132()
+get_db()
+process_protocols()
+get_msg_severity()
+
+[53] - Deleting files...
+delete_files()
+Deleted C:\STARS\SENSUS.CFG
+Rename STARS.CFG to SENSUS.CFG 
+get_msg_severity()
+
+[51] - Backing up Current Configuration...
+proc_sve()
+get_msg_severity()
+
+Upgrade Complete...
+shutdown_install()
+
+INSTALL.EXE v1.32 (C) Copyright 1994, Sensus Technologies, Inc. - End

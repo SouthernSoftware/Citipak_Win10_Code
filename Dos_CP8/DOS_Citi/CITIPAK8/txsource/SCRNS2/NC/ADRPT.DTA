@@ -1,0 +1,30 @@
+ADRPT.FieldInfo:
+DATA  7 , 38 , 12 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 8 , 38 , 57 , 20 , 22 ,"", 0 , 0 ,"REPORDER", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  21 , 10 , 37 , 43 , 4 , 4 ,"", 0 , 0 ,"DETAIL", 2 , 0 , 0 , 0 ,-3.402823D+38 , 3.402823D+38 ,""
+DATA  25 , 12 , 37 , 40 , 2 , 3 ,"", 0 , 0 ,"TAXYEAR",-1 , 0 , 0 , 0 , 1980 , 2065 ,""
+DATA  27 , 14 , 37 , 46 , 2 , 6 ,"", 0 , 0 ,"POSTDATE", 0 , 0 , 0 , 0 , 5480 , 31368 ,""
+DATA  29 , 16 , 37 , 46 , 10 , 22 ,"", 0 , 0 ,"OUTPUTTO", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  39 , 19 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  39 , 19 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+ADRPT.Help:
+DATA ""
+DATA "Choose the Order to Print the Report. "
+DATA "Enter an Amount to Charge Each Account if Your Wish.  Please note that the amount will be charged to every account with no exceptions and with no edit list provided."
+DATA "Enter the Tax Year of the Bills that the advertising list will apply to.  This is usually the current tax year. "
+DATA "Enter the date the transaction will be posted as if your are charging each account with an amount. "
+DATA "Select the Output Device. "
+DATA "Press the <F10> Key to Process Your Report. "
+DATA "Press the <ESC> Key to Cancel Your Input. "
+
+ADRPT.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

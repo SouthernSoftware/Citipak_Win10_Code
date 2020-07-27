@@ -1,0 +1,517 @@
+                                                                               
+UBLOC1: 11 fields, record length = 80                                  PAGE: 1 
+05-30-1996, 10:31:41                                 ---------------           
+                                                      Related/Choice           
+Fld Offset   Name      Type    FldLen RecLen Located   File   Field# Index Prot
+=== ====== ======== ========== ====== ====== ======= ======== ====== ===== ====
+  1      1 BOOK     Numeric$      2        2   5, 26                  No    No 
+HELP:    Enter the route or book number here.  May be any number between 1     
+         and 99.                                                               
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  2      3 SEQNUMB  Numeric$      6        6   5, 29                  No    No 
+HELP:    Enter the sequence in the book that this account will follow. This    
+         is important if you have chosen NOT to use sequence numbers since     
+         this will determine the order of reading input.                       
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  3      9 SERVADDR UCase$       35       35   9, 26                  No    No 
+HELP:    Enter the Service Address for this location.                          
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  4     44 BILLCYCL Integer%      2        2  10, 26                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the billing cycle (1-99) if you use more than one cycle to      
+         bill in.                                                              
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  5     46 ZONE     UCase$        3        3  11, 26                  No    No 
+HELP:    Enter a zone code here (this is also referred to as a district) in    
+         some areas.  This may be a number or a descriptive field. Ex. INS     
+         for Inside City Limits  OUT for OutSide City Limits.                  
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  6     49 SEQ      Long Int.     6        4  12, 26                  No    No 
+Range: 0 to 999999                                                             
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  7     53 PUMPCODE String$       4        4  10, 57                  No    No 
+HELP:    Enter the pump code.                                                  
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  8     57 USER1    String$       4        4  11, 57                  No    No 
+HELP:     may may use this field for anything you wish.                        
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  9     61 USER2    String$       4        4  12, 57                  No    No 
+HELP:    Use this for anything you want.                                       
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 10     65 REFMFEE2 Double#       8.2      8  19, 46                  No    No 
+Range: -1.79769313486231D+308 to 1.79769313486231D+308                         
+HELP:    Enter the refundable membership fee (if any).                         
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 11     73 MFEENOR2 Double#       8.2      8  19, 61                  No    No 
+Range: -1.79769313486231D+308 to 1.79769313486231D+308                         
+HELP:    Enter the non-refundable membership fee paid.                         
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+                                                                               
+UBLOC2: 20 fields, record length = 50                                  PAGE: 1 
+05-30-1996, 10:31:46                                 ---------------           
+                                                      Related/Choice           
+Fld Offset   Name      Type    FldLen RecLen Located   File   Field# Index Prot
+=== ====== ======== ========== ====== ====== ======= ======== ====== ===== ====
+  1      1 RC1      UCase$        4        4  10, 45                  No    No 
+HELP:    Enter the rate code of the rate table that will be used when          
+         calculating this bill.                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  2      5 RMTRTYP1 Choice Ar.    1        1  10, 61                  No    No 
+HELP:    Enter the Meter Type that this revenue will use in measuring the      
+         usage that will be billed.                                            
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  3      6 RC2      UCase$        4        4  11, 45                  No    No 
+HELP:    Enter the rate code of the rate table that will be used when          
+         calculating this bill.                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  4     10 RMTRTYP2 Choice Ar.    1        1  11, 61                  No    No 
+HELP:    Enter the Meter Type that this revenue will use in measuring the      
+         usage that will be billed.                                            
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  5     11 RC3      UCase$        4        4  12, 45                  No    No 
+HELP:    Enter the rate code of the rate table that will be used when          
+         calculating this bill.                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  6     15 RMTRTYP3 Choice Ar.    1        1  12, 61                  No    No 
+HELP:    Enter the Meter Type that this revenue will use in measuring the      
+         usage that will be billed.                                            
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  7     16 RC4      UCase$        4        4  13, 45                  No    No 
+HELP:    Enter the rate code of the rate table that will be used when          
+         calculating this bill.                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  8     20 RMTRTYP4 Choice Ar.    1        1  13, 61                  No    No 
+HELP:    Enter the Meter Type that this revenue will use in measuring the      
+         usage that will be billed.                                            
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  9     21 RC5      UCase$        4        4  14, 45                  No    No 
+HELP:    Enter the rate code of the rate table that will be used when          
+         calculating this bill.                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 10     25 RMTRTYP5 Choice Ar.    1        1  14, 61                  No    No 
+HELP:    Enter the Meter Type that this revenue will use in measuring the      
+         usage that will be billed.                                            
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 11     26 RC6      UCase$        4        4  15, 45                  No    No 
+HELP:    Enter the rate code of the rate table that will be used when          
+         calculating this bill.                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 12     30 RMTRTYP6 Choice Ar.    1        1  15, 61                  No    No 
+HELP:    Enter the Meter Type that this revenue will use in measuring the      
+         usage that will be billed.                                            
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 13     31 RC7      UCase$        4        4  16, 45                  No    No 
+HELP:    Enter the rate code of the rate table that will be used when          
+         calculating this bill.                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+UBLOC2: 20 fields, record length = 50                                  PAGE: 2 
+05-30-1996, 10:31:46                                 ---------------           
+                                                      Related/Choice           
+Fld Offset   Name      Type    FldLen RecLen Located   File   Field# Index Prot
+=== ====== ======== ========== ====== ====== ======= ======== ====== ===== ====
+ 14     35 RMTRTYP7 Choice Ar.    1        1  16, 61                  No    No 
+HELP:    Enter the Meter Type that this revenue will use in measuring the      
+         usage that will be billed.                                            
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 15     36 RC8      UCase$        4        4  17, 45                  No    No 
+HELP:    Enter the rate code of the rate table that will be used when          
+         calculating this bill.                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 16     40 RMTRTYP8 Choice Ar.    1        1  17, 61                  No    No 
+HELP:    Enter the Meter Type that this revenue will use in measuring the      
+         usage that will be billed.                                            
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 17     41 RC9      UCase$        4        4  18, 45                  No    No 
+HELP:    Enter the rate code of the rate table that will be used when          
+         calculating this bill.                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 18     45 RMTRTYP9 Choice Ar.    1        1  18, 61                  No    No 
+HELP:    Enter the Meter Type that this revenue will use in measuring the      
+         usage that will be billed.                                            
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 19     46 RC10     UCase$        4        4  19, 45                  No    No 
+HELP:    Enter the rate code of the rate table that will be used when          
+         calculating this bill.                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 20     50 RMTRTY10 Choice Ar.    1        1  19, 61                  No    No 
+HELP:    Enter the Meter Type that this revenue will use in measuring the      
+         usage that will be billed.                                            
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+                                                                               
+UBLOC3: 45 fields, record length = 150                                 PAGE: 1 
+05-30-1996, 10:31:53                                 ---------------           
+                                                      Related/Choice           
+Fld Offset   Name      Type    FldLen RecLen Located   File   Field# Index Prot
+=== ====== ======== ========== ====== ====== ======= ======== ====== ===== ====
+  1      1 MTRNUM1  UCase$       12       12  10,  8                  No    No 
+HELP:    Enter the meter number of this meter.  This is a serial # or other    
+         number that should be located on the meter.                           
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  2     13 CURRD1   Long Int.     9        4  10, 22                  No    No 
+Range: -2147483648 to 2147483647                                               
+HELP:    Enter the current meter reading here.                                 
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  3     17 CRDATE1  Date         10        2  10, 32                  No    No 
+Range: 01-01-1900 to 11-17-2065                                                
+HELP:    Enter the Date that the current reading was taken.                    
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  4     19 MULT1    Integer%      4        2  10, 44                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the multiplier for this meter.                                  
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  5     21 MTRTYP1  Choice Ar.    1        1  10, 50                  No    No 
+HELP:    Enter the Meter Type from the List Provided.                          
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  6     22 MTRUNT1  Choice Ar.    1        1  10, 54                  No    No 
+HELP:    Enter the Unit of Measure From the List Provided.                     
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  7     23 USER1    Integer%      4        2  10, 58                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the number of users for this meter.  This is sometimes          
+         referred to as the number of minimums.                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  8     25 INDATE1  Date         10        2  10, 65                  No    No 
+Range: 01-01-1900 to 11-17-2065                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  9     27 PRERD1   Long Int.     9        4  11, 22                  No    Yes
+Range: -2147483648 to 2147483647                                               
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 10     31 MTRNUM2  UCase$       12       12  12,  8                  No    No 
+HELP:    Enter the meter number of this meter.  This is a serial # or other    
+         number that should be located on the meter.                           
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 11     43 CURRD2   Long Int.     9        4  12, 22                  No    No 
+Range: -2147483648 to 2147483647                                               
+HELP:    Enter the current meter reading here.                                 
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 12     47 CRDATE2  Date         10        2  12, 32                  No    No 
+Range: 01-01-1900 to 11-17-2065                                                
+HELP:    Enter the Date that the current reading was taken.                    
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 13     49 MULT2    Integer%      4        2  12, 44                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the multiplier for this meter.                                  
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 14     51 MTRTYP2  Choice Ar.    1        1  12, 50                  No    No 
+HELP:    Enter the Meter Type from the List Provided.                          
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+UBLOC3: 45 fields, record length = 150                                 PAGE: 2 
+05-30-1996, 10:31:53                                 ---------------           
+                                                      Related/Choice           
+Fld Offset   Name      Type    FldLen RecLen Located   File   Field# Index Prot
+=== ====== ======== ========== ====== ====== ======= ======== ====== ===== ====
+ 15     52 MTRUNT2  Choice Ar.    1        1  12, 54                  No    No 
+HELP:    Enter the Unit of Measure From the List Provided.                     
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 16     53 USER2    Integer%      4        2  12, 58                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the number of users for this meter.  This is sometimes          
+         referred to as the number of minimums.                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 17     55 INDATE2  Date         10        2  12, 65                  No    No 
+Range: 01-01-1900 to 11-17-2065                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 18     57 PRERD2   Long Int.     9        4  13, 22                  No    Yes
+Range: -2147483648 to 2147483647                                               
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 19     61 MTRNUM3  UCase$       12       12  14,  8                  No    No 
+HELP:    Enter the meter number of this meter.  This is a serial # or other    
+         number that should be located on the meter.                           
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 20     73 CURRD3   Long Int.     9        4  14, 22                  No    No 
+Range: -2147483648 to 2147483647                                               
+HELP:    Enter the current meter reading here.                                 
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 21     77 CRDATE3  Date         10        2  14, 32                  No    No 
+Range: 01-01-1900 to 11-17-2065                                                
+HELP:    Enter the Date that the current reading was taken.                    
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 22     79 MULT3    Integer%      4        2  14, 44                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the multiplier for this meter.                                  
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 23     81 MTRTYP3  Choice Ar.    1        1  14, 50                  No    No 
+HELP:    Enter the Meter Type from the List Provided.                          
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 24     82 MTRUNT3  Choice Ar.    1        1  14, 54                  No    No 
+HELP:    Enter the Unit of Measure From the List Provided.                     
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 25     83 USER3    Integer%      4        2  14, 58                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the number of users for this meter.  This is sometimes          
+         referred to as the number of minimums.                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 26     85 INDATE3  Date         10        2  14, 65                  No    No 
+Range: 01-01-1900 to 11-17-2065                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 27     87 PRERD3   Long Int.     9        4  15, 22                  No    Yes
+Range: -2147483648 to 2147483647                                               
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 28     91 MTRNUM4  UCase$       12       12  16,  8                  No    No 
+HELP:    Enter the meter number of this meter.  This is a serial # or other    
+         number that should be located on the meter.                           
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+UBLOC3: 45 fields, record length = 150                                 PAGE: 3 
+05-30-1996, 10:31:53                                 ---------------           
+                                                      Related/Choice           
+Fld Offset   Name      Type    FldLen RecLen Located   File   Field# Index Prot
+=== ====== ======== ========== ====== ====== ======= ======== ====== ===== ====
+ 29    103 CURRD4   Long Int.     9        4  16, 22                  No    No 
+Range: -2147483648 to 2147483647                                               
+HELP:    Enter the current meter reading here.                                 
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 30    107 CRDATE4  Date         10        2  16, 32                  No    No 
+Range: 01-01-1900 to 11-17-2065                                                
+HELP:    Enter the Date that the current reading was taken.                    
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 31    109 MULT4    Integer%      4        2  16, 44                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the multiplier for this meter.                                  
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 32    111 MTRTYP4  Choice Ar.    1        1  16, 50                  No    No 
+HELP:    Enter the Meter Type from the List Provided.                          
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 33    112 MTRUNT4  Choice Ar.    1        1  16, 54                  No    No 
+HELP:    Enter the Unit of Measure From the List Provided.                     
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 34    113 USER4    Integer%      4        2  16, 58                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the number of users for this meter.  This is sometimes          
+         referred to as the number of minimums.                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 35    115 INDATE4  Date         10        2  16, 65                  No    No 
+Range: 01-01-1900 to 11-17-2065                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 36    117 PRERD4   Long Int.     9        4  17, 22                  No    Yes
+Range: -2147483648 to 2147483647                                               
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 37    121 MTRNUM5  UCase$       12       12  18,  8                  No    No 
+HELP:    Enter the meter number of this meter.  This is a serial # or other    
+         number that should be located on the meter.                           
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 38    133 CURRD5   Long Int.     9        4  18, 22                  No    No 
+Range: -2147483648 to 2147483647                                               
+HELP:    Enter the current meter reading here.                                 
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 39    137 CRDATE5  Date         10        2  18, 32                  No    No 
+Range: 01-01-1900 to 11-17-2065                                                
+HELP:    Enter the Date that the current reading was taken.                    
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 40    139 MULT5    Integer%      4        2  18, 44                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the multiplier for this meter.                                  
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 41    141 MTRTYP5  Choice Ar.    1        1  18, 50                  No    No 
+HELP:    Enter the Meter Type from the List Provided.                          
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 42    142 MTRUNT5  Choice Ar.    1        1  18, 54                  No    No 
+HELP:    Enter the Unit of Measure From the List Provided.                     
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+UBLOC3: 45 fields, record length = 150                                 PAGE: 4 
+05-30-1996, 10:31:53                                 ---------------           
+                                                      Related/Choice           
+Fld Offset   Name      Type    FldLen RecLen Located   File   Field# Index Prot
+=== ====== ======== ========== ====== ====== ======= ======== ====== ===== ====
+ 43    143 USER5    Integer%      4        2  18, 58                  No    No 
+                                                                               
+UBLOC4: 34 fields, record length = 184                                 PAGE: 1 
+05-30-1996, 10:31:59                                 ---------------           
+                                                      Related/Choice           
+Fld Offset   Name      Type    FldLen RecLen Located   File   Field# Index Prot
+=== ====== ======== ========== ====== ====== ======= ======== ====== ===== ====
+  1      1 MTRNUM6  UCase$       12       12  10,  8                  No    No 
+HELP:    Enter the meter number of this meter.  This is a serial # or other    
+         number that should be located on the meter.                           
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  2     13 CURRD6   Long Int.     9        4  10, 22                  No    No 
+Range: -2147483648 to 2147483647                                               
+HELP:    Enter the current meter reading here.                                 
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  3     17 CRDATE6  Date         10        2  10, 32                  No    No 
+Range: 01-01-1900 to 11-17-2065                                                
+HELP:    Enter the Date that the current reading was taken.                    
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  4     19 MULT6    Integer%      4        2  10, 44                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the multiplier for this meter.                                  
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  5     21 MTRTYP6  Choice Ar.    1        1  10, 50                  No    No 
+HELP:    Enter the Meter Type from the List Provided.                          
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  6     22 MTRUNT6  Choice Ar.    1        1  10, 54                  No    No 
+HELP:    Enter the Unit of Measure From the List Provided.                     
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  7     23 USER6    Integer%      4        2  10, 58                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the number of users for this meter.  This is sometimes          
+         referred to as the number of minimums.                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  8     25 INDATE6  Date         10        2  10, 65                  No    No 
+Range: 01-01-1900 to 11-17-2065                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+  9     27 PRERD6   Long Int.     9        4  11, 22                  No    Yes
+Range: -2147483648 to 2147483647                                               
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 10     31 MTRNUM7  UCase$       12       12  12,  8                  No    No 
+HELP:    Enter the meter number of this meter.  This is a serial # or other    
+         number that should be located on the meter.                           
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 11     43 CURRD7   Long Int.     9        4  12, 22                  No    No 
+Range: -2147483648 to 2147483647                                               
+HELP:    Enter the current meter reading here.                                 
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 12     47 CRDATE7  Date         10        2  12, 32                  No    No 
+Range: 01-01-1900 to 11-17-2065                                                
+HELP:    Enter the Date that the current reading was taken.                    
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 13     49 MULT7    Integer%      4        2  12, 44                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the multiplier for this meter.                                  
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 14     51 MTRTYP7  Choice Ar.    1        1  12, 50                  No    No 
+HELP:    Enter the Meter Type from the List Provided.                          
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+UBLOC4: 34 fields, record length = 184                                 PAGE: 2 
+05-30-1996, 10:31:59                                 ---------------           
+                                                      Related/Choice           
+Fld Offset   Name      Type    FldLen RecLen Located   File   Field# Index Prot
+=== ====== ======== ========== ====== ====== ======= ======== ====== ===== ====
+ 15     52 MTRUNT7  Choice Ar.    1        1  12, 54                  No    No 
+HELP:    Enter the Unit of Measure From the List Provided.                     
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 16     53 USER7    Integer%      4        2  12, 58                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the number of users for this meter.  This is sometimes          
+         referred to as the number of minimums.                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 17     55 INDATE7  Date         10        2  12, 65                  No    No 
+Range: 01-01-1900 to 11-17-2065                                                
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 18     57 PRERD7   Long Int.     9        4  13, 22                  No    Yes
+Range: -2147483648 to 2147483647                                               
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 19     61 FRDESC1  UCase$       20       20  17,  9                  No    No 
+HELP:    Enter a description for this flat rate charge.                        
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 20     81 FRAMT1   Double#       8.2      8  17, 33                  No    No 
+Range: -1.79769313486231D+308 to 1.79769313486231D+308                         
+HELP:    Enter the amount to charge the customer upon billing.                 
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 21     89 FRFREQ1  Logical       1        1  17, 46                  No    No 
+HELP:    Press 'R' for recurring charge each billing. Press 'N' for a one      
+         time charge.                                                          
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 22     90 REVSRC1  Integer%      2        2  17, 56                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the revenue source that this charge will apply to.  This will   
+         be a number between 1 and 10 as described in your setup.              
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 23     92 FRDESC2  UCase$       20       20  18,  9                  No    No 
+HELP:    Enter a description for this flat rate charge.                        
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 24    112 FRAMT2   Double#       8.2      8  18, 33                  No    No 
+Range: -1.79769313486231D+308 to 1.79769313486231D+308                         
+HELP:    Enter the amount to charge the customer upon billing.                 
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 25    120 FRFREQ2  Logical       1        1  18, 46                  No    No 
+HELP:    Press 'R' for recurring charge each billing. Press 'N' for a one      
+         time charge.                                                          
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 26    121 REVSRC2  Integer%      2        2  18, 56                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the revenue source that this charge will apply to.  This will   
+         be a number between 1 and 10 as described in your setup.              
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 27    123 FRDESC3  UCase$       20       20  19,  9                  No    No 
+HELP:    Enter a description for this flat rate charge.                        
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 28    143 FRAMT3   Double#       8.2      8  19, 33                  No    No 
+Range: -1.79769313486231D+308 to 1.79769313486231D+308                         
+HELP:    Enter the amount to charge the customer upon billing.                 
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+UBLOC4: 34 fields, record length = 184                                 PAGE: 3 
+05-30-1996, 10:31:59                                 ---------------           
+                                                      Related/Choice           
+Fld Offset   Name      Type    FldLen RecLen Located   File   Field# Index Prot
+=== ====== ======== ========== ====== ====== ======= ======== ====== ===== ====
+ 29    151 FRFREQ3  Logical       1        1  19, 46                  No    No 
+HELP:    Press 'R' for recurring charge each billing. Press 'N' for a one      
+         time charge.                                                          
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 30    152 REVSRC3  Integer%      2        2  19, 56                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the revenue source that this charge will apply to.  This will   
+         be a number between 1 and 10 as described in your setup.              
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 31    154 FRDESC4  UCase$       20       20  20,  9                  No    No 
+HELP:    Enter a description for this flat rate charge.                        
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 32    174 FRAMT4   Double#       8.2      8  20, 33                  No    No 
+Range: -1.79769313486231D+308 to 1.79769313486231D+308                         
+HELP:    Enter the amount to charge the customer upon billing.                 
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 33    182 FRFREQ4  Logical       1        1  20, 46                  No    No 
+HELP:    Press 'R' for recurring charge each billing. Press 'N' for a one      
+         time charge.                                                          
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+ 34    183 REVSRC4  Integer%      2        2  20, 56                  No    No 
+Range: -32768 to 32767                                                         
+HELP:    Enter the revenue source that this charge will apply to.  This will   
+         be a number between 1 and 10 as described in your setup.              
+--- ------ -------- ---------- ------ ------ ------- -------- ------ ----- ----
+

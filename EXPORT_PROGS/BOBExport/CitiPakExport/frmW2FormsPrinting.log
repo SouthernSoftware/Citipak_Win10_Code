@@ -1,0 +1,6 @@
+Line 22: Class ImpproLib.vaImprint of control vaImprint1 was not a loaded control class.
+Line 47: Class LpLib.fpCombo of control fpcomboPrintOpt was not a loaded control class.
+Line 165: Class EditLib.fpText of control fptxtStartConNum was not a loaded control class.
+Line 257: Class fpBtnAtlLibCtl.fpBtn of control cmdEscape was not a loaded control class.
+Line 294: Class fpBtnAtlLibCtl.fpBtn of control cmdProcess was not a loaded control class.
+Line 331: Class fpBtnAtlLibCtl.fpBtn of control cmdAlign was not a loaded control class.

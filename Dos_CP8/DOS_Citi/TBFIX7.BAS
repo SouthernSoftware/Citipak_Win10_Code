@@ -1,0 +1,518 @@
+10 REM (C)1987 SOUTHERN SOFTWARE SYSTEMS         by Nick Picerno
+20 REM tbbilling
+30 REM Tax Billing Menu
+40 REM Last Revision Date:11-29-88
+50 REM by Nick Picerno
+   DECLARE FUNCTION num2date$ (Num%)
+   DECLARE FUNCTION Date2Num% (Dat$)
+60 CLS : CLEAR
+   '$INCLUDE: 'lcTAX.BI'
+   TBPath$ = "F:\"                    ' change to "F:\" Before compiling
+  ' TBPath$ = "c:\QB45\LC\"                    ' change to "F:\" Before compiling
+
+    CLOSE : OPEN "R", 1, TBPath$ + "tbyear.dat", 4: FIELD 1, 4 AS Year$: GET 1, 1
+    CurrentYear$ = Year$: CLOSE
+    CurrentYear = VAL(CurrentYear$)
+    'ON ERROR GOTO networkerror
+
+    DIM SHARED yrdesc(11)
+
+    REDIM TBRECust(1) AS TBRECust
+    REDIM TBRECustBal(1) AS TBREBAL
+    REDIM TBPPCust(1) AS TBPPCust
+    REDIM TBPPCustBal(1) AS TBPPBal
+    REDIM TBTrans(1) AS TBTrans
+
+    WIDTH LPRINT 132
+
+110 scren$ = "3.00.00": SYSDATE$ = DATE$
+120 CLS : GOSUB 63500
+4000 CLS : scren$ = "3.04.00"
+     GOSUB 63500: COLOR 11
+     LOCATE 1, 30: PRINT "Post Bills to Accounts - FIX PPTRA"
+     totreal# = 0: totpers# = 0: tottax# = 0: totbldg# = 0
+     LOCATE 3, 1: COLOR 11
+     taxtype$ = "P"
+     
+4010 LOCATE 5, 1: COLOR 11
+     PRINT "Enter Date of Billing (mmddyyyy) (ESC-End) ... "; : fl = -8: GOSUB 62000
+     IF CF = 1 THEN 10
+     IF LEN(in$) <> 8 THEN 4010
+     BillingDate$ = LEFT$(in$, 2) + "/" + MID$(in$, 3, 2) + "/" + MID$(in$, 5, 4)
+
+4020 LOCATE 7, 1: COLOR 11
+     PRINT "Is the Above Information Correct (Y/N) .. "; : fl = 1: GOSUB 62210
+     IF NOT (in$ = "Y" OR in$ = "N") THEN 4020
+     IF in$ = "N" THEN 4000
+
+     GOSUB 60000
+     
+     IF taxtype$ = "R" OR taxtype$ = "N" THEN
+        EndofFile = LOF(TBFile) / LEN(TBRECust(1))
+       ELSE
+        EndofFile = LOF(TBFile) / LEN(TBPPCust(1))
+     END IF
+
+     FOR x = 1 TO EndofFile
+      IF taxtype$ = "R" OR taxtype$ = "N" THEN
+       GET TBFile, x, TBRECust(1)
+      ELSE
+       GET TBFile, x, TBPPCust(1)
+      END IF
+      AcctRecord = x
+
+   LOCATE 15, 1: COLOR 11: PRINT "Process Record # "; x
+   IF taxtype$ = "R" OR taxtype$ = "N" THEN
+      IF TBRECust(1).Deleted = "Y" THEN 4230
+      'GOSUB PostRealBill
+      ELSE
+       IF TBPPCust(1).Deleted = "Y" THEN 4230
+       GOSUB PostPersBill
+   END IF
+
+4230 NEXT x
+     CLOSE
+     LOCATE 20, 1
+     PRINT "All Done: Press <ENTER> to Continue .. "; : fl = 1
+     GOSUB 62000
+     END
+
+PostPersBill:
+  IF TBPPCust(1).CurYrPersPropTax < .01 THEN RETURN  'Do Not Process
+  IF TBPPCust(1).LBPPTRADiscnt < .01 THEN RETURN
+  IF TBPPCust(1).LastTrans = 0 THEN RETURN
+
+ 'Now to Set Current Stuff
+   TBPPCust(1).CurYrPersPropTax = TBPPCust(1).CurYrPersPropTax - TBPPCust(1).LBPPTRADiscnt
+ 'Store Information for Posting in Detail
+ ' Now Set Billing Information to Null for Next Yr Printing
+   DisAmt# = TBPPCust(1).LBPPTRADiscnt
+   TBPPCust(1).LBPPTRADiscnt = 0
+   PUT TBFile, AcctRecord, TBPPCust(1)
+   GOSUB PostPersHistoryBill
+   RETURN
+
+
+
+PostPersHistoryBill:
+ GET TBFile, AcctRecord, TBPPCust(1)
+ LastTrans& = TBPPCust(1).LastTrans
+ GOSUB 61000
+ GET TBTranFile, LastTrans&, TBTrans(1)
+  TBTrans(1).TransAmt = TransactionAmount# - DisAmt#
+  TBTrans(1).TrTax = TransactionAmount# - DisAmt#
+  TBTrans(1).TrRunningBal = AcctBalance# - DisAmt#
+  TBTrans(1).TrPPTRA = DisAmt#
+  PUT TBTranFile, LastTrans&, TBTrans(1)
+  CLOSE TBTranFile
+  DisAmt# = 0
+  RETURN
+
+
+
+5000 CLS : scren$ = "3.05.00"
+     GOSUB 63500: COLOR 11
+     LOCATE 1, 30: PRINT "Apply Penalty to Accounts": totreal# = 0: totpers# = 0: tottax# = 0
+     LOCATE 3, 1: COLOR 11
+     PRINT "(R)eal or (P)ersonal (R,P or <ESC>-End) ..... "; : fl = 1: GOSUB 62210
+     IF CF = 1 THEN 10
+     IF NOT (in$ = "R" OR in$ = "P" OR in$ = "F" OR in$ = "A") THEN 5000
+     taxtype$ = UCASE$(in$)
+     FixType$ = UCASE$(in$)
+     IF FixType$ = "F" THEN taxtype$ = "P"
+     
+
+5010 LOCATE 5, 1: COLOR 11
+     PRINT "Enter Date of Penalty (mmddyyyy) (ESC-End) ... "; : fl = -8: GOSUB 62000
+     IF CF = 1 THEN 10
+     IF LEN(in$) <> 8 THEN 5010
+     PenaltyDate$ = LEFT$(in$, 2) + "/" + MID$(in$, 3, 2) + "/" + MID$(in$, 5, 4)
+
+
+     
+
+5020 LOCATE 7, 1: COLOR 11
+     PRINT "Is the Above Information Correct (Y/N) .. "; : fl = 1: GOSUB 62210
+     IF NOT (in$ = "Y" OR in$ = "N") THEN 5020
+     IF in$ = "N" THEN 5000
+
+     GOSUB 60000:
+     IF taxtype$ = "R" THEN
+        EndofFile = LOF(TBFile) / LEN(TBRECust(1))
+       ELSE
+        EndofFile = LOF(TBFile) / LEN(TBPPCust(1))
+     END IF
+
+     FOR x = 1 TO EndofFile
+      IF taxtype$ = "R" THEN
+       GET 1, x, TBRECust(1)
+       IF LEFT$(TBRECust(1).ClassCode, 1) = "7" THEN 5230
+
+      ELSE
+       GET 1, x, TBPPCust(1)
+      END IF
+      AcctRecord = x
+     
+     LOCATE 15, 1: COLOR 11: PRINT "Process Record # "; x
+   IF taxtype$ = "R" THEN
+     IF TBRECust(1).Deleted = "Y" THEN 5230
+     GOSUB ProcessReal
+     IF Penalty# >= .01 THEN
+      TBRECust(1).CurYrPenAmount = Penalty#
+      PUT TBFile, AcctRecord, TBRECust(1)
+      'GOSUB PostRealHistory
+     END IF
+
+     ELSE
+
+     IF TBPPCust(1).Deleted = "Y" THEN 5230
+      IF FixType$ = "F" THEN
+       GOSUB FixPenalty
+      ELSE
+       GOSUB ProcessPers
+      END IF
+     IF Penalty# <> 0 THEN
+      IF FixType$ = "F" THEN
+      TBPPCust(1).CurYrPenAmount = TBPPCust(1).CurYrPenAmount + Penalty#
+      ELSE
+      TBPPCust(1).CurYrPenAmount = Penalty#
+      END IF
+      PUT TBFile, AcctRecord, TBPPCust(1)
+      GOSUB PostPersHistory
+     END IF
+
+   END IF
+
+5230 NEXT x
+     CLOSE
+     ' put report here
+     LOCATE 20, 1
+     PRINT "Press <ENTER> for HardCopy of Penalties Charged (ESC-No Report) .. "; : fl = 1
+     GOSUB 62000
+     IF CF = 1 THEN CLOSE : GOTO 10
+     COLOR 15
+     PRINT "** Report Now Printing **"
+     GOSUB PenaltyHeading
+     GOSUB 60000:
+     IF taxtype$ = "R" THEN
+        EndofFile = LOF(TBFile) / LEN(TBRECust(1))
+       ELSE
+        EndofFile = LOF(TBFile) / LEN(TBPPCust(1))
+     END IF
+
+     FOR x = 1 TO EndofFile
+      IF taxtype$ = "R" THEN
+       GET 1, x, TBRECust(1)
+      ELSE
+       GET 1, x, TBPPCust(1)
+      END IF
+      AcctRecord = x
+
+   IF taxtype$ = "R" THEN
+     IF TBRECust(1).Deleted = "Y" THEN 5250
+     IF TBRECust(1).CurYrPenAmount > 0 THEN
+      LPRINT USING "######"; x;
+       LPRINT TAB(15); TBRECust(1).CustName;
+        LPRINT TAB(60); USING "$$#####,#.##"; TBRECust(1).CurYrPenAmount
+        lc = lc + 1: TotalPenalty# = TotalPenalty# + TBRECust(1).CurYrPenAmount
+        TotalPenalty# = INT((TotalPenalty# * 100) + .5) / 100
+     END IF
+     
+     ELSE
+     IF TBPPCust(1).Deleted = "Y" THEN 5250
+     IF TBPPCust(1).CurYrPenAmount > 0 THEN
+      LPRINT USING "######"; x;
+       LPRINT TAB(15); TBPPCust(1).CustName;
+        LPRINT TAB(60); USING "$$#####,#.##"; TBPPCust(1).CurYrPenAmount
+        lc = lc + 1: TotalPenalty# = TotalPenalty# + TBPPCust(1).CurYrPenAmount
+        TotalPenalty# = INT((TotalPenalty# * 100) + .5) / 100
+      END IF
+
+     END IF
+     IF lc >= 56 THEN LPRINT CHR$(12); : GOSUB PenaltyHeading
+5250 NEXT x
+     LPRINT TAB(60); USING "$$#####,#.##"; TotalPenalty#
+     CLOSE
+     LPRINT CHR$(12);
+     GOTO 10
+
+PenaltyHeading:
+Page = Page + 1
+LPRINT "Lunenburg County "
+LPRINT "Penalty's Charged on "; PenaltyDate$
+IF taxtype$ = "R" THEN
+ LPRINT "Type: Real Estate ";
+ELSE
+ LPRINT "Type: Personal Property ";
+END IF
+LPRINT TAB(65); "Page #"; Page
+LPRINT
+LPRINT "Acct Number"; TAB(15); "Name"; TAB(60); "Penalty Amount"
+LPRINT STRING$(79, "-")
+lc = 6
+RETURN
+  
+
+ProcessReal:
+    
+  IF TBRECust(1).CurYrPenAmount > 0 THEN RETURN' do not allow double tax posting
+  Penalty# = TBRECust(1).CurYrTaxAmount * .1
+  Penalty# = INT((Penalty# * 100) + .5) / 100
+  IF Penalty# < 0 THEN Penalty# = 0
+  IF LEFT$(TBRECust(1).ClassCode, 1) = "7" THEN Penalty# = 0
+  RETURN
+
+ProcessPers:
+  IF TBPPCust(1).CurYrPenAmount > 0 THEN RETURN
+  CurYrTax# = TBPPCust(1).CurYrPersPropTax + TBPPCust(1).CurYrFarmEquipTax + TBPPCust(1).CurYrMachToolsTax + TBPPCust(1).CurYrMerchCapTax + TBPPCust(1).CurYrMobileHomeTax + TBPPCust(1).CurYrLateFeeTax
+  Penalty# = CurYrTax# * .1
+  Penalty# = INT((Penalty# * 100) + .5) / 100
+  IF Penalty# < 0 THEN Penalty# = 0
+  RETURN
+
+FixPenalty:
+  CurYrTax# = TBPPCust(1).CurYrLateFeeTax
+  Penalty# = CurYrTax# * -.1
+  Penalty# = INT((Penalty# * 100) + .5) / 100
+  RETURN
+PostPersHistory:
+ GET TBFile, AcctRecord, TBPPCust(1)
+ GET TBBalFile, AcctRecord, TBPPCustBal(1)
+ GOSUB FigureBalance
+ AcctBalance# = CurBal# + PastDue#
+ GOSUB 61000
+ TBTrans(1).TransDate = Date2Num%(PenaltyDate$)
+ TBTrans(1).TransAmt = Penalty#
+ TBTrans(1).TrTaxYear = CurYear$
+ TBTrans(1).TrDesc = "Penalty"
+ TBTrans(1).TrType = 4
+ TBTrans(1).TrTax = 0
+ TBTrans(1).TrInterest = 0
+ TBTrans(1).TrPenalty = Penalty#
+ TBTrans(1).TrLate = 0
+ TBTrans(1).TrMachTools = 0
+ TBTrans(1).TrMobileHome = 0
+ TBTrans(1).TrMerchCap = 0
+ TBTrans(1).TrFarmEquip = 0
+ TBTrans(1).TrCustomerRecord = AcctRecord
+ TBTrans(1).TrNextTrans = 0
+ TBTrans(1).TrRunningBal = AcctBalance#
+ TBTrans(1).TrSource = "P"
+ TBTrans(1).TrPad = ""
+ PUT TBTranFile, LOF(TBTranFile) / LEN(TBTrans(1)) + 1, TBTrans(1)
+ TransRecord! = LOF(TBTranFile) / LEN(TBTrans(1))
+ PrevTrans! = TBPPCust(1).LastTrans
+ TBPPCust(1).LastTrans = TransRecord!
+ PUT TBFile, AcctRecord, TBPPCust(1)
+ GET TBTranFile, PrevTrans!, TBTrans(1)
+ TBTrans(1).TrNextTrans = TransRecord!
+ PUT TBTranFile, PrevTrans!, TBTrans(1)
+ CLOSE TBTranFile
+ RETURN
+6000 RUN "TBCALCIN"
+
+7000 GOTO 10
+     
+60000  IF taxtype$ = "R" OR taxtype$ = "N" THEN
+         TBFile = FREEFILE
+         OPEN TBPath$ + "TBRTCUST.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #TBFile LEN = LEN(TBRECust(1))
+        ELSE
+         TBFile = FREEFILE
+         OPEN TBPath$ + "TBPTCUST.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #TBFile LEN = LEN(TBPPCust(1))
+         END IF
+        RETURN
+
+61000 TBTranFile = FREEFILE
+      OPEN TBPath$ + "TBTRANS.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #TBTranFile LEN = LEN(TBTrans(1))
+61020 RETURN
+
+
+
+
+62000 COLOR 14: CF = 0: in$ = "": RO = CSRLIN: PO = POS(x): ZD = 0: ZS = 0: ZL = 0: IF fl = ZD THEN fl = 1
+62010 IF INKEY$ <> "" THEN 62010
+62020 PRINT STRING$(ABS(fl), 95); : LOCATE RO, PO
+62030 z$ = INKEY$: IF z$ = "" THEN 62030
+62040 IF z$ <> CHR$(13) THEN 62060 ELSE PRINT STRING$(ABS(fl) - ZL, 32);
+62050 GOSUB 62200: RETURN
+62060 IF z$ = CHR$(27) OR z$ = CHR$(21) THEN CF = 1: RETURN
+      IF z$ = CHR$(9) THEN CF = 2: RETURN
+      IF LEN(z$) < 2 THEN 62065
+      IF ASC(LEFT$(z$, 1)) = 0 AND ASC(MID$(z$, 2, 1)) = 59 THEN CF = 11: RETURN
+      IF ASC(LEFT$(z$, 1)) = 0 AND ASC(MID$(z$, 2, 1)) = 60 THEN CF = 12: RETURN
+62065 IF ASC(z$) = 0 THEN 62030
+62070 IF LEN(z$) > 1 THEN CF = ASC(RIGHT$(z$, 1)) - 57: IF CF > 0 THEN RETURN ELSE CF = CF + 27: RETURN
+62080 IF z$ = " " THEN 62130 ELSE IF z$ = CHR$(29) THEN PRINT STRING$(ZL, 29); : GOTO 62000
+62090 IF z$ <> CHR$(8) THEN 62130 ELSE IF ZL = 0 THEN 62030 ELSE PRINT CHR$(29); : PRINT "_"; : PRINT CHR$(29); : IF fl > 0 THEN 62110 ELSE IF z$ = "," THEN 62120
+62100 IF z$ = "." THEN ZD = 0: GOTO 62110 ELSE IF z$ = "+" OR z$ = "-" THEN ZS = 0
+62110 in$ = LEFT$(in$, LEN(in$) - 1)
+62120 ZL = ZL - 1: GOTO 62030
+62130 IF ABS(fl) = ZL THEN 62030 ELSE IF fl > 0 THEN IF z$ >= " " AND z$ <= "z" THEN 62180
+62140 IF z$ = "." AND ZD = 0 THEN ZD = 1: GOTO 62180
+62150 IF z$ = "," THEN PRINT ","; : ZL = ZL + 1: GOTO 62190
+62160 IF (z$ = "-" OR z$ = "+") AND ZS = 0 AND ZL = 0 THEN ZS = 1: GOTO 62180
+62170 IF z$ < "0" OR z$ > "9" THEN 62030
+62180 PRINT z$; : in$ = in$ + z$: ZL = ZL + 1
+62190 IF ABS(fl) = 1 THEN 62050 ELSE 62030
+62200 LOCATE RO, PO: PRINT in$: RETURN
+62210 GOSUB 62000: IF LEN(in$) THEN in$ = CHR$(ASC(in$) AND 223)
+62220 RETURN
+63500 LOCATE 1, 1: COLOR 10: PRINT "Sys. Date: "; SYSDATE$; TAB(70); scren$: PRINT STRING$(79, "_"): RETURN
+
+Namesearch:
+ LOCATE 8, 1:
+ COLOR 11
+ PRINT "Enter Last Name (Partial Accepted : ESC - End) .. "; : fl = 25
+ GOSUB 62000
+ IF CF = 1 THEN
+  ggo = 0
+  FOR LLL = 8 TO 13: PRINT STRING$(79, 32): NEXT LLL
+  RETURN
+ END IF
+ nn$ = in$
+ nn = LEN(nn$)
+ IF nn > 20 THEN nn = 20
+ nn$ = LEFT$(nn$, nn)
+
+ IF taxtype$ = "R" THEN
+  TBIDXFile = FREEFILE
+  OPEN TBPath$ + "TBRTNAME.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #TBIDXFile LEN = 24
+  FIELD TBIDXFile, 20 AS lastnam$, 4 AS mrec$
+  GOSUB 60000
+  FOR ll = 1 TO LOF(TBIDXFile) / 24
+  GET TBIDXFile, ll
+  IF LEFT$(lastnam$, nn) = nn$ THEN GOTO n1
+n3:
+  NEXT ll
+  FOR LLL = 8 TO 13: PRINT STRING$(79, 32): NEXT LLL
+  ggo = 0
+  RETURN
+
+n1:
+GET TBFile, CVS(mrec$), TBRECust(1)
+LOCATE 11, 1: COLOR 11
+nme$ = TBRECust(1).CustName
+COLOR 10
+FOR LLL = 10 TO 12: LOCATE LLL, 1: PRINT STRING$(79, 32): NEXT LLL
+LOCATE 11, 1: COLOR 11
+PRINT "Full Account Name: "; : COLOR 15: PRINT nme$
+COLOR 11
+PRINT "   Account Number: "; : COLOR 15: PRINT CVS(mrec$)
+n2:
+LOCATE 13, 1: COLOR 11
+PRINT "Correct Account (Y/N/Q) .. "; : fl = 1: GOSUB 62210
+IF NOT (in$ = "Y" OR in$ = "N" OR in$ = "Q") THEN GOTO n2
+IF in$ = "Q" THEN
+  FOR LLL = 8 TO 13: LOCATE LLL, 1: PRINT STRING$(79, 32): NEXT LLL
+  CLOSE
+  ggo = 0
+  RETURN
+END IF
+IF in$ = "Y" THEN
+  ggo = 1: Record! = CVS(mrec$)
+  FOR LLL = 8 TO 13:  LOCATE LLL, 1: PRINT STRING$(79, 32): NEXT LLL
+  CLOSE
+  RETURN
+END IF
+IF in$ = "N" THEN GOTO n3
+GOTO n2
+END IF
+
+
+  TBIDXFile = FREEFILE
+  OPEN TBPath$ + "TBPTNAME.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #TBIDXFile LEN = 24
+  FIELD TBIDXFile, 20 AS lastnam$, 4 AS mrec$
+  GOSUB 60000
+  FOR ll = 1 TO LOF(TBIDXFile) / 24
+  GET TBIDXFile, ll
+  IF LEFT$(lastnam$, nn) = nn$ THEN GOTO PPn1
+PPn3:
+  NEXT ll
+  LOCATE 8, 1: PRINT STRING$(79, 32)
+  ggo = 0
+  RETURN
+
+PPn1:
+GET TBFile, CVS(mrec$), TBPPCust(1)
+LOCATE 11, 1: COLOR 11
+nme$ = TBPPCust(1).CustName
+COLOR 10
+FOR LLL = 10 TO 12: LOCATE LLL, 1: PRINT STRING$(79, 32): NEXT LLL
+LOCATE 11, 1: COLOR 11
+PRINT "Full Account Name: "; : COLOR 15: PRINT nme$
+COLOR 11
+PRINT "   Account Number: "; : COLOR 15: PRINT CVS(mrec$)
+PPn2:
+LOCATE 13, 1: COLOR 11
+PRINT "Correct Account (Y/N/Q) .. "; : fl = 1: GOSUB 62210
+IF NOT (in$ = "Y" OR in$ = "N" OR in$ = "Q") THEN GOTO PPn2
+IF in$ = "Q" THEN
+  FOR LLL = 8 TO 13: LOCATE LLL, 1: PRINT STRING$(79, 32): NEXT LLL
+  CLOSE
+  ggo = 0
+  RETURN
+END IF
+IF in$ = "Y" THEN
+  ggo = 1: Record! = CVS(mrec$)
+  FOR LLL = 8 TO 13: LOCATE LLL, 1: PRINT STRING$(79, 32): NEXT LLL
+  CLOSE
+  RETURN
+END IF
+IF in$ = "N" THEN GOTO PPn3
+GOTO PPn2
+
+Deleted:
+    LOCATE 23, 1: COLOR 15
+    PRINT "This Account Has Been Deleted! Press <ENTER> to Continue"; :
+    fl = 1
+    GOSUB 62000
+    LOCATE 23, 1: PRINT STRING$(79, 32)
+    RETURN
+
+FigureBalance:
+     CurBal# = 0: PastDue# = 0
+    IF taxtype$ = "R" OR taxtype$ = "N" THEN
+     CurBal# = TBRECust(1).CurYrTaxAmount + TBRECust(1).CurYrIntAmount + TBRECust(1).CurYrPenAmount + TBRECust(1).CurYrOthAmount
+     CurBal# = INT((CurBal# * 100) + .5) / 100
+     FOR ll = 1 TO 10
+     PastDue# = PastDue# + TBRECustBal(1).TaxAmt(ll) + TBRECustBal(1).IntAmt(ll) + TBRECustBal(1).PenAmt(ll) + TBRECustBal(1).OthAmt(ll) + TBRECustBal(1).LateAmt(ll)
+     PastDue# = INT((PastDue# * 100) + .5) / 100
+     NEXT ll
+      ELSE
+     CurBal# = TBPPCust(1).CurYrPersPropTax + TBPPCust(1).CurYrFarmEquipTax + TBPPCust(1).CurYrMachToolsTax + TBPPCust(1).CurYrMerchCapTax + TBPPCust(1).CurYrMobileHomeTax + TBPPCust(1).CurYrLateFeeTax + TBPPCust(1).CurYrIntAmount + TBPPCust(1). _
+CurYrPenAmount
+     CurBal# = INT((CurBal# * 100) + .5) / 100
+     FOR ll = 1 TO 10
+     PastDue# = PastDue# + TBPPCustBal(1).PerPropTaxAmt(ll) + TBPPCustBal(1).FarmEquipAmt(ll) + TBPPCustBal(1).MachToolsAmt(ll) + TBPPCustBal(1).MerchCapAmt(ll) + TBPPCustBal(1).MobileHomeAmt(ll) + TBPPCustBal(1).LateFeeAmt(ll) + TBPPCustBal(1). _
+IntAmt(ll) + TBPPCustBal(1).PenAmt(ll)
+     PastDue# = INT((PastDue# * 100) + .5) / 100
+     NEXT ll
+    END IF
+    RETURN
+
+networkerror:
+     REM ERROR CODES
+     Number = ERR
+     SELECT CASE ERR
+          CASE IS = 24, 25
+               LOCATE 23, 1: PRINT STRING$(79, 32): LOCATE 23, 1: COLOR 28
+               PRINT "Error Message:"; : COLOR 15: PRINT "Device Time-out! Make Sure Printer Is ON-LINE:Press ENTER to Resume Printing";
+               fl = 1: GOSUB 62000: LOCATE 23, 1: PRINT STRING$(79, 32)
+               RESUME
+          CASE IS = 27
+               LOCATE 23, 1: PRINT STRING$(79, 32): LOCATE 23, 1: COLOR 28
+               PRINT "Error Message:"; : COLOR 15: PRINT "Printer Is OUT OF PAPER! Load Paper : Press ENTER to Resume Printing";
+               fl = 1: GOSUB 62000: LOCATE 23, 1: PRINT STRING$(79, 32)
+               RESUME
+          CASE IS = 63
+               RESUME NEXT
+
+          CASE ELSE
+               CLS
+               LOCATE 15, 1: COLOR 28: PRINT "Error Message: "; : COLOR 15: PRINT "Error "; Number; " Has Occured in Line "; ERL
+               PRINT "Write Down Message and Hit <ESC> Key to exit."
+               fl = 1: GOSUB 62000: IF CF = 1 THEN CLOSE : GOTO 10 ELSE GOSUB 62000
+            
+     END SELECT
+    
+

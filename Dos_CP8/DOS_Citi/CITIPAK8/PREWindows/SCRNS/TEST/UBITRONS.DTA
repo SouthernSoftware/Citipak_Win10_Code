@@ -1,0 +1,18 @@
+UBITRONS.FieldInfo:
+DATA  3 , 4 , 20 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 11 , 40 , 45 , 4 , 18 ,"", 0 , 0 ,"ACCT", 0 , 0 ,-1 , 0 , 1 , 9999999 ,""
+DATA  5 , 16 , 35 , 46 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  5 , 16 , 49 , 62 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+UBITRONS.Help:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+
+UBITRONS.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

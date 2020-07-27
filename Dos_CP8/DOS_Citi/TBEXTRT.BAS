@@ -1,0 +1,86 @@
+10 DEFINT A-Z
+CLEAR , , 4000
+'$INCLUDE: 'TAXFILE.BI'
+        WIDTH LPRINT 132
+        ON ERROR GOTO networkerror
+        DEFDBL T
+        DIM SHARED Fields$(40)
+        REDIM tbCust(1) AS TBRealCustomer
+110 scren$ = "3.00.00": SYSDATE$ = DATE$
+120 CLS : GOSUB 63500
+130 LOCATE 4, 1: COLOR 11
+3000 CLS : scren$ = "3.03.00": GOSUB 63500: COLOR 11: LOCATE 1, 25: PRINT "Extract District Data for Export"
+     LOCATE 3, 1: COLOR 11
+     PRINT "Enter the District Code to Pull (1-10) .. "; : fl = -2
+     GOSUB 62000
+     IF cf = 1 THEN CLOSE : RUN "tbCustMa"
+     District = VAL(in$): District$ = in$
+      IF District < 1 OR District > 10 THEN 3000
+      TBFile = FREEFILE
+      OPEN "TBRECUS.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS #TBFile LEN = LEN(tbCust(1))
+      TBEFile = FREEFILE
+      OPEN "TBREX" + District$ + ".EXP" FOR RANDOM ACCESS READ WRITE SHARED AS #TBEFile LEN = LEN(tbCust(1))
+      
+
+      Cnt = 1
+      WHILE Cnt <= LOF(TBFile) / LEN(tbCust(1))
+        GET TBFile, Cnt, tbCust(1)
+        LOCATE 8, 1: COLOR 11: PRINT "Processing Record # "; : COLOR 15: PRINT USING "######"; Cnt
+        IF VAL(tbCust(1).District) = District THEN
+           PRINT tbCust(1).District
+            PUT TBEFile, LOF(TBEFile) / (LEN(tbCust(1)) + 1), tbCust(1)
+        END IF
+        Cnt = Cnt + 1
+      WEND
+      CLOSE
+      RUN "tbcustma"
+
+
+62000 COLOR 14: cf = 0: in$ = "": RO = CSRLIN: PO = POS(x): ZD = 0: ZS = 0: ZL = 0: IF fl = ZD THEN fl = 1
+62010 IF INKEY$ <> "" THEN 62010
+62020 PRINT STRING$(ABS(fl), 95); : LOCATE RO, PO
+62030 Z$ = INKEY$: IF Z$ = "" THEN 62030
+62040 IF Z$ <> CHR$(13) THEN 62060 ELSE PRINT STRING$(ABS(fl) - ZL, 32);
+62050 GOSUB 62200: RETURN
+62060 IF Z$ = CHR$(27) OR Z$ = CHR$(21) THEN cf = 1: RETURN
+62065 IF ASC(Z$) = 0 THEN 62030
+62070 IF LEN(Z$) > 1 THEN cf = ASC(RIGHT$(Z$, 1)) - 57: IF cf > 0 THEN RETURN ELSE cf = cf + 27: RETURN
+62080 IF Z$ = " " THEN 62130 ELSE IF Z$ = CHR$(29) THEN PRINT STRING$(ZL, 29); : GOTO 62000
+62090 IF Z$ <> CHR$(8) THEN 62130 ELSE IF ZL = 0 THEN 62030 ELSE PRINT CHR$(29); : PRINT "_"; : PRINT CHR$(29); : IF fl > 0 THEN 62110 ELSE IF Z$ = "," THEN 62120
+62100 IF Z$ = "." THEN ZD = 0: GOTO 62110 ELSE IF Z$ = "+" OR Z$ = "-" THEN ZS = 0
+62110 in$ = LEFT$(in$, LEN(in$) - 1)
+62120 ZL = ZL - 1: GOTO 62030
+62130 IF ABS(fl) = ZL THEN 62030 ELSE IF fl > 0 THEN IF Z$ >= " " AND Z$ <= "z" THEN 62180
+62140 IF Z$ = "." AND INSTR(in$, ".") = 0 THEN GOTO 62180
+62150 IF Z$ = "," THEN PRINT ","; : ZL = ZL + 1: GOTO 62190
+62160 IF (Z$ = "-" OR Z$ = "+") AND ZS = 0 AND ZL = 0 THEN ZS = 1: GOTO 62180
+62170 IF Z$ < "0" OR Z$ > "9" THEN 62030
+62180 PRINT Z$; : in$ = in$ + Z$: ZL = ZL + 1
+62190 IF ABS(fl) = 1 THEN 62050 ELSE 62030
+62200 LOCATE RO, PO: PRINT in$: RETURN
+62210 GOSUB 62000: IF LEN(in$) THEN in$ = CHR$(ASC(in$) AND 223)
+62220 RETURN
+63500 LOCATE 1, 1: COLOR 10: PRINT "Sys. Date: "; SYSDATE$; TAB(70); scren$: PRINT STRING$(79, "_"): RETURN
+networkerror:
+     REM ERROR CODES
+     Number = ERR
+     SELECT CASE ERR
+          CASE IS = 24, 25
+               LOCATE 23, 1: PRINT STRING$(79, 32): LOCATE 23, 1: COLOR 28
+               PRINT "Error Message:"; : COLOR 15: PRINT "Device Time-out! Make Sure Printer Is ON-LINE:Press ENTER to Resume Printing";
+               fl = 1: GOSUB 62000: LOCATE 23, 1: PRINT STRING$(79, 32)
+               RESUME
+          CASE IS = 27
+               LOCATE 23, 1: PRINT STRING$(79, 32): LOCATE 23, 1: COLOR 28
+               PRINT "Error Message:"; : COLOR 15: PRINT "Printer Is OUT OF PAPER! Load Paper : Press ENTER to Resume Printing";
+               fl = 1: GOSUB 62000: LOCATE 23, 1: PRINT STRING$(79, 32)
+               RESUME
+
+          CASE ELSE
+               CLS
+               LOCATE 15, 1: COLOR 28: PRINT "Error Message: "; : COLOR 15: PRINT "Error "; Number; " Has Occured in Line "; ERL
+               PRINT "Write Down Message and Hit <ESC> Key to exit."
+               fl = 1: GOSUB 62000: IF cf = 1 THEN CLOSE : GOTO 10 ELSE GOSUB 62000
+
+     END SELECT
+

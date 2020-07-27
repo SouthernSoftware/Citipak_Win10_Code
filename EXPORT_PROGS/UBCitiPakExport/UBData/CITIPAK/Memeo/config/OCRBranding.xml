@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ApplicationSettings>
+
+	<Section Name="Name">
+		<Key Name="AutoBackup" Value="Memeo AutoBackup" />
+		<Key Name="OneClickRestore" Value="Memeo OneClick Restore" />
+	</Section>
+
+</ApplicationSettings>

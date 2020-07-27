@@ -1,0 +1,12 @@
+TYPE UBOwnerRecType
+    OwnLName  AS STRING * 20
+    OwnFName  AS STRING * 15
+    ADDR1     AS STRING * 35
+    ADDR2     AS STRING * 35
+    CITY      AS STRING * 18
+    STATE     AS STRING * 2
+    ZIPCODE   AS STRING * 10
+    HPHONE    AS STRING * 14
+    WPHONE    AS STRING * 14
+END TYPE
+

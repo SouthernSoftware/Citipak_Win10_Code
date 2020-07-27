@@ -1,0 +1,6 @@
+frmMainMenu = 52, 52, 637, 475, , 26, 26, 439, 449, C
+clsCommandButton = 44, 44, 628, 487, 
+clsTextBoxOverRider = 0, 0, 0, 0, C
+frmMainPassWord = 104, 104, 637, 527, , 78, 78, 611, 501, C
+modInitProcedures = 88, 88, 673, 531, 
+frmModuleInfo = 132, 132, 727, 575, , 110, 110, 705, 553, C

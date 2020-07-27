@@ -1,0 +1,12 @@
+LUPACCT.FieldInfo:
+DATA  1 , 11 , 11 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 12 , 32 , 42 , 11 , 2 ,"", 0 , 0 ,"LOOKUP", 0 , 0 , 0 , 0 , 0 , 0 ,""
+
+LUPACCT.Help:
+DATA ""
+DATA ""
+
+LUPACCT.Formulas:
+DATA ""
+DATA ""
+

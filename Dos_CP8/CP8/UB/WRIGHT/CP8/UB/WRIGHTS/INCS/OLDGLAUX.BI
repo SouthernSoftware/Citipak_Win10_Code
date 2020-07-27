@@ -1,0 +1,11 @@
+DECLARE SUB Post2GL (FileName$, BadTrans%)
+'DECLARE SUB LibLoadDisplayForm (LibName$, FormName$, Form$(), Fld() AS ANY)
+'DECLARE SUB EditForm (Form$(), Fld() AS ANY, Frm AS ANY, Cnf AS ANY, Action%)
+'DECLARE SUB LibGetFldDef (LibName$, FrmName$, StartEl%, Fld() AS ANY, Form$(), ErrCode%)
+'DECLARE SUB LibFile2Scrn (LibName$, ScrnName$, MonoCode%, Attribute%, ErrorCode%)
+'DECLARE FUNCTION InputBox$ (LibName$, FormName$, Cancel%)
+'DECLARE FUNCTION MsgBox% (LibName$, FormName$)
+'DECLARE SUB Post2GL (FileName$, BadTrans%)
+'DECLARE SUB DispLoad ()
+'DECLARE FUNCTION GetPassword$ (Row%, Col%, Max%, Abort%)
+

@@ -1,0 +1,4 @@
+cd qlblib
+call qlblib
+cd ..
+d \qbx\lib\prqlb.lib;prexe.lib

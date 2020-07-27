@@ -1,0 +1,21 @@
+MBEDITRP.FieldInfo:
+DATA  4 , 30 , 10 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 10 , 36 , 55 , 20 , 22 ,"", 0 , 0 ,"REPORDER", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  21 , 12 , 36 , 45 , 10 , 22 ,"", 0 , 0 ,"OUTPUTTO", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  31 , 15 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  31 , 15 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+MBEDITRP.Help:
+DATA ""
+DATA "Choose the Order to Print the Report. "
+DATA "Select the Output Device. "
+DATA "Press the <F10> Key to Process Your Report. "
+DATA "Press the <ESC> Key to Cancel Your Input. "
+
+MBEDITRP.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

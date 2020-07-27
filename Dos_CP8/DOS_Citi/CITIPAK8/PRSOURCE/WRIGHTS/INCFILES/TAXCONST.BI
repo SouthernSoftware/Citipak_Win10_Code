@@ -1,0 +1,5 @@
+CONST TaxCustFile = "TAXCUST.DAT"
+CONST CustPinFile = "TAXCPIN.DAT"
+CONST TaxPropFile = "TAXPROP.DAT"
+CONST TaxPersFile = "TAXPERS.DAT"
+

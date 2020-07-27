@@ -1,0 +1,21 @@
+DCLICREG.FieldInfo:
+DATA  4 , 30 , 2 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 11 , 35 , 49 , 15 , 22 ,"", 0 , 0 ,"ORDER", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  16 , 13 , 35 , 49 , 15 , 22 ,"", 0 , 0 ,"WHERETO", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  31 , 17 , 34 , 44 , 0 , 24 ,"", 0 , 0 ,"F10K", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  31 , 17 , 46 , 57 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+DCLICREG.Help:
+DATA ""
+DATA "Select the Order in which to print your report. "
+DATA "Where is the report to be printed. "
+DATA "Press the F10 Key to Process Your Report. "
+DATA "Press the ESC Key to Cancel Your Request. "
+
+DCLICREG.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

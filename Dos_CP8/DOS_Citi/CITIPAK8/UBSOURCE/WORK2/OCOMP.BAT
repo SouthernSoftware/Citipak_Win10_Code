@@ -1,0 +1,37 @@
+for %%1 in (*.bas) do (echo %%1^bc %%1 /o/ot/g2;)
+bc NCPFPRNT /o/ot/g2/X;
+bc UBMISC /o/ot/g2/ah;
+bc comnaux /o/ot/g2/ah;
+bc ubmtread /o/ot/g2/ah;
+bc ubcust /o/ot/g2/ah;
+BC UBSETFIN /O/OT/G2/AH;
+BC UBCUSTRE /O/OT/G2/AH;
+bc ubmenu /o/ot/g2;
+bc ubzap /o/ot/g2/AH;
+rem bc ubelspec /o/ot/g2;
+
+bc formedit /o/ot/g2/ah;
+
+LINK @UBMENU.RSP
+LINK @UBMISC.RSP
+LINK @UBADJUST.RSP
+LINK @UBSETUP.RSP
+LINK @UBSTATRE.RSP
+LINK @UBCUSTRE.RSP
+LINK @UBWRKORD.RSP
+LINK @UBBILLIN.RSP
+LINK @UBZAP.RSP
+LINK @UBFINBIL.RSP
+LINK @UBPRNBIL.RSP
+LINK @UBLNPRNT.RSP
+rem LINK @UBPRNFIN.RSP
+LINK @UBPAYMNT.RSP
+LINK @UBDRAFT.RSP
+LINK @UBMTREAD.RSP
+LINK @UBPENLTY.RSP
+REM LINK @UBCP72CV.RSP
+LINK @UBCP6CNV.RSP
+rem LINK @UBELSPEC.RSP
+REM link @UBUTIL1.RSP
+
+DEL *.obj

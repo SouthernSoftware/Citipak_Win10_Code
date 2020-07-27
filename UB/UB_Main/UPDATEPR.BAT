@@ -1,0 +1,2 @@
+prnewach -d -o
+runme

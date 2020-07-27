@@ -1,0 +1,112 @@
+                              NOTES TO
+                    db/LIB Network Database System
+                          Version 3.00 for
+                  Microsoft Visual Basic for MS-DOS
+         Microsoft BASIC Professional Development System 7.0/7.1
+ 
+ 
+DISKETTE: "db/LIB Network Database System version 3.0."
+  All files of the db/LIB product are held in compressed format on this
+  diskette. Do not Write-Protect this diskette before installation.
+
+INSTALLATION:
+  Install db/LIB's files by executing DBINSTAL.EXE from the distribution 
+  diskette. The install program will ask you to designate the target 
+  subdirectories and other installation options. If installation fails, 
+  see the DBINSTAL.$$$ file for details.
+
+FILES: 
+  The contents of this diskette is as follows:
+   ð DBINSTAL.EXE installation program which will automatically load
+       and build the db/LIB programs and libraries on your hard drive.
+       You may copy db/LIB's files yourself by executing:
+                PROGRAMS <target drive:\target directory>
+                LIBRARY  <target drive:\target directory>
+       Then execute:  
+                BUILDLIB.BAT  in the library directory
+                COMP_DML.BAT  in the programs directory
+
+   ð LIBRARY.EXE storage file containing db/LIB's File Access system
+       and Error Diagnosis Module.
+     þ db/LIB's Library Files:
+       - DBLIBMF.LIB    Network Library of db/LIB's assembly routines.
+                        For Far String addressing ONLY.
+                        ("MF" = Multi-User, Far Strings)
+       - DBLIBSF.LIB    Single-User Library of db/LIB's assembly routines.
+                        For Far String addressing ONLY.
+                        ("SF" = Single-User, Far Strings)
+       - DBCIPHRF.LIB   Library containing the db/LIB data encryption calls.
+       - DBLIBEDM.OBJ   Error Diagnosis Module (DBLIBEDM.LIB for BASIC PDS) 
+                        Routines which trap and diagnose errors in your 
+                        programs related to db/LIB calls.
+
+       DBINSTAL.EXE will automatically build these files:
+       - DBLIBMF.QLB    Quick Library 
+       (Following for BASIC PDS installation only)
+       - DBUSERMF.LIB   Combined Library containing QBX.LIB DOS Interrupt Library
+       - DBUSERMF.QLB   Quick Library of DBUSERMF.LIB 
+       
+     þ db/LIB's Library Support files:
+       - BUILDLIB.BAT   Batch file for building new Quick or User libraries,
+                        or combining db/LIB with other libraries.
+       - MAKE-EDM.BAT   Batch file for adding the Error Diagnosis Module 
+                        to your other libraries.
+       - DBUSERMF.RSP, DBUSERSF.RSP   (only for BASIC PDS installation)
+                        Response files used by BUILDLIB.BAT to name libraries
+                        and object files to combine into a Linkable Library.
+                        Modify any RSP file to customize your libraries.
+       - DBSGLRTM.TXT, DBNETRTM.TXT   Declaration files to allow building 
+                        custom runtime files.
+ 
+   ð The PROGRAMS.EXE storage file containing:
+     þ The BASIC source files of the db/LIB Data Management Library
+         written with db/LIB and BASIC. When compiled the DML includes:
+       - ADDREC.EXE        - DBLIB.EXE          - DIRLIST.EXE (BC7 only)
+       - BROWSE.EXE        - LISTRPT.EXE        - MODISTRU.EXE
+       - COPYREC.EXE       - DISPSTRU.EXE       - PACK.EXE
+       - CREATE.EXE        - INDEX.EXE          - UPDATE.EXE
+       - TEST-NET.EXE      - DBCIPHER.EXE
+       - COMP_DML.BAT to compile and link the above
+
+     þ DBDECLAR.BI:  Basic $INCLUDE: file of DECLARE statement to trap
+                     typographical and syntax errors in your programs.
+                     Put at the beginning of all your db/LIB programs.
+     þ DBCALLS.TXT:  list of syntax for all db/LIB File Access calls.
+     þ CONVERTx.EXE: files to convert BASIC data files to DBF files.
+     þ CATALOG.BAS:  catalog management and demonstration routines. 
+                        see CAT_DEMO.BAS, and CAT_DEMO.MAK
+     þ SAMPLES.BAS:  db/LIB call demonstration routines. 
+     þ MAKE-EDM.EXE: program to automatically insert Error Diagnosis 
+                        triggering routines into your program.
+     þ Several sample DBF database and NDX index files to play with.
+
+  ð README.1ST - This notes file.
+ 
+ADDITIONAL NOTES:
+ 
+1)  This version of db/LIB Network Database System (DBLIBMF.LIB) is compatible
+    with Microsoft BASIC Professional Development System 7.0/7.1 and with
+    Microsoft Visual Basic for MS-DOS. These Far String libraries are not 
+    compatible with QuickBASIC or with the near string compiler option in 
+    Basic PDS (you must employ far string compilation with the /FS switch).
+    Contact AJS Publishing for a near string version of db/LIB. 
+ 
+2)  If you are using Novell Netware and DOS 4.0 or later, you should add 
+    the following code to your network programs. 
+
+        Before opening NETWORK files: 
+                parameter$ = "COMMIT"
+                definition$ = "1"
+                CALL ConfigLIB (parameter$, status%, definition$)
+
+        Before opening LOCAL files: 
+                parameter$ = "COMMIT"
+                definition$ = "0"
+                CALL ConfigLIB (parameter$, status%, definition$)
+    
+    This code will allow db/LIB to avoid serious consequences to your data
+    files due to Netware's incompatibility with these versions of MS-DOS.  
+    You should also have the Netware Shell revision 3.26 or later installed. 
+
+ 
+END OF README.1ST FOR db/LIB NETWORK DATABASE SYSTEM May 1, 1993.

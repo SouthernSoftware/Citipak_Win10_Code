@@ -1,0 +1,21 @@
+NAPOPRN.FieldInfo:
+DATA  4 , 23 , 7 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 11 , 39 , 45 , 7 , 2 ,"", 0 , 0 ,"DEPTNUMB", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  8 , 13 , 39 , 54 , 16 , 22 ,"", 0 , 0 ,"DEVSPEC", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  24 , 15 , 26 , 39 , 0 , 24 ,"", 0 , 0 ,"OK2", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  24 , 15 , 41 , 55 , 0 , 24 ,"", 0 , 0 ,"CANCEL2", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+NAPOPRN.Help:
+DATA ""
+DATA "Enter the Dept. Number to Print.  No Dept will print all Dept's. "
+DATA "Select the device to output the report to. "
+DATA "Press this button to print then vendor list. "
+DATA "Press this button or Esc to cancel. "
+
+NAPOPRN.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

@@ -1,0 +1,15 @@
+DCOKPOST.FieldInfo:
+DATA  2 , 0 , 2 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 16 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  1 , 16 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+DCOKPOST.Help:
+DATA ""
+DATA "Press the F10 Key to Post. "
+DATA "Press the ESC Key to Cancel Posting Request. "
+
+DCOKPOST.Formulas:
+DATA ""
+DATA ""
+DATA ""
+

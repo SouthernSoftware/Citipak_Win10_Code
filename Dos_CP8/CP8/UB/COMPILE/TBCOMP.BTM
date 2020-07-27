@@ -1,0 +1,12 @@
+del *.exe *.obj
+ren NCPFPRNT.BAS NCPFPRNT.HLD
+for %%1 in (*.bas) do (echo %%1^bc %%1 /lr/o/ot/g2/ah;)
+ren NCPFPRNT.HLD NCPFPRNT.BAS
+bc tbcash /lr/o/ot/g2/X;
+bc tbcash1 /lr/o/ot/g2/X;
+bc NCPFPRNT /lr/o/ot/g2/X;
+bc ubopendr /lr/o/ot/g2/x;
+bc ubradaux /lr/o/ot/g2/e;
+
+link @tbcash.rsp
+

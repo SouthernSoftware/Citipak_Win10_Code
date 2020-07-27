@@ -1,0 +1,39 @@
+ren NCPFPRNT.BAS NCPFPRNT.
+for %%1 in (*.bas) do (echo %%1^bc %%1 lr/o/ot/g2;)
+ren NCPFPRNT. NCPFPRNT.BAS
+bc NCPFPRNT /lr/o/ot/g2/X;
+bc UBMISC /lr/o/ot/g2/ah;
+bc comnaux /lr/o/ot/g2/ah;
+bc ubmtread /lr/o/ot/g2/ah;
+bc ubcust /lr/o/ot/g2/ah;
+BC UBSETFIN /lr/O/OT/G2/AH;
+BC UBCUSTRE /lr/O/OT/G2/AH;
+bc ubmenu /lr/o/ot/g2;
+bc ubzap /lr/o/ot/g2/AH;
+rem bc ubelspec /lr/o/ot/g2;
+
+bc formedit /lr/o/ot/g2/ah;
+
+LINK @UBMENU.RSP
+LINK @UBMISC.RSP
+LINK @UBADJUST.RSP
+LINK @UBSETUP.RSP
+LINK @UBSTATRE.RSP
+LINK @UBCUSTRE.RSP
+LINK @UBWRKORD.RSP
+LINK @UBBILLIN.RSP
+LINK @UBZAP.RSP
+LINK @UBFINBIL.RSP
+LINK @UBPRNBIL.RSP
+LINK @UBLNPRNT.RSP
+LINK @UBPRNFIN.RSP
+LINK @UBPAYMNT.RSP
+LINK @UBDRAFT.RSP
+LINK @UBMTREAD.RSP
+LINK @UBPENLTY.RSP
+REM LINK @UBCP72CV.RSP
+LINK @UBCP6CNV.RSP
+rem LINK @UBELSPEC.RSP
+REM link @UBUTIL1.RSP
+
+DEL *.obj

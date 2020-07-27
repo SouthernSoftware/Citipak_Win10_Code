@@ -1,0 +1,15 @@
+ARCUSDEL.FieldInfo:
+DATA  2 , 0 , 4 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 16 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  1 , 16 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+ARCUSDEL.Help:
+DATA ""
+DATA "Press OK to Delete Customer, ESC to Abort. "
+DATA "Press OK to Delete Customer, ESC to Abort. "
+
+ARCUSDEL.Formulas:
+DATA ""
+DATA ""
+DATA ""
+

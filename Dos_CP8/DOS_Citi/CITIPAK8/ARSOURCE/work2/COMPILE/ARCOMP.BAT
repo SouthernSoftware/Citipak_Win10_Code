@@ -1,0 +1,16 @@
+CALL c:\SETQBX
+for %%1 in (*.bas) do bc %%1 /lr/o/ot/ah/g2;
+
+bc NCPFPRNT /o/ot/g2/X/lr;
+bc comnaux /o/ot/g2/ah/lr;
+
+LINK @ARMENU.RSP
+LINK @ARBILLIN.RSP
+LINK @ARSETBAL.RSP
+LINK @ARCODE.RSP
+LINK @ARCUST.RSP
+LINK @ARPAYMEN.RSP
+LINK @ARREPORT.RSP
+LINK @ARSPEC.RSP
+LINK @ARWACK.RSP
+rem del *.obj

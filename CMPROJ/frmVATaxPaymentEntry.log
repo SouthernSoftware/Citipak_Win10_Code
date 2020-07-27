@@ -1,0 +1,12 @@
+Line 13: Property Icon in frmTaxPaymentEntry had an invalid file reference.
+Line 137: Property ColDesigner in fpcmbTenderType had an invalid file reference.
+Line 467: Property ButtonDesigner in cmdCash had an invalid file reference.
+Line 504: Property ButtonDesigner in cmdCheck had an invalid file reference.
+Line 541: Property ButtonDesigner in cmdCharge had an invalid file reference.
+Line 577: Property ButtonDesigner in cmdLookup had an invalid file reference.
+Line 614: Property ButtonDesigner in cmdDist had an invalid file reference.
+Line 651: Property ButtonDesigner in cmdSave had an invalid file reference.
+Line 687: Property ButtonDesigner in cmdBills had an invalid file reference.
+Line 724: Property ButtonDesigner in cmdExit had an invalid file reference.
+Line 3957: Property ButtonDesigner in cmdInfo had an invalid file reference.
+Line 4290: Property ButtonDesigner in cmdDrawer had an invalid file reference.

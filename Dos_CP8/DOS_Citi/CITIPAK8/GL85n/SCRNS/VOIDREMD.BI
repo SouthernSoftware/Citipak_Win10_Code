@@ -1,0 +1,2 @@
+TYPE voidremd
+END TYPE

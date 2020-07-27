@@ -1,0 +1,6 @@
+frmLvOldWin2NewWin = 89, -5, 857, 607, , 18, -2, 915, 653, C
+modCommonLvOldWin2Win = 189, 28, 793, 557, 
+modInitProceduresLVOldWin2Win = 0, 0, 0, 0, C
+clsCommandButton = 0, 0, 0, 0, C
+clsTextBoxOverRider = 0, 0, 0, 0, C
+modSTRUCTLvTblWin2NewWin = 145, 3, 841, 615, 

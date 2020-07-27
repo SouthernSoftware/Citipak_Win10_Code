@@ -1,0 +1,10 @@
+frmCitiPakExportData = 28, 25, 802, 590, , 0, 0, 538, 450, C
+FrmShowPctComp = 28, 56, 680, 463, C, 66, 87, 606, 537, C
+clsCommandButton = 0, 0, 0, 0, C
+modNCTaxExportData = 44, 23, 813, 639, 
+NCTAX_STRUCT = 9, 33, 744, 547, I
+NCTX_Common = 9, 36, 777, 594, C
+Module1 = 51, 30, 768, 583, C
+modErrorHandling = 0, 0, 0, 0, C
+modMakeWindowTopMost = -3, 39, 649, 446, C
+clsTextBoxOverRider = 9, 35, 661, 442, C

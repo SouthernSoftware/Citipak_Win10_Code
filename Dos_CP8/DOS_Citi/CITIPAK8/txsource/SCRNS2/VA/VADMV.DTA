@@ -1,0 +1,30 @@
+VADMV.FieldInfo:
+DATA  7 , 20 , 12 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 10 , 43 , 48 , 4 , 4 ,"", 0 , 0 ,"RATE", 3 , 0 , 0 , 0 , 0 , 99.999 ,""
+DATA  5 , 12 , 43 , 52 , 2 , 6 ,"", 0 , 0 ,"SUBDATE", 0 , 0 , 0 , 0 , 6211 , 31368 ,""
+DATA  7 , 14 , 43 , 52 , 10 , 1 ,"", 0 , 0 ,"BATCH#", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  17 , 16 , 43 , 52 , 2 , 6 ,"", 0 , 0 ,"TAXSTART", 0 , 0 , 0 , 0 , 5480 , 31368 ,""
+DATA  19 , 17 , 43 , 52 , 2 , 6 ,"", 0 , 0 ,"ENDDATE", 0 , 0 , 0 , 0 , 5480 , 31368 ,""
+DATA  21 , 19 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  21 , 19 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+VADMV.Help:
+DATA ""
+DATA "Enter the Tax Rate in Effect When these Cars Were Billed. "
+DATA "Enter the Date of Submission (usually todays Date). "
+DATA "Enter the Batch Number as Sending to DMV. Start with '1'. "
+DATA "Enter The Tax Year Beginning Date Here. "
+DATA "Ending Tax Period Date. "
+DATA "Press the <F10> Key to Process Your Report. "
+DATA "Press the <ESC> Key to Cancel Your Input. "
+
+VADMV.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

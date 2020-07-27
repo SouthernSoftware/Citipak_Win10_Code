@@ -1,0 +1,5 @@
+if exist prexe.lib del /q PRexe.lib
+FOR %A IN (..\source\*.BAS) DO (echo BC %A /O /ot /G2;^BC %A /O /ot /G2;)
+lib @exelib.rsp
+del /q *.obj
+move /q prexe.lib f:\qbx\lib

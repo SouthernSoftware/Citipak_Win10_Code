@@ -1,0 +1,9 @@
+/NOE /SE:200 Checkrec+chkaux01+evaluate+
+fileio+formedit+formlib+ncpfprnt+nocalc+nonotes+
+scraux+scrndisp+scrnfile+scrnlib+vertmenu+
+wazzwind+wpicklst+wvertmnt+crlock
+CHECKREC.EXE,
+nul,
+pro7;
+
+

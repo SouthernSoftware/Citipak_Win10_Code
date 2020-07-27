@@ -1,0 +1,427 @@
+DEFINT A-Z
+DECLARE FUNCTION MakeMonth$ (TDate$)
+DECLARE FUNCTION MakeDay$ (DayNum%)
+DECLARE FUNCTION MakeLongDate$ (PDate$)
+DECLARE FUNCTION Num2Day% (DayNum%)
+DECLARE FUNCTION Date2Num% (TDate$)
+DECLARE FUNCTION Num2Date$ (DateNum%)
+DECLARE FUNCTION FileSize& (FileName$)
+DECLARE SUB PrintLateNotices ()
+DECLARE SUB RePrintLateNotices ()
+DECLARE SUB MakeCustIndex (IdxType%)
+DECLARE SUB BillsPrintedRpt ()
+DECLARE SUB ShowPctComp (BYVAL RecNo%, BYVAL NumOfRecs%)
+DECLARE SUB ShowProcessingScrn (RptTitle$)
+DECLARE SUB DisplayTaxScrn (ScrnName$)
+DECLARE SUB PrintTaxBills ()
+DECLARE SUB ClearBack ()
+DECLARE SUB ClearScrn ()
+DECLARE FUNCTION MsgBox% (LibName$, FormName$)
+DECLARE FUNCTION Exist% (FileName$)
+DECLARE FUNCTION WEnvTest% ()
+'$INCLUDE: 'DefCnf.BI'
+DECLARE SUB TitleBox (Row%, LeftCol%, BoxWidth%, Title$, Cnf AS ANY)
+DECLARE FUNCTION QPTrim$ (Text$)
+DECLARE FUNCTION Monitor% ()
+DECLARE SUB ShowCursor ()
+DECLARE SUB VertMenu (Item$(), Choice, MaxLen, BoxBot, Ky$, Action, Cnf AS Config)
+DECLARE SUB HideCursor ()
+DECLARE SUB CursorOff ()
+DECLARE SUB TextCursor (MouseFg%, MouseBg%)
+DECLARE SUB FGetAH (FileName$, SEG Element AS ANY, ElSize%, NumEls%)
+DECLARE FUNCTION Round# (DblNum#)
+DECLARE SUB WaitForAction ()
+DECLARE SUB PrintRptFile (RptTitle$, FileName$, LPTPort%, RetCode%, EntryPoint%)
+DECLARE SUB BCopy (FromSeg%, FromAddr%, ToSeg%, ToAddr%, NumBytes%, Dir%)
+DECLARE SUB QPrintRC (Text$, Row, Col, Kolor)
+DECLARE FUNCTION FUsing$ (Number$, Image$)
+DECLARE SUB RestScrn (Array%())
+DECLARE SUB SaveScrn (Array%())
+DECLARE SUB PressButton (BYVAL KeyCode, BYVAL ButtonRow, BYVAL ButtonLCol, BYVAL ButtonRCol)
+DECLARE FUNCTION ParseBillNum$ (Text$)
+
+  CONST False = 0, True = NOT False
+  
+  '$INCLUDE: 'formedit.BI'
+  '$INCLUDE: 'fieldinf.BI'
+  '$INCLUDE: 'qscr.BI'
+  '$INCLUDE: 'SetCnf.BI'
+  '$INCLUDE: 'TaxCust.BI'
+  '$INCLUDE: 'TaxBINFO.BI'
+  '$INCLUDE: 'Taxconst.BI'
+  '$INCLUDE: 'TaxBill.BI'
+  '$INCLUDE: 'PROPAbst.BI'
+
+  STACK 5000
+
+
+  DIM SHARED TaxSetUpRec AS TaxMasterType
+  DIM SHARED TaxTransRec AS TaxTransactionType
+  DIM SHARED TaxCustRec AS TaxCustType
+
+  
+  PrintLateNotices
+  
+  IF WEnvTest THEN
+    Ext$ = ".bas"
+  ELSE
+    Ext$ = ".exe"
+  END IF
+  IF INSTR(COMMAND$, "TEST") <= 0 THEN
+    RUN "TAXBILL"
+  END IF
+  
+  END
+
+FUNCTION MakeDay$ (DayNum)
+  SELECT CASE DayNum
+  CASE 1
+    MakeDay$ = "Sunday"
+  CASE 2
+    MakeDay$ = "Monday"
+  CASE 3
+    MakeDay$ = "Tuesday"
+  CASE 4
+    MakeDay$ = "Wednesday"
+  CASE 5
+    MakeDay$ = "Thursday"
+  CASE 6
+    MakeDay$ = "Friday"
+  CASE 7
+    MakeDay$ = "Saturday"
+  END SELECT
+  
+END FUNCTION
+
+FUNCTION MakeLongDate$ (PDate$)
+  DayNum = Num2Day(Date2Num(PDate$))
+  DayName$ = MakeDay$(DayNum)
+  MonthName$ = MakeMonth$(PDate$)
+  MakeLongDate$ = DayName$ + ", " + MonthName$ + " " + MID$(PDate$, 4, 2) + ", " + RIGHT$(PDate$, 4)
+END FUNCTION
+
+FUNCTION MakeMonth$ (TDate$)
+  Month = VAL(LEFT$(TDate$, 2))
+  SELECT CASE Month
+  CASE 1
+    MakeMonth$ = "January"
+  CASE 2
+    MakeMonth$ = "February"
+  CASE 3
+    MakeMonth$ = "March"
+  CASE 4
+    MakeMonth$ = "April"
+  CASE 5
+    MakeMonth$ = "May"
+  CASE 6
+    MakeMonth$ = "June"
+  CASE 7
+    MakeMonth$ = "July"
+  CASE 8
+    MakeMonth$ = "August"
+  CASE 9
+    MakeMonth$ = "September"
+  CASE 10
+    MakeMonth$ = "October"
+  CASE 11
+    MakeMonth$ = "November"
+  CASE 12
+    MakeMonth$ = "December"
+  END SELECT
+END FUNCTION
+
+SUB PrintLateNotices
+  
+  SHARED Choice$()
+  
+  REDIM TempScrn(0)
+
+ 'Open Customer File
+  TaxFile = FREEFILE
+  OPEN TaxCustFile FOR RANDOM SHARED AS TaxFile LEN = LEN(TaxCustRec)
+  NumOfCRecs& = LOF(TaxFile) \ LEN(TaxCustRec)
+  CLOSE TaxFile
+ 
+  REDIM Choice$(0 TO 2, 0)
+  Choice$(0, 0) = "4"
+  Choice$(1, 0) = "1) Account Number Order"
+  Choice$(2, 0) = "2) Customer Name Order"
+  
+  REDIM PINTemp(1) AS STRING * 9
+  
+  LibName$ = "TAX"
+  FormName$ = "PRNTLN"
+  
+  NumFlds = LibNumberOfFields(LibName$, FormName$)
+  
+  REDIM Frm(1) AS FormInfo
+  REDIM Form$(NumFlds, 2)       'DIM the form data array
+  REDIM Fld(NumFlds) AS FieldInfo               'DIM the field information array
+  StartEl = 0   'Load first form at array start
+  LibGetFldDef LibName$, FormName$, StartEl, Fld(), Form$(), ErrCode
+  '----- Set the "Action" flag to force the editor to initialize itself and
+  '      display the data on the form.
+  Action = 1
+  '----- Setup TYPE for setting and reading form editing information.
+  Frm(1).FldNo = 1              'Start editing on field #1
+  Frm(1).InsStat = False        'Set insert state (True = Insert on)
+  Frm(1).StartEl = 0            'Set form starting element to 0 and
+  
+  FirstTime = True
+  
+  ClearBack
+  DisplayTaxScrn FormName$
+
+  Form$(2, 0) = "1"
+  Form$(3, 0) = STR$(NumOfCRecs&)
+  Action = 1
+  
+  DO
+    EditForm Form$(), Fld(), Frm(1), Cnf, Action
+
+    IF FirstTime THEN
+      FirstTime = False
+      QPrintRC "  ALT Notices", 4, 19, -1
+    END IF
+
+    SELECT CASE Frm(1).KeyCode
+    CASE F0Key
+      GOSUB CheckBillParm
+      IF OK2Print THEN
+        EXIT DO
+      END IF
+    CASE F5KEY
+      CursorOff
+      SaveScrn TempScrn()
+      PrintRptFile "", "TAXLNMSK.DAT", 1, RetCode%, 4
+      RestScrn TempScrn()
+      Action = 2
+    CASE EscKey
+      ExitFlag = True
+      EXIT DO
+    END SELECT
+    
+    IF Frm(1).Presses THEN
+      SELECT CASE Frm(1).MRow
+      CASE 20
+        SELECT CASE Frm(1).MCol
+        CASE 22 TO 33           'ESC Cancel button
+          PressButton 27, 20, 22, 33
+        CASE 34 TO 48           'F5 Align Mask
+          PressButton -63, 20, 34, 48
+        CASE 49 TO 61           'F10 Save Button
+          PressButton -68, 20, 49, 61
+        END SELECT
+      END SELECT
+    END IF
+  LOOP          'proper key not set
+  
+  IF ExitFlag THEN
+    GOTO ExitBillPrint
+  END IF
+
+  IF Order$ = "2" THEN
+   UsingIdx = True
+   MakeCustIndex 1
+  END IF
+
+  IF UsingIdx THEN
+    NumIdxRecs = FileSize&("TAXTEMP.IDX") / 2
+    REDIM IdxBuff(1 TO NumIdxRecs) AS INTEGER
+    FGetAH "TAXTEMP.IDX", IdxBuff(1), 2, NumIdxRecs
+  END IF
+
+  REDIM RealRec(1)  AS PropertyRecType
+  REDIM PersRec(1)  AS PersonalRecType
+
+  RealRecLen = LEN(RealRec(1))
+  PersRecLen = LEN(PersRec(1))
+  
+  ClearBack
+  ShowProcessingScrn "Creating Late Notices"
+
+ 'Get Bill Format Here
+  TxFile = FREEFILE
+  OPEN "TAXSETUP.DAT" FOR RANDOM AS #TxFile LEN = LEN(TaxSetUpRec)
+  GET TxFile, 1, TaxSetUpRec
+   BillFormat$ = LEFT$(TaxSetUpRec.TaxForm, 1)
+  CLOSE TxFile
+
+  RptFile = FREEFILE
+  OPEN "TAXLN.PRN" FOR OUTPUT AS RptFile
+  
+ 'Open Transaction File
+  TransFile = FREEFILE
+  OPEN TaxTransFile FOR RANDOM SHARED AS TransFile LEN = LEN(TaxTransRec)
+ 'Open Customer File
+  TaxFile = FREEFILE
+  OPEN TaxCustFile FOR RANDOM SHARED AS TaxFile LEN = LEN(TaxCustRec)
+  NumOfCRecs& = LOF(TaxFile) \ LEN(TaxCustRec)
+
+  PersFile = FREEFILE
+  OPEN TaxPersFile FOR RANDOM SHARED AS PersFile LEN = PersRecLen
+  RealFile = FREEFILE
+  OPEN TaxPropFile FOR RANDOM SHARED AS RealFile LEN = RealRecLen
+
+  FOR Cnt& = 1 TO NumOfCRecs&
+
+    IF UsingIdx THEN
+      CustAcct& = IdxBuff(Cnt&)
+    ELSE
+      CustAcct& = Cnt&
+    END IF
+    
+    IF CustAcct& >= FirstAcct& AND CustAcct& <= LastAcct& THEN
+
+    GET #TaxFile, CustAcct&, TaxCustRec         'get cust record
+
+    'Loop Thru and Get any Current Bill And Print Late Notice For That Bill Only
+
+    TransRecord& = TaxCustRec.LastTrans
+
+      WHILE TransRecord& > 0
+      GET TransFile, TransRecord&, TaxTransRec
+      IF TaxTransRec.TranType = 1 AND TaxTransRec.TaxYear = WhatYear THEN
+        Balance# = 0
+        TxIntP# = Round#(TaxTransRec.Revenue.InterestPd + TaxTransRec.Revenue.PenaltyPd + TaxTransRec.Revenue.CollectionPd)
+        TxIntC# = Round#(TaxTransRec.Revenue.interest + TaxTransRec.Revenue.Penalty + TaxTransRec.Revenue.Collection)
+        Balance# = Round#(TaxTransRec.Revenue.Principle1 + TaxTransRec.Revenue.Principle2 + TaxTransRec.Revenue.Principle3 + TaxTransRec.Revenue.Principle4 + TaxTransRec.Revenue.Principle5)
+        Balance# = Round#(Balance# - (TaxTransRec.Revenue.Principle1Pd + TaxTransRec.Revenue.Principle2Pd + TaxTransRec.Revenue.Principle3Pd + TaxTransRec.Revenue.Principle4Pd + TaxTransRec.Revenue.Principle5Pd))
+        Balance# = Round#(Balance# + TaxTransRec.Revenue.interest + TaxTransRec.Revenue.Penalty + TaxTransRec.Revenue.Collection)
+        Balance# = Round#(Balance# - (TaxTransRec.Revenue.InterestPd + TaxTransRec.Revenue.PenaltyPd + TaxTransRec.Revenue.CollectionPd))
+
+        IF Balance# > 0 THEN
+          CustName$ = RTRIM$(TaxCustRec.FName) + " " + RTRIM$(TaxCustRec.LName)
+          CustName$ = LTRIM$(CustName$)
+          PRINT #RptFile, ""
+          PRINT #RptFile, ""
+          PRINT #RptFile, TAB(31); "TOWN OF MAGNOLIA"
+          PRINT #RptFile, TAB(33); "P.O. BOX 459"
+          PRINT #RptFile, TAB(30); "MAGNOLIA, NC 28434"
+          PRINT #RptFile, ""
+          PRINT #RptFile,
+          PRINT #RptFile, TAB(5); ADate$
+          PRINT #RptFile,
+          PRINT #RptFile,
+          PRINT #RptFile, TAB(5); CustName$
+          PRINT #RptFile, TAB(5); LEFT$(TaxCustRec.Addr1, 25)
+          PRINT #RptFile, TAB(5); LEFT$(TaxCustRec.Addr2, 25)
+          PRINT #RptFile, TAB(5); RTRIM$(TaxCustRec.City) + " "; TaxCustRec.State + " " + LEFT$(TaxCustRec.Zip, 5) + "-" + MID$(TaxCustRec.Zip, 6, 4)
+          PRINT #RptFile,
+          PRINT #RptFile,
+          PRINT #RptFile, TAB(5); "Dear Customer:"
+          PRINT #RptFile,
+          PRINT #RptFile, TAB(5); "Our records show that the taxes on your property for the years listed"
+          PRINT #RptFile, TAB(5); "below are past due and unpaid. I have been instructed by the Board of"
+          PRINT #RptFile, TAB(5); "commissioners to collect them without delay or to institute attachment"
+          PRINT #RptFile, TAB(5); "and garnishment proceedings."
+          PRINT #RptFile,
+          PRINT #RptFile,
+          PRINT #RptFile, TAB(20); "Year"; TAB(35); "Amount (Including Interest)"
+          PRINT #RptFile, TAB(20); "1999"; TAB(35); "___________________________"
+          PRINT #RptFile, TAB(20); "1998"; TAB(35); "___________________________"
+          PRINT #RptFile, TAB(20); "1997"; TAB(35); "___________________________"
+          PRINT #RptFile, TAB(20); "1996"; TAB(35); "___________________________"
+          PRINT #RptFile, TAB(20); "1995"; TAB(35); "___________________________"
+          PRINT #RptFile, TAB(20); "1994"; TAB(35); "___________________________"
+          PRINT #RptFile, TAB(20); "1993"; TAB(35); "___________________________"
+          PRINT #RptFile, TAB(20); "1992"; TAB(35); "___________________________"
+          PRINT #RptFile, TAB(20); "1991"; TAB(35); "___________________________"
+          PRINT #RptFile, TAB(20); "1990"; TAB(35); "___________________________"
+          PRINT #RptFile, TAB(11); "Total Taxes & Int. Due  ___________________________"
+          PRINT #RptFile,
+          PRINT #RptFile, TAB(5); "Additional Interest will be added to the above amounts as provided by"
+          PRINT #RptFile, TAB(5); "law if payment is not made before the first day of the next month."
+          PRINT #RptFile,
+          PRINT #RptFile,
+          PRINT #RptFile, TAB(5); "Unless these taxes are paid or a satisfactory arrangement is made within"
+          PRINT #RptFile, TAB(5); "TEN (10) days of the date of this letter, I am instructed to institute"
+          PRINT #RptFile, TAB(5); "attachment and/or garnishment proceedings without further notice. I hope"
+          PRINT #RptFile, TAB(5); "you will resolve this matter and avoid having to pay additional costs or"
+          PRINT #RptFile, TAB(5); "having your property sold."
+          PRINT #RptFile,
+          PRINT #RptFile, TAB(5); "If you no longer own this real estate or property, Please tell me who is"
+          PRINT #RptFile, TAB(5); "responsible for paying the taxes thereon."
+          PRINT #RptFile,
+          PRINT #RptFile,
+          PRINT #RptFile,
+          PRINT #RptFile, TAB(5); "SINCERELY,"
+          PRINT #RptFile,
+          PRINT #RptFile, TAB(5); "Janet Brown "
+          PRINT #RptFile, TAB(5); "Tax Collector"
+          PRINT #RptFile, TAB(5); "(910)289-3205"
+          PRINT #RptFile, CHR$(12)
+          'PrnCnt = PrnCnt + 1
+        END IF
+
+      END IF         'End Test for Bill / Year
+      TransRecord& = TaxTransRec.LastTrans
+      WEND
+   END IF     'Test for Valid Acct
+'   IF PrnCnt >= 1 THEN EXIT FOR
+
+SkipEm:
+    ShowPctComp Cnt&, NumOfCRecs&
+  NEXT Cnt&
+  
+  CLOSE
+   
+  ERASE Frm, Form$, Fld, TempScrn
+  
+  PrintRptFile "Late Notice Printing.", "TAXLN.PRN", 1, RetCode%, 0
+  
+ExitBillPrint:
+  EXIT SUB
+  
+CheckBillParm:
+  WhatYear = Value#(Form$(1, 0), Ecode)
+  FirstAcct& = Value#(Form$(2, 0), Ecode)
+  LastAcct& = Value#(Form$(3, 0), Ecode)
+  Order$ = LEFT$(Form$(4, 0), 1)
+  AdvDate$ = Form$(5, 0)
+  PayDate$ = Form$(6, 0)
+  PDate$ = UCASE$(MakeLongDate$(PayDate$))
+  ADate$ = UCASE$(MakeLongDate$(AdvDate$))
+  IF WhatYear > 0 THEN
+    OK2Print = True
+  END IF
+RETURN
+
+GetRealInfo:  'DO NOT REMOVE
+              'This is called from Sugar Mountains include file
+
+  ThisProp& = TaxCustRec.FirstPropRec
+  RealCalcVal# = 0
+  CalcVal# = 0
+  PersCalcVal# = 0
+  LSET PINTemp(1) = ""
+
+  IF ThisProp& > 0 THEN
+    GET #RealFile, ThisProp&, RealRec(1)
+    PINTemp(1) = RealRec(1).REALPIN
+    RealValue# = RealRec(1).PROPVALU
+    RealExmp# = Round#(RealRec(1).EXMPSENI + RealRec(1).EXMPOTHR)
+    RealCalcVal# = Round#(RealValue# - RealExmp#)
+  END IF
+RETURN
+
+GetPersInfo:  'DO NOT REMOVE
+              'This is called from Sugar Mountains include file
+
+  PersExmp# = 0
+  PersValue# = 0
+  IF TaxCustRec.FirstPersRec > 0 THEN
+    GET #PersFile, TaxCustRec.FirstPersRec, PersRec(1)
+    PersValue# = Round#(PersRec(1).PersVal + PersRec(1).MHVALUE + PersRec(1).MCVALUE)
+    PersValue# = Round#(PersValue# + PersRec(1).CVALUE + PersRec(1).MTVALUE)
+    PersExmp# = Round#(PersRec(1).EXMPSENI + PersRec(1).EXMPOTHR)
+    PersCalcVal# = Round#(PersValue# - PersExmp#)
+    IF PersCalcVal# < 0 THEN
+      PersCalcVal# = 0
+    END IF
+  END IF
+
+RETURN
+  
+END SUB
+

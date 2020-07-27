@@ -1,0 +1,15 @@
+ICOKPOST.FieldInfo:
+DATA  2 , 0 , 4 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 16 , 27 , 38 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  1 , 16 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+ICOKPOST.Help:
+DATA ""
+DATA "Press the F10 Key to Post Your Transactions! "
+DATA "Press the ESC Key To Cancel the Post Request. "
+
+ICOKPOST.Formulas:
+DATA ""
+DATA ""
+DATA ""
+

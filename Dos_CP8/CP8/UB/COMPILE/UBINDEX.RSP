@@ -1,0 +1,7 @@
+/NOE /SE:200 /exe UBindex+ubstubs.lib+UBLOG+
+NOCALC+
+NONOTES+SCRNLIB+SCRNDISP+
+FILEIO
+UBindex.EXE,
+nul,
+pro basic;

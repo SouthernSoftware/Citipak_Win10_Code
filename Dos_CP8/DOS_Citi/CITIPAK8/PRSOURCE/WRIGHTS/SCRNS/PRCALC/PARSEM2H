@@ -1,0 +1,46 @@
+TYPE MANTRAN
+    PDSTART  AS INTEGER             TransRec.PayPdStart
+    PDEND    AS INTEGER             TransRec.PayPdEnd
+    CHKDATE  AS INTEGER             TransRec.CheckDate
+    CHECKNUM AS INTEGER             TransRec.CheckNum
+    REGHRS   AS DOUBLE              TransRec.RegHrsWork
+    SICKHRS  AS DOUBLE              TransRec.SickUsed
+    VACHRS   AS DOUBLE              TransRec.VacUsed
+    COMPHRS  AS DOUBLE              TransRec.CompUsed
+    HOLHOURS AS DOUBLE              TransRec.HolHours
+    OTHRSPD  AS DOUBLE              TransRec.OTHrsPd
+    DISTACT1 AS STRING * 14         TransRec.TDist(1).DAcct
+    WAGEAMT1 AS DOUBLE              TransRec.TDist(1).DRWage
+    DISTACT2 AS STRING * 14         TransRec.TDist(2).DAcct
+    WAGEAMT2 AS DOUBLE              TransRec.TDist(2).DRWage
+    DISTACT3 AS STRING * 14         TransRec.TDist(3).DAcct
+    WAGEAMT3 AS DOUBLE              TransRec.TDist(3).DRWage
+    DISTACT4 AS STRING * 14         TransRec.TDist(4).DAcct
+    WAGEAMT4 AS DOUBLE              TransRec.TDist(4).DRWage
+    GROSSPAY AS DOUBLE              TransRec.GrossPay
+    FEDTAX   AS DOUBLE              TransRec.FedTaxAmt
+    STATAX   AS DOUBLE              TransRec.StaTaxAmt
+    SOCTAX   AS DOUBLE              TransRec.SocTaxAmt
+    MEDTAX   AS DOUBLE              TransRec.MedTaxAmt
+    RETAMT   AS DOUBLE              TransRec.RetireAmt
+    DEDAMT1  AS DOUBLE              TransRec.DAmt(1)
+    DEDAMT2  AS DOUBLE              TransRec.DAmt(2)
+    DEDAMT3  AS DOUBLE              TransRec.DAmt(3)
+    DEDAMT4  AS DOUBLE              TransRec.DAmt(4)
+    DEDAMT5  AS DOUBLE              TransRec.DAmt(5)
+    DEDAMT6  AS DOUBLE              TransRec.DAMt(6)
+    DEDAMT7  AS DOUBLE              TransRec.DAmt(7)
+    DEDAMT8  AS DOUBLE              TransRec.DAmt(8)
+    DEDAMT9  AS DOUBLE              TransRec.DAmt(9)
+    DEDAMT10 AS DOUBLE              TransRec.DAmt(10)
+    DEDAMT11 AS DOUBLE              TransRec.DAmt(11)
+    DEDAMT12 AS DOUBLE              TransRec.DAmt(12)
+    TOTDED   AS DOUBLE              TransRec.TotDedAmt
+    EIC      AS DOUBLE              TransRec.EIC
+    NETPAY   AS DOUBLE              TransRec.NetPay
+    FEDGROSS AS DOUBLE              TransRec.FedGrossPay
+    STAGROSS AS DOUBLE              TransRec.StaGrossPay
+    SOCGROSS AS DOUBLE              TransRec.SocGrossPay
+    MEDGROSS AS DOUBLE              TransRec.MedGrossPay
+    TOTTAX   AS DOUBLE              TransRec.TotTaxAmt
+END TYPE

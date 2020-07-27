@@ -1,0 +1,21 @@
+setlocal
+set include=d:\qbx\npayroll\work\bis
+rem set
+rem pause
+ren prfprint.bas prfprint.
+ren Npost2gl.bas Npost2gl.
+for %%a in (*.bas) do (Echo BC %%a /s/o/ot/g2/ah ^echo.^bc %%a /s/o/g2/ah;)
+ren Npost2gl. Npost2gl.bas
+ren prfprint. prfprint.bas
+bc Npost2gl.bas /o/g2/s/ah;
+bc prfprint.bas /x/o/g2/s/ah;
+bc prprint1.bas /s/o/g2/ah;
+bc split01.bas /s/o/g2/ah;
+bc split02.bas /s/o/g2/ah;
+rem goto getout
+link @link.rsp
+link @prcheck.rsp
+rem link @prcalc.rsp
+del /q *.obj
+:getout
+endlocal

@@ -1,0 +1,153 @@
+  ToPrint$ = SPACE$(80)
+
+  MaxTopStub = 19        'actually 21
+
+  PrintFile = FREEFILE
+  OPEN "APCHECK.PRN" FOR OUTPUT AS PrintFile
+
+  OpenVendorFile VendorFile, NumVRecs
+  OpenAPLedgerFile APLedgerFile, NumTran&, RecLen
+  OpenAPDistFile APDistFile, NumDistRecs&, APDistRecLen
+  
+  DoStubHeader = True
+
+
+  FOR Cnt = StartCnt TO VCnt
+    TChkAmt# = 0
+    TopStubCnt = 0
+    GET VendorFile, ChkInfo(Cnt).VendorRecNum, VENDOR
+    FOR Cnt2 = ChkInfo(Cnt).ListFirst TO ChkInfo(Cnt).ListLast
+      GET APLedgerFile, InvList(Cnt2).LedgerRecNum, APLedgerRec(1)
+      IF Cnt2 = ChkInfo(Cnt).ListFirst THEN
+        ChkInfo(Cnt).StartChk = TCheckNum&
+      END IF
+      GOSUB PRINTChkInfo        'go print some stuff
+    NEXT
+    ChkInfo(Cnt).LastChk = TCheckNum&
+    ChkInfo(Cnt).ChkAmt = TChkAmt#
+    ChkInfo(Cnt).ChkDate = CheckDate
+    GOSUB FinishChk
+  NEXT
+  CLOSE
+
+  KillFile "APCHKINF.DAT"
+  FPutAH "APCHKINF.DAT", ChkInfo(1), ChkInfoRecLen, VCnt
+
+  ToPrint$ = ""
+  ERASE APLedgerRec, PayListRec, ChkInfo, InvList
+  PrintRptFile "", "APCHECK.PRN", LPTPort%, RetCode%, 1         'EntryPoint%
+
+  GOTO ExitCheckPrinting
+
+PRINTChkInfo:
+
+  IF TopStubCnt >= MaxTopStub THEN
+    GOSUB PrintVoidChk
+  END IF
+  IF DoStubHeader THEN
+    GOSUB StubHeader
+  END IF
+
+  ToPrint$ = SPACE$(80)
+  MID$(ToPrint$, 6) = LEFT$(APLedgerRec(1).DOCNum, 11)
+  MID$(ToPrint$, 18) = Num2Date$(APLedgerRec(1).TRDate)
+  MID$(ToPrint$, 39) = FUsing(STR$(APLedgerRec(1).Amt), ",######.##")
+  MID$(ToPrint$, 71) = FUsing(STR$(APLedgerRec(1).Amt), ",######.##")
+  PRINT #PrintFile, ToPrint$
+  TChkAmt# = Round(TChkAmt# + APLedgerRec(1).Amt)
+  TopStubCnt = TopStubCnt + 1
+
+  DistRecord& = APLedgerRec(1).FrstDist
+  TabStop = 1
+
+  IF ShowDist$ = "Y" THEN
+   WHILE DistRecord& > 0
+   GET #APDistFile, DistRecord&, APDistRec(1)
+   
+
+   PRINT #PrintFile, TAB(TabStop); qptrim$(APDistRec(1).DistAcctNum);
+    PRINT #PrintFile, " "; USING "########.##"; APDistRec(1).DistAmt;
+
+   IF TabStop = 1 THEN
+    TabStop = 40
+    TopStubCnt = TopStubCnt + 1
+    ELSE
+    TabStop = 1
+   END IF
+    DistRecord& = APDistRec(1).NextDist
+   WEND
+
+   PRINT #PrintFile, ""
+
+  END IF                'End Distribution Check
+
+  RETURN
+
+FinishChk:
+  FOR CntZZ = TopStubCnt TO MaxTopStub - 1
+    PRINT #PrintFile,
+  NEXT
+
+  LSET ToPrint$ = ""
+  MID$(ToPrint$, 71) = FUsing(STR$(TChkAmt#), ",######.##")
+  PRINT #PrintFile, ToPrint$
+  '-------body of check
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile, 'TAB(50); USING "#######"; TCheckNum&;
+  PRINT #PrintFile, TAB(68); Num2Date$(CheckDate)
+  PRINT #PrintFile, 'TAB(69); Vendor.VNum
+  PRINT #PrintFile,
+  PRINT #PrintFile, TAB(62); FUsing(STR$(TChkAmt#), "$$,#########.##")
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile, TAB(11); SpellNumber$(FUsing(STR$(TChkAmt#), "#########.##"))               'Print the whole number part
+  PRINT #PrintFile,
+  PRINT #PrintFile, TAB(11); qptrim$(VENDOR.PayToNAME)
+  PRINT #PrintFile, TAB(11); qptrim$(VENDOR.PaytoAddr)
+  PRINT #PrintFile, TAB(11); qptrim$(VENDOR.PayToAddr2)
+  PRINT #PrintFile, TAB(11); qptrim$(VENDOR.PayToCity); " "; qptrim$(VENDOR.PayToState); " "; qptrim$(VENDOR.PayToZip)
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+
+  LSET ToPrint$ = ""
+'  PRINT #PrintFile,
+'  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile, "~"
+  DoStubHeader = True
+  TCheckNum& = TCheckNum& + 1
+
+  RETURN
+
+PrintVoidChk:
+  FOR LineCnt = TopStubCnt TO 33
+   PRINT #PrintFile, ""
+  NEXT LineCnt
+  PRINT #PrintFile, "           VOID  VOID  VOID  VOID  VOID  VOID  VOID  VOID  VOID  "
+  PRINT #PrintFile, "           VOID  VOID  VOID  VOID  VOID  VOID  VOID  VOID  VOID  "
+  PRINT #PrintFile, "           VOID  VOID  VOID  VOID  VOID  VOID  VOID  VOID  VOID  "
+  PRINT #PrintFile, "           VOID  VOID  VOID  VOID  VOID  VOID  VOID  VOID  VOID  "
+  PRINT #PrintFile, "           VOID  VOID  VOID  VOID  VOID  VOID  VOID  VOID  VOID  "
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  PRINT #PrintFile, ""
+  TopStubCnt = 0
+  TCheckNum& = TCheckNum& + 1
+  DoStubHeader = True
+  RETURN
+
+StubHeader:
+  PRINT #PrintFile, "~"
+  PRINT #PrintFile, TAB(6); VENDOR.VNAME
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  TopStubCnt = 5
+  DoStubHeader = False
+  RETURN
+

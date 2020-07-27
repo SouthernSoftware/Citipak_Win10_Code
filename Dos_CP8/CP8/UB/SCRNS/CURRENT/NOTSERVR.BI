@@ -1,0 +1,2 @@
+TYPE notservr
+END TYPE

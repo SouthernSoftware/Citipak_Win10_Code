@@ -1,0 +1,15 @@
+MUSTEXT3.FieldInfo:
+DATA  2 , 0 , 1 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 16 , 27 , 39 , 0 , 24 ,"", 0 , 0 ,"BUTTON1", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  1 , 16 , 41 , 52 , 0 , 24 ,"", 0 , 0 ,"BUTTON2", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+MUSTEXT3.Help:
+DATA ""
+DATA ""
+DATA ""
+
+MUSTEXT3.Formulas:
+DATA ""
+DATA ""
+DATA ""
+

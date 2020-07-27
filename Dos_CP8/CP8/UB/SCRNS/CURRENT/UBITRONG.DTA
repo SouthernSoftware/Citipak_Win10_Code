@@ -1,0 +1,21 @@
+UBITRONG.FieldInfo:
+DATA  4 , 6 , 20 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 9 , 48 , 57 , 2 , 6 ,"", 0 , 0 ,"MTRREAD", 0 , 0 , 0 , 0 , 5480 , 31368 ,""
+DATA  3 , 13 , 43 , 48 , 4 , 18 ,"", 0 , 0 ,"ACCTNUMB", 0 , 0 ,-1 , 0 , 0 , 999999 ,""
+DATA  7 , 16 , 35 , 46 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  7 , 16 , 49 , 62 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+UBITRONG.Help:
+DATA ""
+DATA "Enter the Date the Meters Were Read. "
+DATA ""
+DATA ""
+DATA ""
+
+UBITRONG.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

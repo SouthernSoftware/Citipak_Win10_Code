@@ -1,0 +1,44 @@
+
+FUNCTION CustHasMsg (RecNo&)
+
+  REDIM MsgRec(1) AS UBMessRecType
+  MsgLen = LEN(MsgRec(1))
+
+  NumMsgRec& = FileSize&("UBMESAGE.DAT") / MsgLen
+
+  REDIM UBCustRec(1) AS NewUBCustRecType
+  UBCustRecLen = LEN(UBCustRec(1))
+  
+  IF RecNo& > 0 THEN
+    UBFile = FREEFILE
+    OPEN "UBCUST.DAT" FOR RANDOM SHARED AS UBFile LEN = UBCustRecLen
+    GET UBFile, RecNo&, UBCustRec(1)
+    CLOSE UBFile
+    MRec& = UBCustRec(1).MessageRec
+
+    IF MRec& > 0 AND MRec& <= NumMsgRec& THEN
+      MsgFile = FREEFILE
+      OPEN "UBMESAGE.DAT" FOR RANDOM SHARED AS MsgFile LEN = MsgLen
+      GET MsgFile, MRec&, MsgRec(1)
+      CLOSE MsgFile
+      FOR zz = 1 TO 15
+        m$ = QPTrim$(MsgRec(1).MessLine(zz).Line)
+        IF LEN(m$) > 0 THEN
+          GotMsg = True
+          EXIT FOR
+        END IF
+      NEXT
+    ELSE
+      GotMsg = False
+    END IF
+  ELSE
+    GotMsg = False
+  END IF
+
+  IF GotMsg THEN
+    CustHasMsg = True
+  ELSE
+    CustHasMsg = False
+  END IF
+
+END FUNCTION

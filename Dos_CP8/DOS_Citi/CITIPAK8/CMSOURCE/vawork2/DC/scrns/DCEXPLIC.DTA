@@ -1,0 +1,27 @@
+DCEXPLIC.FieldInfo:
+DATA  6 , 47 , 4 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 9 , 38 , 52 , 15 , 22 ,"", 0 , 0 ,"ORDER", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  16 , 11 , 38 , 52 , 15 , 22 ,"", 0 , 0 ,"CATA", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  31 , 13 , 38 , 52 , 15 , 22 ,"", 0 , 0 ,"WHERE", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  46 , 15 , 38 , 47 , 2 , 6 ,"", 0 , 0 ,"EXDATE", 0 , 0 , 0 , 0 ,-29219 , 31368 ,""
+DATA  48 , 17 , 34 , 44 , 0 , 24 ,"", 0 , 0 ,"F10K", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  48 , 17 , 46 , 57 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+DCEXPLIC.Help:
+DATA ""
+DATA "Choose the Order to Print This Report. "
+DATA "Choose the Catagory of Decals to Print OR Choose 'ALL' to print all catagories. "
+DATA "Choose where to send this report. "
+DATA "Enter the expiration date to use to select the decals that will expire. "
+DATA "Press the F10 Key to Process Your Report. "
+DATA "Press the ESC Key to Cancel Your Request. "
+
+DCEXPLIC.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

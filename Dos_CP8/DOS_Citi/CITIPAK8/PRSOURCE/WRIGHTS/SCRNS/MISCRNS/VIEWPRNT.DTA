@@ -1,0 +1,18 @@
+VIEWPRNT.FieldInfo:
+DATA  3 , 0 , 4 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 17 , 24 , 36 , 0 , 24 ,"", 0 , 0 ,"BUTTON1", 0 , 0 , 0 , 27 , 0 , 0 ,""
+DATA  1 , 17 , 36 , 47 , 0 , 24 ,"", 0 , 0 ,"BUTTON2", 0 , 0 , 0 , 83 , 0 , 0 ,""
+DATA  1 , 17 , 47 , 59 , 0 , 24 ,"", 0 , 0 ,"BUTTON3", 0 , 0 , 0 , 80 , 0 , 0 ,""
+
+VIEWPRNT.Help:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+
+VIEWPRNT.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

@@ -1,0 +1,2 @@
+TYPE badserch
+END TYPE

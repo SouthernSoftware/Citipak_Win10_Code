@@ -1,0 +1,31 @@
+
+SchlumExtractRecord:
+  UpdCnt! = UpdCnt! + 1
+  QPrintRC STR$(UpdCnt!), 11, 44, 15
+  'New Way To Activate
+  MeterRecord = VAL(RIGHT$((QPTrim$(UBSchlumHHRec(1).Account)), 1))
+  ' Check Meter Updated Flag
+  ' Update Meter W/Reading
+  CurReading# = UBSchlumHHRec(1).CurRead
+
+  IF UBCustRec(1).LocMeters(MeterRecord).ReadFlag = "Y" THEN
+    UBCustRec(1).LocMeters(MeterRecord).CurRead = CurReading#
+    UBCustRec(1).LocMeters(MeterRecord).CurDate = UBSchlumHHRec(1).ReadDate
+  ELSE
+    UBCustRec(1).LocMeters(MeterRecord).PrevRead = UBCustRec(1).LocMeters(MeterRecord).CurRead
+    UBCustRec(1).LocMeters(MeterRecord).PastDate = UBCustRec(1).LocMeters(MeterRecord).CurDate
+    UBCustRec(1).LocMeters(MeterRecord).ReadFlag = "Y"
+    UBCustRec(1).LocMeters(MeterRecord).CurDate = UBSchlumHHRec(1).ReadDate
+    UBCustRec(1).LocMeters(MeterRecord).CurRead = CurReading#
+  END IF
+  'Modifed 04-28-97
+  IF UBSchlumHHRec(1).NoteStatus = "P" THEN
+    UBCustRec(1).NewNotes = True
+    UBCustRec(1).HHMsg1 = UBSchlumHHRec(1).Note1
+    UBCustRec(1).HHMsg2 = UBSchlumHHRec(1).Note2
+    UBCustRec(1).HHMsg3 = UBSchlumHHRec(1).Note3
+  END IF
+  '   ^^^
+  PUT UBFile, PRec&, UBCustRec(1)
+  RETURN
+

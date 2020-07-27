@@ -1,0 +1,22 @@
+UBPaymentRec(1).OPERNUM =oUBPaymentRec(1).OPERNUM
+UBPaymentRec(1).PAYDATE =oUBPaymentRec(1).PAYDATE
+UBPaymentRec(1).CUSTACCT =oUBPaymentRec(1).CUSTACCT
+UBPaymentRec(1).CUSTNAME =oUBPaymentRec(1).CUSTNAME
+UBPaymentRec(1).CUSTADDR =oUBPaymentRec(1).CUSTADDR
+UBPaymentRec(1).CUSTCMNT =oUBPaymentRec(1).CUSTCMNT
+UBPaymentRec(1).TaxExempt =oUBPaymentRec(1).TaxExempt
+UBPaymentRec(1).AMTOWED =oUBPaymentRec(1).AMTOWED
+UBPaymentRec(1).TENDERTY =oUBPaymentRec(1).TENDERTY
+UBPaymentRec(1).CASHAMT =oUBPaymentRec(1).CASHAMT
+UBPaymentRec(1).CHKAMT =oUBPaymentRec(1).CHKAMT
+UBPaymentRec(1).AMTRECD =oUBPaymentRec(1).AMTRECD
+UBPaymentRec(1).CHANGE =oUBPaymentRec(1).CHANGE
+UBPaymentRec(1).DESC =oUBPaymentRec(1).DESC
+for zz= 1 to 15
+  UBPaymentRec(1).PaidOwed(zz).AmtOwe1 =  oUBPaymentRec(1).PaidOwed(zz).AmtOwe1=
+  UBPaymentRec(1).PaidOwed(zz).AmtPd1 =  oUBPaymentRec(1).PaidOwed(zz).AmtPd1=
+next
+UBPaymentRec(1).TOTOWED =oUBPaymentRec(1).TOTOWED
+UBPaymentRec(1).AMTPAID =oUBPaymentRec(1).AMTPAID
+UBPaymentRec(1).Status =oUBPaymentRec(1).Status
+

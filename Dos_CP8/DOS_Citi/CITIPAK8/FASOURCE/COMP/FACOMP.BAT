@@ -1,0 +1,11 @@
+ren NCPFPRNT.BAS NCPFPRNT.HLD
+for %%1 in (*.bas) do (echo %%1^bc %%1 /lr/fpi/o/ot/g2/ah;)
+ren NCPFPRNT.HLD NCPFPRNT.BAS
+bc NCPFPRNT /lr/fpi/o/ot/g2/X;
+
+LINK @FACODE.RSP
+LINK @FAMENU.RSP
+LINK @FAREPORT.RSP
+LINK @FAYREND.RSP
+LINK @FASETUP.RSP
+rem DEL *.obj

@@ -1,0 +1,24 @@
+  Employee Name: 46                               No: 47
+
+  Period Beg: 1        End: 2            Voluntary Deductions
+  Check Date: 3         No: 4            Description             Amount
+  Hours Worked: 5                                             27
+  Sick Hours: 6                                               28
+  Vacation Hours: 7                                           29
+  Comp Hrs: 8                                                 30
+  Holiday Hrs: 9                                              31
+  OT Hrs Paid: 10                                             32
+  Wage Distributions                                           33
+  G/L Acct Number        Amount                                34
+  1) 11              12                                      35
+  2) 13              14                                      36
+  3) 15              16                                      37
+  4) 17              18                                      38
+  Gross Pay: 19                           Total Vol Deductions: 39
+  REG: 20         OT: 21                 Earned Income Credit: 40
+      Federal Tax W/H: 22                       Net Pay: 41
+        State Tax W/H: 23                 Federal Gross: 42
+  Social Security W/H: 24                   State Gross: 43
+         Medicare W/H: 25                  Social Gross: 44
+       Retirement W/H: 26                Medicare Gross: 45
+

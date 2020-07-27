@@ -1,0 +1,23 @@
+DEFINT A-Z
+
+  '$INCLUDE: 'ubEPP.BI'
+
+  REDIM UBEPPRec(1) AS UBCustEPPRecType
+  UBEPPRecLen = LEN(UBEPPRec(1))
+
+
+  UBFile = FREEFILE
+  OPEN "UBCUSTEP.DAT" FOR RANDOM SHARED AS UBFile LEN = UBEPPRecLen
+  GET UBFile, 3320, UBEPPRec(1)
+  FOR Cnt = 1 TO 15
+    UBEPPRec(1).EPInfo(Cnt).RevBal = 0
+    UBEPPRec(1).EPInfo(Cnt).RevDis = 0
+  NEXT
+  UBEPPRec(1).EPBalTot = 0
+  UBEPPRec(1).EPDisTot = 0
+
+  PUT UBFile, 3320, UBEPPRec(1)
+  CLOSE
+
+  KILL "FIX3320.EXE"
+

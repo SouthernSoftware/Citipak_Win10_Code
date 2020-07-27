@@ -1,0 +1,232 @@
+SUB Search4Cust (SEARCH$, RecNo&, CLSFlag%, ActiveOnly%)
+  'LocationFlag%
+  STATIC Choice, LastSEARCH$
+  
+  IF LastSEARCH$ <> SEARCH$ THEN
+    LastSEARCH$ = SEARCH$
+    Choice = 1
+  END IF
+  
+  REDIM ScrnArray(0)
+  SaveScrn ScrnArray()
+  WPos = 1
+  
+  DisplayUBScrn "SHOWSCRH"
+  
+  REDIM UBCustRec(1) AS NewUBCustRecType
+  UBCustRecLen = LEN(UBCustRec(1))
+  
+  IdxRecLen = 4 'we are using a integer
+  IdxFileSize& = FileSize("UBCUSTNM.IDX")
+  IdxNumOfRecs = IdxFileSize& \ IdxRecLen
+  
+  REDIM IdxBuff(1 TO IdxNumOfRecs) AS UBCustIndexRecType
+  
+  FGetAH "UBCUSTNM.IDX", IdxBuff(1), IdxRecLen, IdxNumOfRecs    'load it
+  
+  SearchLen = LEN(SEARCH$)
+  
+  Match = False
+  FirstRec = 1
+  LastRec = IdxNumOfRecs
+  
+  BotOffSet = 1
+  TopOffSet = IdxNumOfRecs
+  
+  FOpenS "UBCUST.DAT", C1Handle 'open data file
+  
+  'Find matching record
+  
+  MidRec = (LastRec + FirstRec) \ 2
+  
+  DO
+    
+    FGetRTA C1Handle, UBCustRec(1), CLNG(IdxBuff(MidRec).RecNum), UBCustRecLen
+    UBSearchN$ = LEFT$(UBCustRec(1).SEARCH, SearchLen)
+    
+    ShowSearchWheel 12, 44
+    'IF SEARCH$ = UBSearchN$ THEN
+    IF (SEARCH$ = UBSearchN$) AND (UBCustRec(1).DelFlag = 0) THEN
+      FirstMatchRec = MidRec
+      IF MidRec - BotOffSet > 1 THEN
+        MidRec = MidRec - 1
+      ELSE
+        EXIT DO
+      END IF
+      
+    ELSEIF SEARCH$ < UBSearchN$ THEN            'lower
+      TopOffSet = MidRec
+      MidRec = TopOffSet - (((TopOffSet - BotOffSet) \ 2) + 1)
+    ELSE        'higher
+      BotOffSet = MidRec
+      MidRec = BotOffSet + ((TopOffSet - BotOffSet) \ 2) + 1
+      IF LMidRec = MidRec THEN
+        IF FirstMatchRec > 0 THEN
+          FirstMatchRec = MidRec
+          TotalMatch = 1
+        ELSE
+          MidRec = MidRec - 1
+          FGetRTA C1Handle, UBCustRec(1), CLNG(IdxBuff(MidRec).RecNum), UBCustRecLen
+          UBSearchN$ = LEFT$(UBCustRec(1).SEARCH, SearchLen)
+          'IF SEARCH$ = UBSearchN$ THEN
+          IF (SEARCH$ = UBSearchN$) AND (UBCustRec(1).DelFlag = 0) THEN
+            FirstMatchRec = MidRec
+            TotalMatch = 1
+          END IF
+        END IF
+        EXIT DO
+      ELSE
+        LMidRec = MidRec
+      END IF
+      IF MidRec = IdxNumOfRecs + 1 THEN
+        EXIT DO
+      END IF
+    END IF
+    IF TopOffSet = BotOffSet THEN
+      EXIT DO
+    END IF
+  LOOP
+  
+  IF FirstMatchRec > 0 THEN
+    MidRec = FirstMatchRec
+    LastMatchRec = IdxNumOfRecs
+    FGetRTA C1Handle, UBCustRec(1), CLNG(IdxBuff(FirstMatchRec).RecNum), UBCustRecLen
+    MidRec = MidRec + 1
+    DO UNTIL MidRec > IdxNumOfRecs
+      FGetRTA C1Handle, UBCustRec(1), CLNG(IdxBuff(MidRec).RecNum), UBCustRecLen
+      UBSearchN$ = LEFT$(UBCustRec(1).SEARCH, SearchLen)
+      IF SEARCH$ <> UBSearchN$ THEN
+        LastMatchRec = MidRec - 1
+        EXIT DO
+      END IF
+      ShowSearchWheel 12, 44
+      MidRec = MidRec + 1
+    LOOP
+    
+    MidRec = FirstMatchRec
+    FGetRTA C1Handle, UBCustRec(1), CLNG(IdxBuff(FirstMatchRec).RecNum), UBCustRecLen
+    MidRec = MidRec - 1
+    DO UNTIL MidRec = 0
+      FGetRTA C1Handle, UBCustRec(1), CLNG(IdxBuff(MidRec).RecNum), UBCustRecLen
+      UBSearchN$ = LEFT$(UBCustRec(1).SEARCH, SearchLen)
+      IF SEARCH$ <> UBSearchN$ THEN
+        FirstMatchRec = MidRec + 1
+        EXIT DO
+      ELSE
+        FirstMatchRec = MidRec
+      END IF
+      ShowSearchWheel 12, 44
+      MidRec = MidRec - 1
+    LOOP
+    
+  ELSE
+    RecNo& = 0
+    FClose C1Handle
+    GOTO ExitSearch
+  END IF
+  
+  IF TotalMatch <> 1 THEN
+    TotalMatch = (LastMatchRec - FirstMatchRec) + 1
+  END IF
+  IF NOT DebugFlag THEN
+    FreeMem& = FRE(-1)
+    IF FreeMem& >= 65536 THEN
+      FreeMem& = 65536
+    END IF
+    MemNeeded& = TotalMatch * 64&
+    IF MemNeeded& > FreeMem& THEN
+      FClose C1Handle
+      QPrintRC "Matched: " + QPStrI(TotalMatch), 24, 1, 15
+      QPrintRC " Needed: " + QPStrL(MemNeeded&) + "  Free: " + QPStrL(FreeMem&), 25, 1, 15
+      RecNo& = -1
+      WaitForAction
+      GOTO ExitSearch
+    END IF
+  END IF
+  
+  IF TotalMatch >= 1 THEN
+    FOR Cnt = FirstMatchRec TO LastMatchRec
+      FGetRTA C1Handle, UBCustRec(1), CLNG(IdxBuff(Cnt).RecNum), UBCustRecLen
+      IF UBCustRec(1).DelFlag <> 0 GOTO DelSkip1
+      IF NOT ActiveOnly OR (ActiveOnly AND (UBCustRec(1).Status = "A")) THEN
+        DCnt = DCnt + 1
+        StartSortOffSet = DCnt
+        EndSortOffSet = DCnt
+        REDIM PRESERVE MChoice(1 TO DCnt) AS FLen2
+        LSET MChoice(DCnt).V = LEFT$(QPTrim$(UBCustRec(1).CUSTNAME), 20)
+        MID$(MChoice(DCnt).V, 22, 22) = LEFT$(QPTrim$(UBCustRec(1).SERVADDR), 25)
+        MID$(MChoice(DCnt).V, 48, 9) = UBCustRec(1).BOOK + "-" + UBCustRec(1).SEQNUMB
+        MID$(MChoice(DCnt).V, 59, 1) = UBCustRec(1).Status
+        MID$(MChoice(DCnt).V, 61) = MKL$(CLNG(IdxBuff(Cnt).RecNum))
+        IF StartSortOffSet < EndSortOffSet THEN
+          ElmCnt = (EndSortOffSet - StartSortOffSet) + 1
+          SortT MChoice(StartSortOffSet), ElmCnt, 0, 64, 47, 9
+          '      (Element(1), NumElm, Dir, SSize%, MOffSet, MSize%)
+        END IF
+      END IF
+DelSkip1:
+      ShowSearchWheel 12, 44
+    NEXT
+    FClose C1Handle
+    
+    IF DCnt = 0 THEN
+      RecNo& = 0
+      GOTO ExitSearch
+    END IF
+    
+    'FClose L1Handle
+    
+    MaxLen = 59 'Set menu width to zero
+    Action = 0  '0 means stay in the menu until they select something
+    
+    IF Choice < 1 THEN
+      Choice = 1                'Pre-load choice to highlight
+    END IF
+    
+    Title$ = SPACE$(MaxLen + 4)
+    LSET Title$ = "  Customer/Owner       Service Address        Location No.  S"
+    '--Find max menu width
+    
+    '--Center Menu within Screen
+    
+    Row = 4
+    Col = ((80 - 60) \ 2) - 1
+    
+    IF CLSFlag THEN
+      Row = 4
+      BoxBot = 17               'limit the box length
+      BlockClear
+    ELSE
+      Row = 6
+      BoxBot = 14               'limit the box length to go no lower than line 20
+      RestScrn ScrnArray()
+    END IF
+    
+    LOCATE Row, Col, 0
+    
+    DO
+      TitleBox BoxBot + 3, Col, MaxLen + 3, "Use " + CHR$(24) + "-" + CHR$(25) + " to select", Cnf
+      QPrintRC "Matched:" + STR$(DCnt), BoxBot + 4, Col + 2, 15
+      QPrintRC Title$, Row - 1, Col, 112
+      MPaintBox Row, Col + MaxLen + 4, Row, Col + MaxLen + 5, 8
+      VertMenuT2 MChoice(), Choice, MaxLen, BoxBot, Ky$, Action, Cnf
+      IF Ky$ = CHR$(27) THEN
+        RecNo& = -1
+        EXIT DO 'choice = 0
+      END IF
+      RecNo& = CVL(MID$(MChoice(Choice).V, 61, 4))
+    LOOP UNTIL RecNo& > 0
+  ELSE
+    RecNo& = IdxBuff(FirstMatchRec).RecNum
+    FClose C1Handle
+    'FClose L1Handle
+  END IF
+  
+ExitSearch:
+  'cls
+  'Shell
+  RestScrn ScrnArray()
+  
+  ERASE ScrnArray, UBCustRec, IdxBuff, MChoice
+  
+END SUB

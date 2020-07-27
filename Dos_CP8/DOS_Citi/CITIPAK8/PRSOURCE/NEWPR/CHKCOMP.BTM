@@ -1,0 +1,22 @@
+setlocal
+set include=d:\qbx\npayroll\work\bis
+ BC PRCHECK     /o /ot /g2;
+ BC PRMENU     /o /ot /g2;
+ BC VERTMENU     /o /ot /g2;
+ BC WAZZWIND     /o /ot /g2;
+ BC FORMEDIT     /o /ot /g2;
+ BC NOCALC     /o /ot /g2;
+ BC PRAUX03     /o /ot /g2;
+ BC PRROUND     /o /ot /g2;
+ BC SCRNDISP     /o /ot /g2;
+ BC FILEIO     /o /ot /g2;
+ BC PRAUX1     /o /ot /g2;
+ BC SPELLNUM     /o /ot /g2;
+ BC FORMLIB     /o /ot /g2;
+ BC SCRNLIB     /o /ot /g2;
+ bc prfprint.bas /x/o/ot/g2;
+ BC PRINIT     /o /ot /g2;
+
+link @prcheck.rsp
+del /q *.obj
+endlocal

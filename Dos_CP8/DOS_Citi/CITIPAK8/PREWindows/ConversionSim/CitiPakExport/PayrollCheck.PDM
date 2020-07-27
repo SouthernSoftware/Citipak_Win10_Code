@@ -1,0 +1,133 @@
+[Root]
+Most Recent Package=Paycheck.DEP
+
+
+[Package|Paycheck.DEP|Root]
+SubWizProgID=PDWizard.DepPkgSubWiz
+BuildFolder=C:\WINDOWS\Desktop\PRWorking
+
+[Package|Paycheck.DEP|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Paycheck.DEP|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Paycheck.DEP|Files Found]
+
+[Package|Paycheck.DEP|Files Released]
+
+[Package|Paycheck.DEP|Missing Dependency Information]
+C:\Program Files\BtnObjx\Samples\ActiveX\vb5\Btn Objx Ad Sample Code\fpOutlookBar\fpOutBar.ocx=
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\textexpt.dll=
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\exclexpt.dll=
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\PropList.OCX=
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\ARVIEW2.OCX=
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\actrpt2.dll=
+C:\WINDOWS\SYSTEM\resize.dll=
+C:\Program Files\Microsoft Visual Studio\Common\IDE\IDE98\DTE.TLB=
+
+[Package|Paycheck.DEP|Out-of-Date Dependency Information]
+
+[Package|Paycheck.DEP|Files Added]
+
+[Package|Paycheck.DEP|Files Removed]
+
+[Package|Paycheck.DEP|Files In Project]
+C:\WINDOWS\Desktop\PRWorking\PayrollCheck.exe=Yes
+C:\WINDOWS\SYSTEM\msvbvm60.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\Program Files\BtnObjx\BIN\btn32a20.ocx=Yes
+C:\WINDOWS\SYSTEM\ATL.DLL=Yes
+C:\WINDOWS\SYSTEM\MSVCRT.DLL=Yes
+C:\Program Files\CalObjx3\BIN\Dpp32x30.ocx=Yes
+C:\WINDOWS\SYSTEM\MSSTDFMT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\Common\IDE\IDE98\DTE.TLB=Yes
+C:\WINDOWS\SYSTEM\resize.dll=Yes
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\actrpt2.dll=Yes
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\ARVIEW2.OCX=Yes
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\PropList.OCX=Yes
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\exclexpt.dll=Yes
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\textexpt.dll=Yes
+C:\Program Files\Inppro30\BIN\Edt32x30.ocx=Yes
+C:\Program Files\BtnObjx\Samples\ActiveX\vb5\Btn Objx Ad Sample Code\fpOutlookBar\fpOutBar.ocx=Yes
+C:\Program Files\CalObjx3\BIN\Cal32x30.ocx=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=Yes
+C:\WINDOWS\SYSTEM\MSCOMCTL.OCX=Yes
+C:\WINDOWS\SYSTEM\COMDLG32.OCX=Yes
+C:\WINDOWS\SYSTEM\MSDATGRD.OCX=Yes
+C:\WINDOWS\SYSTEM\MSFLXGRD.OCX=Yes
+C:\WINDOWS\SYSTEM\MSMASK32.OCX=Yes
+C:\WINDOWS\SYSTEM\COMCT332.OCX=Yes
+C:\WINDOWS\SYSTEM\DBGRID32.OCX=Yes
+C:\WINDOWS\SYSTEM\MSHFLXGD.OCX=Yes
+C:\Program Files\Tabpro30\BIN\Tab32x30.ocx=Yes
+C:\WINDOWS\SYSTEM\MFC42.DLL=Yes
+C:\Program Files\Tabpro30\BIN\Imp32x30.ocx=Yes
+C:\Program Files\Spread35\Bin\SPR32X35.ocx=Yes
+C:\Program Files\Inppro30\BIN\mem32x30.ocx=Yes
+C:\Program Files\ListPro3\BIN\Flp32a30.ocx=Yes
+
+[Package|Paycheck.DEP|Configure Registry Files]
+Applicable=
+
+[Package|Paycheck.DEP|Configure Remote Servers]
+Applicable=
+
+[Package|Paycheck.DEP|Install Locations]
+C:\WINDOWS\Desktop\PRWorking\PayrollCheck.exe=$(AppPath)
+C:\WINDOWS\SYSTEM\msvbvm60.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Program Files\BtnObjx\BIN\btn32a20.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM\ATL.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\MSVCRT.DLL=$(WinSysPathSysFile)
+C:\Program Files\CalObjx3\BIN\Dpp32x30.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSSTDFMT.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\Common\IDE\IDE98\DTE.TLB=$(WinSysPath)
+C:\WINDOWS\SYSTEM\resize.dll=$(WinSysPath)
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\actrpt2.dll=$(WinSysPath)
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\ARVIEW2.OCX=$(WinSysPath)
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\PropList.OCX=$(WinSysPath)
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\exclexpt.dll=$(WinSysPath)
+C:\Program Files\Common Files\Data Dynamics\ActiveReports 2\textexpt.dll=$(WinSysPath)
+C:\Program Files\Inppro30\BIN\Edt32x30.ocx=$(WinSysPath)
+C:\Program Files\BtnObjx\Samples\ActiveX\vb5\Btn Objx Ad Sample Code\fpOutlookBar\fpOutBar.ocx=$(WinSysPath)
+C:\Program Files\CalObjx3\BIN\Cal32x30.ocx=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM\MSCOMCTL.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\COMDLG32.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSDATGRD.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSFLXGRD.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSMASK32.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\COMCT332.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\DBGRID32.OCX=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MSHFLXGD.OCX=$(WinSysPath)
+C:\Program Files\Tabpro30\BIN\Tab32x30.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM\MFC42.DLL=$(WinSysPathSysFile)
+C:\Program Files\Tabpro30\BIN\Imp32x30.ocx=$(WinSysPath)
+C:\Program Files\Spread35\Bin\SPR32X35.ocx=$(WinSysPath)
+C:\Program Files\Inppro30\BIN\mem32x30.ocx=$(WinSysPath)
+C:\Program Files\ListPro3\BIN\Flp32a30.ocx=$(WinSysPath)
+
+[Package|Paycheck.DEP|Configure Shared Files]
+Applicable=
+
+[Package|Paycheck.DEP|DepFile]
+DepCabFile=PayrollCheck.CAB
+DepCabRun=PayrollCheck.INF
+
+[Package|Paycheck.DEP|Package]
+PackageFolder=C:\WINDOWS\Desktop\PRWorking
+ProjectFolder=C:\WINDOWS\Desktop\PRWorking
+ServerSideCab=
+File1=C:\WINDOWS\Desktop\PRWorking\PayrollCheck.DEP
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

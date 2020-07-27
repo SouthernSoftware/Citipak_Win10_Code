@@ -1,0 +1,12 @@
+if exist prqlb.lib del /q PRqlb.lib
+ren ..\source\NCPfprnt.bas ..\source\ncpfprnt.
+rem pause
+FOR %A IN (..\source\*.BAS) DO (echo BC %A /O/FS;^BC %A /O/FS;)
+ren ..\source\ncpfprnt. ..\source\ncpfprnt.BAS
+echo BC ..\source\ncpfprnt.bas /O/X/FS;
+BC ..\source\ncpfprnt.bas /O/X/FS;
+lib @qlblib.rsp
+rem pause
+del *.obj
+wmakeqlb pr.lst,,nul,pro7 smrtdrvf prqlb pr QBX;
+ren pr.qlb ncp.qlb

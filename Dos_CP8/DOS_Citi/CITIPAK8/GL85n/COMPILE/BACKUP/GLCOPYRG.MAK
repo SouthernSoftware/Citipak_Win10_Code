@@ -1,0 +1,1 @@
+GLCOPYRG.BAS

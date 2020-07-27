@@ -1,0 +1,63 @@
+'For MOWSA 03/11/97
+
+TYPE POItemsRecType
+    STKNO    AS STRING * 8
+    DESCA    AS STRING * 20
+    DESCB    AS STRING * 20
+    QUAN     AS DOUBLE
+    PRICE    AS DOUBLE
+    EXT      AS DOUBLE
+    ACCTNO   AS STRING * 14
+    AcctRec  AS INTEGER
+END TYPE
+
+TYPE POFORMRecType2
+    DELETED  AS INTEGER
+    PONUM    AS STRING * 8
+    REQNUM   AS STRING * 7              'dept number here
+    PODATE   AS INTEGER
+    VNDRCODE AS STRING * 10
+    VNDRREC  AS INTEGER
+    VNDRINF1 AS STRING * 30
+    VNDRINF2 AS STRING * 30
+    VNDRINF3 AS STRING * 30
+    VNDRINF4 AS STRING * 30
+    VNDRINF5 AS STRING * 30
+    SHPLINE1 AS STRING * 30
+    SHPLINE2 AS STRING * 30
+    SHPLINE3 AS STRING * 30
+    SHPLINE4 AS STRING * 30
+    SHPLINE5 AS STRING * 30
+    FOB      AS STRING * 20
+    Shipvia  AS STRING * 20
+    Terms    AS STRING * 20
+    SHIPON   AS STRING * 20
+    Addinst1 AS STRING * 30
+    Addinst2 AS STRING * 30
+    Addinst3 AS STRING * 30
+    POAMT    AS DOUBLE
+    ITEMS(1 TO 12) AS POItemsRecType
+    DUMMY    AS STRING * 1
+END TYPE
+
+TYPE POControlRecType
+    PONumber AS STRING * 8
+    Header1  AS STRING * 35
+    Header2  AS STRING * 35
+    Header3  AS STRING * 35
+    Header4  AS STRING * 35
+    Shipto1  AS STRING * 30
+    Shipto2  AS STRING * 30
+    Shipto3  AS STRING * 30
+    Shipto4  AS STRING * 30
+    Shipto5  AS STRING * 30
+    FOB      AS STRING * 20
+    Shipvia  AS STRING * 20
+    Terms    AS STRING * 20
+    Addinst1 AS STRING * 20
+    Addinst2 AS STRING * 20
+    Addinst3 AS STRING * 20
+    Pading   AS STRING * 94
+
+END TYPE
+

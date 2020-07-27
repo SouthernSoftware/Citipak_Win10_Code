@@ -1,0 +1,264 @@
+<ProcessingRules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://tempuri.org/ProcessingRules.xsd">
+  <ProcessingRule ID="213D358D-D0C0-40E9-86D9-914ADD631CDE" Enabled="true">
+    <Description>Files in My Documents</Description>
+    <Action>Include</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">C:\Documents and Settings\Karen\My Documents</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.*</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="3D39CBB5-8CC3-422e-BC5F-BC8346F52BDD" Enabled="true">
+    <Description>Files in My Pictures</Description>
+    <Action>Include</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">C:\Documents and Settings\Karen\My Documents\My Pictures</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.*</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="F5C85849-26D2-4942-8382-9A3532E8ED59" Enabled="false">
+    <Description>Files on the Desktop</Description>
+    <Action>Include</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">C:\Documents and Settings\Karen\Desktop</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.*</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="7C1D9506-70B4-41c3-B1BC-7363EB1BD071" Enabled="false">
+    <Description>Internet Explorer Favorites</Description>
+    <Action>Include</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">C:\Documents and Settings\Karen\Favorites</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.htm</Type>
+        <Type Primary="true" Internal="false">*.url</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="53626F3D-382A-4fbf-9B4E-D5161555E963" Enabled="false">
+    <Description>MS Outlook - E-mail, Appointments, Contacts, and Tasks</Description>
+    <Action>Include</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">C:\Documents and Settings\Karen\Local Settings\Application Data\Microsoft\Outlook</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.pst</Type>
+        <Type Primary="true" Internal="false">*.msg</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="24E2DABF-597E-42b1-8F35-29852558CA72" Enabled="false">
+    <Description>MS Outlook Express - E-mail</Description>
+    <Action>Include</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">C:\Documents and Settings\Karen\Local Settings\Application Data\Identities\{31391EF3-B3AC-4F12-94D8-DC2DA45E9526}\Microsoft\Outlook Express\</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.dbx</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="8FA9D762-2301-4A4C-AB57-58CA500FB529" Enabled="false">
+    <Description>Windows Mail</Description>
+    <Action>Include</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">C:\Documents and Settings\Karen\Application Data\Microsoft\WindowsMail\</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.fol</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="9D497816-F451-4319-BC8A-A29F54D13A88" Enabled="false">
+    <Description>Word processing documents, Spreadsheets, and Presentations</Description>
+    <Action>Include</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">*</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.doc</Type>
+        <Type Primary="true" Internal="false">*.dot</Type>
+        <Type Primary="true" Internal="false">*.docx</Type>
+        <Type Primary="true" Internal="false">*.docm</Type>
+        <Type Primary="true" Internal="false">*.xls</Type>
+        <Type Primary="true" Internal="false">*.xlt</Type>
+        <Type Primary="true" Internal="false">*.xlsx</Type>
+        <Type Primary="true" Internal="false">*.xlsm</Type>
+        <Type Primary="true" Internal="false">*.xlsb</Type>
+        <Type Primary="true" Internal="false">*.xltx</Type>
+        <Type Primary="true" Internal="false">*.xltm</Type>
+        <Type Primary="true" Internal="false">*.xlam</Type>
+        <Type Primary="true" Internal="false">*.ppt</Type>
+        <Type Primary="true" Internal="false">*.pptx</Type>
+        <Type Primary="true" Internal="false">*.pptm</Type>
+        <Type Primary="true" Internal="false">*.potx</Type>
+        <Type Primary="true" Internal="false">*.potm</Type>
+        <Type Primary="true" Internal="false">*.ppsx</Type>
+        <Type Primary="true" Internal="false">*.ppsm</Type>
+        <Type Primary="true" Internal="false">*.wps</Type>
+        <Type Primary="true" Internal="false">*.wpt</Type>
+        <Type Primary="true" Internal="false">*.xlr</Type>
+        <Type Primary="true" Internal="false">*.wks</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="C9C76660-0E60-4549-B310-0D71C586C5F6" Enabled="false">
+    <Description>Financial Files</Description>
+    <Action>Include</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">*</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.qdf</Type>
+        <Type Primary="true" Internal="false">*.qel</Type>
+        <Type Primary="true" Internal="false">*.qph</Type>
+        <Type Primary="true" Internal="false">*.qsd</Type>
+        <Type Primary="true" Internal="false">*.mny</Type>
+        <Type Primary="true" Internal="false">*.tax</Type>
+        <Type Primary="true" Internal="false">*.qbw</Type>
+        <Type Primary="true" Internal="false">*.qbb</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="5DE283E7-7E31-4c19-800A-0EDF9CEE3664" Enabled="false">
+    <Description>Photos and Pictures</Description>
+    <Action>Include</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">*</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.jpg</Type>
+        <Type Primary="true" Internal="false">*.jpeg</Type>
+        <Type Primary="true" Internal="false">*.gif</Type>
+        <Type Primary="true" Internal="false">*.png</Type>
+        <Type Primary="true" Internal="false">*.raw</Type>
+        <Type Primary="true" Internal="false">*.tif</Type>
+        <Type Primary="true" Internal="false">*.tiff</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="891FD160-92B3-4c13-BCDB-6688053906FF" Enabled="false">
+    <Description>Music and Sound Files</Description>
+    <Action>Include</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">*</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.mp3</Type>
+        <Type Primary="true" Internal="false">*.mp4</Type>
+        <Type Primary="true" Internal="false">*.m4a</Type>
+        <Type Primary="true" Internal="false">*.m4p</Type>
+        <Type Primary="true" Internal="false">*.wav</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="631E23D7-B381-44d5-8201-4204FE508CF3" Enabled="false">
+    <Description>Video Files</Description>
+    <Action>Include</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">*</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.wmv</Type>
+        <Type Primary="true" Internal="false">*.mov</Type>
+        <Type Primary="true" Internal="false">*.mpg</Type>
+        <Type Primary="true" Internal="false">*.mpeg</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="FB056C24-BBCE-4790-8112-0080980430A0" Enabled="false">
+    <Description>Bookmarks (Firefox and Netscape)</Description>
+    <Action>Include</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">C:\Documents and Settings\Karen\Application Data\Mozilla\Firefox\</Path>
+    <Path subfolders="true">C:\Documents and Settings\Karen\Application Data\Netscape\NSB\</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.html</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="52EE985E-96A1-4D59-A9DA-162A1F718437" Enabled="true">
+    <Description>Files on A: Drive</Description>
+    <Action>Exclude</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">A:\</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.*</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="A1187FA7-8DF2-4594-BC70-19769EE96687" Enabled="true">
+    <Description>Files in Program Files folder</Description>
+    <Action>Exclude</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">C:\Program Files</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.*</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="42C43D6A-8860-44DB-9936-C2714EE2FCE5" Enabled="true">
+    <Description>Temporary and Log Files (.log, .tmp, etc.)</Description>
+    <Action>Exclude</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">*</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.log</Type>
+        <Type Primary="true" Internal="false">*.tmp</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="7CC3174C-AA95-4770-AD79-EE4339FDCF0C" Enabled="true">
+    <Description>Virtual Hard Disk Files</Description>
+    <Action>Exclude</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">*</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.vhd</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="0CDC103E-20E6-4708-A44C-240DF68A0C71" Enabled="true">
+    <Description>Files in Windows system folder</Description>
+    <Action>Exclude</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">C:\WINDOWS</Path>
+    <Filters>
+      <FileTypes>
+        <Type Primary="true" Internal="false">*.*</Type>
+      </FileTypes>
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="0EB4F27D-0109-4B29-8C00-86BF2BC102ED" Enabled="false" Hidden="false" RuleType="backup">
+    <Description>Files in C: Drive</Description>
+    <Action>Exclude</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">C:\</Path>
+    <Filters>
+      <FileTypes />
+    </Filters>
+  </ProcessingRule>
+  <ProcessingRule ID="6AFE5675-7C2C-4F24-A592-29873B97BD22" Enabled="true" Hidden="false" RuleType="backup">
+    <Description>Files in E: Drive</Description>
+    <Action>Exclude</Action>
+    <ProviderID>81F79041-079F-4A0F-8921-E7A17D2445B6</ProviderID>
+    <Path subfolders="true">E:\</Path>
+    <Filters>
+      <FileTypes />
+    </Filters>
+  </ProcessingRule>
+</ProcessingRules>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

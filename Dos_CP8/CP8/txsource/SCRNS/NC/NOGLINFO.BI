@@ -1,0 +1,2 @@
+TYPE noglinfo
+END TYPE

@@ -1,0 +1,12 @@
+DCNOCODE.FieldInfo:
+DATA  1 , 0 , 1 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 16 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"OK", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+DCNOCODE.Help:
+DATA ""
+DATA "Press OK To Continue. "
+
+DCNOCODE.Formulas:
+DATA ""
+DATA ""
+

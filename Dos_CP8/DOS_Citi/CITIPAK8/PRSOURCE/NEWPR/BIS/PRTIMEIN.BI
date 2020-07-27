@@ -1,0 +1,91 @@
+'npayroll
+TYPE SalaryIDistType
+    DAcct    AS STRING * 14    '  10 WAGEDST1 AS STRING * 14
+    DPct     AS DOUBLE         '  11 D1REGHRS AS DOUBLE
+END TYPE
+
+TYPE SalaryInputType
+    PAYSAL   AS STRING * 1     '  1
+    VACHRS   AS DOUBLE         '  2
+    SICKHRS  AS DOUBLE         '  3
+    HOLHRS   AS DOUBLE         '  4
+'022498 New for Wrightsville beech
+    PerHRS   AS DOUBLE         '  5
+'*********************************
+    SDist(1 TO 8)   AS SalaryIDistType
+
+    TOTOTHRS AS DOUBLE         '  22
+
+    ALTEARN1 AS DOUBLE         '  23
+    ALTEARN2 AS DOUBLE         '  24
+    ALTEARN3 AS DOUBLE         '  25
+
+    TaxFring AS DOUBLE         '  26
+
+    AERNDST1 AS STRING * 14    '  27
+    AERNAMT1 AS DOUBLE         '  28
+    AERNDST2 AS STRING * 14    '  29
+    AERNAMT2 AS DOUBLE         '  30
+    AERNDST3 AS STRING * 14    '  31
+    AERNAMT3 AS DOUBLE         '  32
+    AERNDST4 AS STRING * 14    '  33
+    AERNAMT4 AS DOUBLE         '  34
+    AERNDST5 AS STRING * 14    '  35
+    AERNAMT5 AS DOUBLE         '  36
+    AERNDST6 AS STRING * 14    '  37
+    AERNAMT6 AS DOUBLE         '  38
+
+    TOTAERN  AS DOUBLE         '  39
+    TOTEADST AS DOUBLE         '  40
+END TYPE
+
+TYPE HourlyIDistType
+    DAcct    AS STRING * 14    '  10 WAGEDST1 AS STRING * 14
+    DRHrs    AS DOUBLE         '  11 D1REGHRS AS DOUBLE
+    DOHrs    AS DOUBLE         '  12 D1OTHRS  AS DOUBLE
+END TYPE
+
+TYPE HourlyInputType
+    WORKHRS  AS DOUBLE         '  1  WORKHRS  AS DOUBLE
+    VACHRS   AS DOUBLE         '  2  VACHRS   AS DOUBLE
+    SICKHRS  AS DOUBLE         '  3  SICKHRS  AS DOUBLE
+    HOLHRS   AS DOUBLE         '  4  HOLHRS   AS DOUBLE
+    COMPHRS  AS DOUBLE         '  5  COMPHRS  AS DOUBLE
+
+'022498 New for Wrightsville beech
+    PerHRS   AS DOUBLE         '  6
+'*********************
+
+    TOTHRSPD AS DOUBLE         '  6  TOTHRSPD AS DOUBLE
+    OTWORKED AS DOUBLE         '  7  OTWORKED AS DOUBLE
+    OTHRSPD  AS DOUBLE         '  8  OTHRSPD  AS DOUBLE
+    OT2COMP  AS DOUBLE         '  9  OT2COMP  AS DOUBLE
+    
+    HDist(1 TO 8)  AS HourlyIDistType
+
+    DTREGHRS AS DOUBLE         '  34 TOTREGHR AS DOUBLE
+    DTOTHRS  AS DOUBLE         '  35 TOTOTHRS AS DOUBLE
+
+    ALTEARN1 AS DOUBLE         '  36 ALTEARN1 AS DOUBLE
+    ALTEARN2 AS DOUBLE         '  37 ALTEARN2 AS DOUBLE
+    ALTEARN3 AS DOUBLE         '  38 ALTEARN3 AS DOUBLE
+
+    TaxFring  AS DOUBLE
+
+    AERNDST1 AS STRING * 14    '  39 AERNDST1 AS STRING * 14
+    AERNAMT1 AS DOUBLE         '  40 AERNAMT1 AS DOUBLE
+    AERNDST2 AS STRING * 14    '  41 AERNDST2 AS STRING * 14
+    AERNAMT2 AS DOUBLE         '  42 AERNAMT2 AS DOUBLE
+    AERNDST3 AS STRING * 14    '  43 AERNDST3 AS STRING * 14
+    AERNAMT3 AS DOUBLE         '  44 AERNAMT3 AS DOUBLE
+    AERNDST4 AS STRING * 14    '  45 AERNDST4 AS STRING * 14
+    AERNAMT4 AS DOUBLE         '  46 AERNAMT4 AS DOUBLE
+    AERNDST5 AS STRING * 14    '  47 AERNDST5 AS STRING * 14
+    AERNAMT5 AS DOUBLE         '  48 AERNAMT5 AS DOUBLE
+    AERNDST6 AS STRING * 14    '  49 AERNDST6 AS STRING * 14
+    AERNAMT6 AS DOUBLE         '  50 AERNAMT6 AS DOUBLE
+
+    TOTAERN  AS DOUBLE         '  51 TOTAERN  AS DOUBLE
+    TOTEADST AS DOUBLE         '  52 TOTEADST AS DOUBLE
+END TYPE
+

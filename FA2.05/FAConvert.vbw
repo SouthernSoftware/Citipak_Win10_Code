@@ -1,0 +1,10 @@
+frmFixedAssetsConversion = -1, -15, 709, 548, , 23, 14, 827, 582, C
+modFAConvertSTRUCT = 8, 8, 712, 514, 
+modFAConvertCommon = 22, 5, 628, 479, 
+clsFACommandButton = 0, 0, 0, 0, C
+clsFATextBoxOverRider = 0, 0, 0, 0, C
+frmFAMsgWOpts = 90, 131, 758, 582, C, 72, 157, 720, 608, C
+frmFABadCodeWarn = 150, 21, 688, 565, C, 142, 12, 795, 624, C
+frmFAMsgWOptsJr = 0, 0, 624, 451, C, 73, 42, 704, 614, C
+frmFAAssCodeUtility = 9, 8, 821, 620, , -261, 135, 551, 747, C
+frmFAMsgBox = 22, 29, 635, 452, C, 44, 64, 708, 487, C

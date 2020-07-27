@@ -1,0 +1,33 @@
+ARAPPPRN.FieldInfo:
+DATA  8 , 99 , 8 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 9 , 34 , 36 , 3 , 22 ,"", 0 , 0 ,"CATAGORY", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  4 , 10 , 34 , 37 , 2 , 3 ,"", 0 , 0 ,"BUSYEAR",-1 , 0 , 0 , 0 , 1995 , 2067 ,""
+DATA  6 , 11 , 34 , 43 , 10 , 22 ,"", 0 , 0 ,"FORMAT", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  16 , 13 , 34 , 61 , 28 , 2 ,"", 0 , 0 ,"RETNAME", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  44 , 14 , 34 , 61 , 28 , 2 ,"", 0 , 0 ,"ADDRESS1", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  72 , 15 , 34 , 61 , 28 , 2 ,"", 0 , 0 ,"ADDRESS2", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  100 , 17 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  100 , 17 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+ARAPPPRN.Help:
+DATA ""
+DATA "Choose ALL or the Actual Catagory to Print Applications For. "
+DATA "Enter the Application Year. "
+DATA "Choose Standard or Custom.  Custom form would be one that we have designed for you.  Call Southern Software 1-800-842-8190 if you are not sure which to choose here."
+DATA "Enter the Name and Address Where the Application Should be returned to. "
+DATA "Enter the Name and Address Where the Application Should be returned to. "
+DATA "Enter the Name and Address Where the Application Should be returned to. "
+DATA "Press the F10 Key to Process the Application Printing as Selected. "
+DATA "Press the ESC Key to Cancel Your Application Print Request. "
+
+ARAPPPRN.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

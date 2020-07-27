@@ -1,0 +1,15 @@
+DCCLEAR.FieldInfo:
+DATA  2 , 0 , 2 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 17 , 46 , 58 , 0 , 24 ,"", 0 , 0 ,"ESCKY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+DATA  1 , 17 , 30 , 43 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+
+DCCLEAR.Help:
+DATA ""
+DATA "Press the ESC Key to Cancel the Process. "
+DATA "Press the F10 Key to Clear the Customer Decal Numbers. "
+
+DCCLEAR.Formulas:
+DATA ""
+DATA ""
+DATA ""
+

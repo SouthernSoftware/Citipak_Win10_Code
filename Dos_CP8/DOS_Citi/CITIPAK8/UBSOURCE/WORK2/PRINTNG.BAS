@@ -1,0 +1,63 @@
+DEFINT A-Z
+DECLARE FUNCTION FileSize& (FileName$)
+DECLARE FUNCTION QPTrim$ (FileName$)
+  
+  '$INCLUDE: 'newcust.BI'
+
+  CLS
+  PRINT
+  PRINT "Please make sure your printer is ready to print"
+  PRINT
+  PRINT "and, Press any key when Ready. . .";
+  DO
+    a$ = INKEY$
+  LOOP UNTIL LEN(a$) > 0
+  CLS
+  PRINT
+  PRINT "Printing Accounts with Invalid Meter Settings. . ."
+
+  REDIM UBCustRec(1) AS NewUBCustRecType
+  UBCustRecLen = LEN(UBCustRec(1))
+  PRINT
+  PRINT
+
+  UBFile = FREEFILE
+  OPEN "UBCUST.dat" FOR RANDOM SHARED AS UBFile LEN = UBCustRecLen
+  NumOfRecs& = LOF(UBFile) \ UBCustRecLen
+  FOR Cnt& = 1 TO NumOfRecs&
+    LOCATE , 1
+    PRINT "Processing:"; Cnt&; " of"; NumOfRecs&;
+    GET UBFile, Cnt&, UBCustRec(1)
+    IF UBCustRec(1).DelFlag = 0 THEN
+      IF LEN(QPTrim$(UBCustRec(1).Serv(1).RateCode)) = 0 AND LEN(QPTrim$(UBCustRec(1).Serv(1).RMTRTYPE)) > 0 THEN
+        GOSUB PrintEM
+        Found = Found + 1
+        GOTO DidEm
+      END IF
+      IF LEN(QPTrim$(UBCustRec(1).Serv(2).RateCode)) = 0 AND LEN(QPTrim$(UBCustRec(1).Serv(2).RMTRTYPE)) > 0 THEN
+        GOSUB PrintEM
+        Found = Found + 1
+        GOTO DidEm
+      END IF
+    END IF
+DidEm:
+  NEXT
+  CLOSE UBFile
+
+PRINT
+PRINT
+PRINT
+PRINT "Found:"; Found
+
+END
+
+PrintEM:
+  TabStop = TabStop + 10
+  IF TabStop > 70 THEN
+    LPRINT
+    TabStop = 10
+  END IF
+  LPRINT TAB(TabStop); Cnt&;
+
+RETURN
+

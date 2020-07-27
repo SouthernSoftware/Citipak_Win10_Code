@@ -1,0 +1,24 @@
+PROCESIF.FieldInfo:
+DATA  5 , 5 , 9 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 13 , 47 , 47 , 1 , 14 ,"N Y", 0 , 0 ,"CM", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  2 , 14 , 47 , 47 , 1 , 14 ,"N Y", 0 , 0 ,"CM2", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  3 , 15 , 47 , 47 , 1 , 14 ,"N Y", 0 , 0 ,"CM3", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  4 , 16 , 47 , 47 , 1 , 14 ,"N Y", 0 , 0 ,"CM4", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  5 , 17 , 47 , 47 , 1 , 14 ,"N Y", 0 , 0 ,"CM5", 0 , 0 , 0 , 0 , 0 , 0 ,""
+
+PROCESIF.Help:
+DATA ""
+DATA "Enter 'Y' to Set All Transactions for this Module as Posted to the General Ledger. "
+DATA "Enter 'Y' to Set All Transactions for this Module as Posted to the General Ledger. "
+DATA "Enter 'Y' to Set All Transactions for this Module as Posted to the General Ledger. "
+DATA "Enter 'Y' to Set All Transactions for this Module as Posted to the General Ledger. "
+DATA "Enter 'Y' to Set All Transactions for this Module as Posted to the General Ledger. "
+
+PROCESIF.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

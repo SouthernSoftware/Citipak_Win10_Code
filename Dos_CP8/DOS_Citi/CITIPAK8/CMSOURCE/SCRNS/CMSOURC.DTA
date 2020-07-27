@@ -1,0 +1,18 @@
+CMSOURC.FieldInfo:
+DATA  3 , 10 , 3 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 4 , 31 , 40 , 10 , 22 ,"", 0 , 0 ,"SOURCE", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  11 , 21 , 26 , 55 , 0 , 24 ,"", 0 , 0 ,"F7KEY", 0 , 0 , 0 ,-65 , 0 , 0 ,""
+DATA  11 , 21 , 59 , 72 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+CMSOURC.Help:
+DATA ""
+DATA "Select the source of this receipt from the displayed listing. "
+DATA "Press the F7 Key to Print a Transaction Journal. "
+DATA "Press the Esc Key to Return to the Menu. "
+
+CMSOURC.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

@@ -1,0 +1,33 @@
+PRNTJOUR.FieldInfo:
+DATA  8 , 43 , 8 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 9 , 40 , 51 , 12 , 22 ,"", 0 , 0 ,"SORTFLD", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  13 , 10 , 40 , 54 , 15 , 22 ,"", 0 , 0 ,"RECSOURC", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  28 , 11 , 40 , 49 , 2 , 6 ,"", 0 , 0 ,"BEGDATE", 0 , 0 , 0 , 0 ,-29219 , 31368 ,""
+DATA  30 , 12 , 40 , 49 , 2 , 6 ,"", 0 , 0 ,"ENDDATE", 0 , 0 , 0 , 0 ,-29219 , 31368 ,""
+DATA  32 , 13 , 40 , 42 , 4 , 18 ,"", 0 , 0 ,"OPERATOR", 0 , 0 , 0 , 0 , 0 , 999 ,""
+DATA  36 , 14 , 40 , 47 , 8 , 22 ,"", 0 , 0 ,"SENDTO", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  44 , 18 , 36 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  44 , 18 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+PRNTJOUR.Help:
+DATA ""
+DATA "Enter the Order in Which to Print the Journal. "
+DATA "Enter the Receipts Source to Print or All for All Receipts. "
+DATA "Enter the Beginning Receipt Date. "
+DATA "Enter the Ending Receipt Date.  The Beginning and Ending Date May be the Same to Print a Daily Journal. "
+DATA "Leave Blank to Print All Operators or Enter the Operator Number to Print the Journal For. "
+DATA "Where do you wish to send the report. "
+DATA "Press the F10 Key to Process Your Request. "
+DATA "Press the ESC Key to Cancel Your Request. "
+
+PRNTJOUR.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

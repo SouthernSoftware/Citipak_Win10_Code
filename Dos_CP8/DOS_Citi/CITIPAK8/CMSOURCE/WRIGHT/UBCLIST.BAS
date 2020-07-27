@@ -1,0 +1,2197 @@
+DECLARE SUB ShowPctCompL (BYVAL RecNo&, BYVAL NumOfRecs&)
+DECLARE SUB PaymentSumReport ()
+  DEFINT A-Z
+DECLARE SUB MailingLabel ()
+DECLARE SUB AgedBalanceListing ()
+DECLARE SUB CustomerCutOffListing ()
+DECLARE SUB CustomerInquiry ()
+DECLARE SUB DetailedTransJournal ()
+DECLARE SUB MasterBalanceListing ()
+DECLARE SUB MasterCustomerListing ()
+DECLARE SUB MasterDepositListing ()
+DECLARE SUB ShowPctComp (BYVAL RecNo%, BYVAL NumOfRecs%)
+DECLARE SUB ShowProcessingScrn (RptTitle$)
+DECLARE FUNCTION GetNumRateRecs% ()
+DECLARE FUNCTION FLof& (Handle%)
+DECLARE FUNCTION AskAbandonPrint% ()
+DECLARE FUNCTION FmtBook$ (Book$)
+DECLARE FUNCTION FmtSeqN$ (SeqN$)
+DECLARE FUNCTION FindRateTbl% (RateCode$, NumOfRates%, UBRateTbls() AS ANY)
+DECLARE FUNCTION GetNumOfRevs% ()
+DECLARE SUB AddEditLocation (RecNo&, FromFlag%)
+DECLARE SUB Search4LNum (LNum$, RecNo&, CLSFlag%)
+DECLARE SUB Search4Meter (MeterNum$, RecNo&, CLSFlag%)
+DECLARE SUB ShowSearchWheel (BYVAL Row%, BYVAL Col%)
+DECLARE SUB Search4SAddr (SAddr$, RecNo&, CLSFlag%)
+DECLARE SUB SortT (SEG Element AS ANY, NumElements%, Direction%, StructSize%, MemberOff%, MemberSize%)
+DECLARE SUB Search4Cust (SEARCH$, RecNo&, CLSFlag%, LocationFlag%)
+DECLARE SUB TitleBox (Row%, LeftCol%, BoxWidth%, Title$, Cnf AS ANY)
+DECLARE SUB ShowCustHistory (CustAcct&)
+DECLARE FUNCTION GetNumOfCust% ()
+DECLARE FUNCTION ConvDateStr$ (D$)
+DECLARE FUNCTION Exist% (FileName$)
+DECLARE FUNCTION FudgeFactor& ()
+DECLARE FUNCTION NovellThere% ()
+DECLARE FUNCTION QPStrI$ (Num%)
+DECLARE FUNCTION QPStrL$ (Num&)
+DECLARE FUNCTION QPTrim$ (Text$)
+DECLARE FUNCTION Round# (N#)
+DECLARE FUNCTION Date2Num% (DateString$)
+DECLARE FUNCTION Num2Date$ (DateNumber%)
+DECLARE SUB BlockClear ()
+DECLARE SUB ButtonPress (ButNo%, Down%, Presses%, x%, Y%)
+DECLARE SUB ClearScrn ()
+DECLARE SUB CursorOff ()
+DECLARE SUB DisplayScrn (BTmp%(), Element%, MonoCode%, WipeType%)
+DECLARE SUB DisplayUBScrn (ScrnName$)
+DECLARE SUB ExplodBox (UlRow%, UlCol%, BrRow%, BrCol%, Scr(), El%)
+DECLARE SUB FCreate (FileName$)
+DECLARE SUB FPutAH (FileName$, SEG Element AS ANY, ElSize%, NumEls%)
+DECLARE SUB FGetAH (FileName$, SEG Element AS ANY, ElSize%, NumEls%)
+DECLARE SUB GetCursor (x, Y, Button)
+DECLARE SUB HideCursor ()
+DECLARE SUB BlockClear ()
+DECLARE SUB MPaintBox (UlRow%, UlCol%, LRRow%, LRCol%, Colr%)
+DECLARE SUB MScrnRest (UlRow, UlCol, LRRow, LRCol, SEG Address)
+DECLARE SUB MScrnSave (UlRow, UlCol, LRRow, LRCol, SEG Address)
+DECLARE SUB Pause3 (MillaSecs%, ProcessorSpeed&)
+DECLARE SUB PressButton (BYVAL KeyCode, BYVAL ButtonRow, BYVAL ButtonLCol, BYVAL ButtonRCol)
+DECLARE SUB QPrintRC (Text$, Row, Col, FrameColor)
+DECLARE SUB ShowCursor ()
+DECLARE SUB SaveScrn (array())
+DECLARE SUB RestScrn (array())
+DECLARE SUB StuffBuf (Ky$)
+DECLARE SUB TextCursor (FG%, BG%)
+DECLARE SUB WazzWind (BYVAL TopRow%, BYVAL LeftCol%, BYVAL BotRow%, BYVAL RghtCol%, BYVAL FrameColor%, BYVAL FrameType%, BYVAL Shadow%)
+DECLARE FUNCTION FileSize& (FileName$)
+DECLARE SUB FOpenS (FileName$, Handle)
+DECLARE SUB FClose (Handle%)
+DECLARE SUB FGetRTA (Handle%, SEG Dest AS ANY, RecNo&, RecSize%)
+DECLARE SUB FPutRTA (Handle%, SEG Dest AS ANY, RecNo&, RecSize%)
+DECLARE FUNCTION QPValL& (Number$)
+DECLARE FUNCTION MsgBox% (LibName$, FormName$)
+DECLARE SUB VertMenuT2 (Items() AS ANY, Choice, MaxLen%, BoxBot, Ky$, Action, Cnf AS ANY)
+DECLARE SUB WaitForAction ()
+DECLARE SUB Get.Moose.OR.Key (Ky$, MooseButton%, MRow%, MCol%)
+DECLARE FUNCTION Chk4DupeBookSeqNum (Book$, SeqNum$)
+DECLARE FUNCTION PromptSaveData% ()
+DECLARE SUB PrintRptFile (RptTitle$, FileName$, LPTPort%, RetCode%, EntryPoint%)
+DECLARE SUB KillFile (FileName$)
+DECLARE SUB LookUp (RecNo&, Text$, DefaultLook%, CLSFlag%, LocationFlag%)
+DECLARE SUB LoadUBSetUpFile (UBSetupRec() AS ANY, UBSetUpLen%)
+DECLARE SUB MakeSequenceIndex (IndexText$)
+DECLARE SUB MakePostalIndex (IdxTypeText$)
+DECLARE FUNCTION QPStrL$ (LongNumber&)
+  
+  CONST False = 0, True = NOT False
+  
+  TYPE Struct
+    TrDate AS INTEGER
+    RecNum AS LONG
+  END TYPE
+  
+  DIM SHARED PctC(1) AS STRING * 3
+  
+  '$INCLUDE: 'DefCnf.BI'
+  '$INCLUDE: 'formedit.BI'
+  '$INCLUDE: 'fieldinf.BI'
+  '$INCLUDE: 'PageInfo.BI'                  'Form Page info
+  '$INCLUDE: 'QScr.BI'                      'QuickScreen Declarations
+  '$INCLUDE: 'ubsetup.bi'
+  '$INCLUDE: 'SetCnf.bi'
+  '$INCLUDE: 'ubcust.bi'
+  '$INCLUDE: 'ubtrans.BI'
+  '$INCLUDE: 'ubrate.BI'
+  '$INCLUDE: 'ubloc.BI'
+  
+  '--Dim the choice array to the number of menu items
+  REDIM MChoice$(1 TO 10)
+  
+  MChoice$(1) = "Customer Inquiry"
+  MChoice$(2) = "Master Customer Listing"
+  MChoice$(3) = "Master Balance Listing"
+  MChoice$(4) = "Aged Balance Listing"
+  MChoice$(5) = "Master Deposit Listing"
+  MChoice$(6) = "Customer Cut-Off Listing"
+  MChoice$(7) = "Detailed Transaction Journal"
+  MChoice$(8) = "Payment Summary Report"
+  MChoice$(9) = "Labels: Mailing or Rolodex"
+  MChoice$(10) = "Exit to OS"
+  
+  MaxLen = 0    'Set menu width to zero
+  BoxBot = 17   'limit the box length to go no lower than line 20
+  Action = 0    '0 means stay in the menu until they select something
+  Choice = 1    'Pre-load choice to highlight
+  
+  '--Find max menu width
+  FOR Cnt = 1 TO UBOUND(MChoice$)
+    TLen = LEN(MChoice$(Cnt))
+    IF TLen > MaxLen THEN
+      MaxLen = TLen
+    END IF
+  NEXT
+  
+  '--Center Menu within Screen
+  Row = ((25 - (UBOUND(MChoice$))) \ 2)
+  Col = ((80 - MaxLen) \ 2) - 2
+  help$ = "Customer Reports Menu"
+  
+  DO
+    
+    '--Set upper left corner of menu, turn off the cursor
+    LOCATE Row, Col, 0
+    BlockClear
+    
+    TitleBox 3, Col, MaxLen + 3, "Customer Reports Menu ", Cnf
+    TitleBox 20, Col, MaxLen + 3, "Use " + CHR$(24) + "-" + CHR$(25) + " to select", Cnf
+    
+    'PrintTitle user$
+    'PrintHelp Help$
+    
+    ShowCursor
+    
+    VertMenu MChoice$(), Choice, MaxLen, BoxBot, Ky$, Action, Cnf
+    
+    IF Ky$ = CHR$(27) THEN EXIT DO              'choice = 0
+    
+    SELECT CASE Choice
+    CASE 1
+      CustomerInquiry
+    CASE 2
+      MasterCustomerListing
+    CASE 3
+      MasterBalanceListing
+    CASE 4
+      AgedBalanceListing
+    CASE 5
+      MasterDepositListing
+    CASE 6
+      CustomerCutOffListing
+    CASE 7
+      DetailedTransJournal
+    CASE 8
+      PaymentSumReport
+    CASE 9
+      MailingLabel
+    CASE 10
+      HideCursor
+      CLS
+      END
+    END SELECT
+  LOOP
+  
+  RUN "ubmenu"
+    
+'Nesting Error
+
+SUB AgedBalanceListing
+  
+  
+  
+  REDIM MChoice$(1 TO 2)
+  
+  
+  
+  MChoice$(1) = " Customer Name Order   "
+  MChoice$(2) = " Account Number Order  "
+  
+  
+  MaxLen = 0    'Set menu width to zero
+  BoxBot = 17   'limit the box length to go no lower than line 20
+  Action = 0    '0 means stay in the menu until they select something
+  Choice = 1    'Pre-load choice to highlight
+  
+  '--Find max menu width
+  FOR Cnt = 1 TO UBOUND(MChoice$)
+    TLen = LEN(MChoice$(Cnt))
+    IF TLen > MaxLen THEN
+      MaxLen = TLen
+    END IF
+  NEXT
+  
+  'ReStart:
+  '--Center Menu within Screen
+  Row = ((25 - (UBOUND(MChoice$))) \ 2) - 1
+  Col = ((80 - MaxLen) \ 2) - 2
+  'Help$ = "Utility Billing Main Menu"
+  
+  UsingBook = False
+  UsingAcct = False
+  UsingName = False
+  
+  AbortFlag = False
+  PageNo = 0
+  
+  DO
+    
+    '--Set upper left corner of menu, turn off the cursor
+    LOCATE Row, Col, 0
+    BlockClear
+    TitleBox 3, Col, MaxLen + 3, "Aged Balance Report ", Cnf
+    TitleBox 20, Col, MaxLen + 3, "Use " + CHR$(24) + "-" + CHR$(25) + " to select", Cnf
+    
+    VertMenu MChoice$(), Choice, MaxLen, BoxBot, Ky$, Action, Cnf
+    
+    IF Ky$ = CHR$(27) THEN
+      Choice = 0
+      ExitFlag = True
+    END IF
+    
+    SELECT CASE Choice
+    CASE 0
+      ExitFlag = True
+    CASE 1
+      IndexName$ = NameIndexFile
+      UsingName = True
+      OKFlag = True
+    CASE 2
+      IndexName$ = ""
+      UsingAcct = True
+      OKFlag = True
+    CASE 3
+      IndexName$ = BookIndexFile
+      UsingBook = True
+      OKFlag = True
+    END SELECT
+    
+  LOOP UNTIL OKFlag OR ExitFlag
+  
+  IF ExitFlag THEN GOTO ExitAgedBalListing
+  
+  
+  '*********************
+  ' Get Date to Age On
+  LibName$ = "UB"
+  ScrnName$ = "UBAGEDAT"
+  
+  DisplayUBScrn ScrnName$
+  
+  ' Define Fields
+  NumFlds = LibNumberOfFields(LibName$, ScrnName$)
+  
+  ' Define Quick Screen Form Editing Arrays
+  REDIM Frm(1) AS FormInfo
+  REDIM Form$(NumFlds, 2)
+  REDIM Fld(NumFlds) AS FieldInfo
+  
+  Frm(1).StayOnField = True
+  ' Get 1st & Last Fields
+  StartEl = 0
+  LibGetFldDef LibName$, ScrnName$, StartEl, Fld(), Form$(), ErrCode
+  
+  ' Clear Fields
+  FOR F = 1 TO NumFlds
+    LSET Form$(F, 0) = ""
+  NEXT F
+  Form$(1, 0) = DATE$
+  Action = 1
+  
+  DO
+    EditForm Form$(), Fld(), Frm(1), Cnf, Action
+    
+    SELECT CASE Frm(1).KeyCode
+      
+    CASE F10Key
+      AgeDate$ = Form$(1, 0)
+      IF VAL(LEFT$(AgeDate$, 2)) < 1 OR VAL(LEFT$(AgeDate$, 2)) > 12 THEN
+        Done = False: Action = 1: Frm(1).FldNo = 1
+      ELSEIF VAL(MID$(AgeDate$, 4, 2)) < 1 OR VAL(MID$(AgeDate$, 4, 2)) > 31 THEN
+        Done = False: Action = 1: Frm(1).FldNo = 1
+      ELSE
+        Done = True
+      END IF
+      
+    CASE ESC
+      EXIT SUB
+    CASE ELSE
+      Done = False
+    END SELECT
+  LOOP UNTIL Done
+  
+  
+  
+  
+  '***************
+  AgeDate = Date2Num%(AgeDate$)
+  MaxLines = 55
+  PageNo = 0
+  Dash90$ = STRING$(90, "-")
+  
+  REDIM UBCustRec(1) AS UBCustRecType
+  UBCustRecLen = LEN(UBCustRec(1))
+  
+  REDIM UBTransRec(1) AS UBTransRecType
+  UBTransRecLen = LEN(UBTransRec(1))
+  
+  REDIM UBSetUp(1) AS UBSetupRecType
+  UBSetUpRecLen = LEN(UBSetUp(1))
+  
+  IF UsingName OR UsingBook THEN
+    IdxRecLen = 4               'we are using a long integer
+    IdxFileSize& = FileSize(IndexName$)
+    IdxNumOfRecs = IdxFileSize& \ IdxRecLen
+    REDIM IdxBuff(1 TO IdxNumOfRecs) AS UBCustIndexRecType
+    FGetAH IndexName$, IdxBuff(1), IdxRecLen, IdxNumOfRecs      'load it
+    NumOfRecs = IdxNumOfRecs
+  ELSE
+    NumOfRecs = FileSize("UBCUST.DAT") \ UBCustRecLen
+  END IF
+  
+  UBCust = FREEFILE
+  OPEN "UBCUST.DAT" FOR RANDOM SHARED AS UBCust LEN = UBCustRecLen
+  
+  UBTrans = FREEFILE
+  OPEN "UBTRANS.DAT" FOR RANDOM SHARED AS UBTrans LEN = UBTransRecLen
+  
+  UBRpt = FREEFILE
+  OPEN "UBABLIST.RPT" FOR OUTPUT AS UBRpt
+  
+  UBSetUp = FREEFILE
+  OPEN "UBSETUP.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS UBSetUp LEN = UBSetUpRecLen
+  IF LOF(UBSetUp) / UBSetUpRecLen = 0 THEN
+    TownName$ = "Undefined"
+  ELSE
+    GET UBSetUp, 1, UBSetUp(1)
+    TownName$ = UBSetUp(1).UTILNAME
+    TownLen = LEN(RTRIM$(TownName$))
+    TabStop = 40 - (TownLen / 2)
+    IF TabStop < 1 THEN TabStop = 1
+  END IF
+  CLOSE UBSetUp
+  
+  
+  BlockClear
+  ShowProcessingScrn "Aged Balance Report."
+  
+  GOSUB DoAgedBalRptHeader
+  
+  FOR Cnt = 1 TO NumOfRecs
+    IF UsingName OR UsingBook THEN
+      GET UBCust, IdxBuff(Cnt).RecNum, UBCustRec(1)
+      AcctNumber = IdxBuff(Cnt).RecNum
+    ELSE
+      GET UBCust, Cnt, UBCustRec(1)
+      AcctNumber = Cnt
+    END IF
+    
+    
+    IF LineCnt > MaxLines THEN
+      PRINT #UBRpt, CHR$(12)
+      GOSUB DoAgedBalRptHeader
+    END IF
+    
+    '*************************************
+    '   Main body of Printing goes here
+    GOSUB CalcBal
+    LineTotal# = Round(LineTotal#)
+    IF LineTotal# <> 0 THEN
+      
+      PRINT #UBRpt, USING "#####"; AcctNumber;
+      PRINT #UBRpt, TAB(10); LEFT$(UBCustRec(1).CustName, 28);
+      PRINT #UBRpt, TAB(41); USING "######.##"; Amt1#;
+      PRINT #UBRpt, TAB(51); USING "######.##"; Amt2#;
+      PRINT #UBRpt, TAB(61); USING "######.##"; Amt3#;
+      PRINT #UBRpt, TAB(71); USING "######.##"; Amt4#;
+      PRINT #UBRpt, TAB(81); USING "######.##"; LineTotal#
+      LineCnt = LineCnt + 1
+      CustCnt = CustCnt + 1
+      TAmt1# = TAmt1# + Amt1#
+      TAmt2# = TAmt2# + Amt2#
+      TAmt3# = TAmt3# + Amt3#
+      TAmt4# = TAmt4# + Amt4#
+      TLineTotal# = TLineTotal# + LineTotal#
+      
+      '*************************************
+      
+      IF AskAbandonPrint% THEN
+        AbortFlag = True
+        EXIT FOR
+      END IF
+      
+      ShowPctComp Cnt, NumOfRecs
+      
+    END IF
+    LineTotal# = 0: Amt1# = 0: Amt2# = 0: Amt3# = 0: Amt4# = 0
+    TotalPayments = 0
+  NEXT
+  
+  GOSUB DoAgedBalRptFooter:
+  
+  CLOSE UBCust, UBLoca, UBRpt
+  
+  ERASE IdxBuff, UBCustRec, UBTransRec
+  
+  IF NOT AbortFlag THEN
+    PrintRptFile "Aged Balance Report.", "UBABLIST.RPT", 1, RetCode, EntryPoint
+  END IF
+  
+  KillFile "UBABLIST.RPT"
+  
+ExitAgedBalListing:
+  
+  EXIT SUB
+  
+DoAgedBalRptHeader:
+  PageNo = PageNo + 1
+  PRINT #UBRpt, TAB(TabStop + 4); TownName$
+  PRINT #UBRpt, TAB(26); "Aged Customer Balance Listing Report"; TAB(74); "Page #"; PageNo
+  PRINT #UBRpt, "Ageing Date: "; AgeDate$
+  PRINT #UBRpt, "Report Date: "; DATE$;
+  PRINT #UBRpt, TAB(44); "|------------- D A Y S -------------|"
+  PRINT #UBRpt, "Acct #"; TAB(10); "Customer Name"; TAB(43); "   1-30"; TAB(53); "  31-60"; TAB(63); "  61-90"; TAB(73); "Over 90"; TAB(84); "Balance"
+  PRINT #UBRpt, Dash90$
+  LineCnt = 6
+  
+  
+  RETURN
+  
+DoAgedBalRptFooter:
+  PRINT #UBRpt, Dash90$
+  PRINT #UBRpt, "Totals: Customers = "; CustCnt;
+  PRINT #UBRpt, TAB(41); USING "######.##"; TAmt1#;
+  PRINT #UBRpt, TAB(51); USING "######.##"; TAmt2#;
+  PRINT #UBRpt, TAB(61); USING "######.##"; TAmt3#;
+  PRINT #UBRpt, TAB(71); USING "######.##"; TAmt4#;
+  PRINT #UBRpt, TAB(81); USING "######.##"; TLineTotal#
+  RETURN
+  
+CalcBal:
+  
+  
+  'Age1#=1-30 day  Age2#=31-60 day  Age3#=61-90 day   Age4#=Over 90
+  
+  Age1# = 0: Age2# = 0: Age3# = 0: Age4# = 0: TotalPayments# = 0
+  Trans& = UBCustRec(1).LastTrans
+  
+  
+  
+  WHILE Trans& > 0
+    GET UBTrans, Trans&, UBTransRec(1)
+    IF UBTransRec(1).TransType = 4 OR UBTransRec(1).TransType = 5 OR UBTransRec(1).TransType = 8 OR UBTransRec(1).TransType = 12 OR UBTransRec(1).TransType = 104 OR UBTransRec(1).TransType = 105 OR UBTransRec(1).TransType = 108 OR UBTransRec(1). _
+TransType = 1 OR UBTransRec(1).TransType = 2 OR UBTransRec(1).TransType = 3 OR UBTransRec(1).TransType = 11 OR UBTransRec(1).TransType = 10 OR UBTransRec(1).TransType = 101 OR UBTransRec(1).TransType = 102 OR UBTransRec(1).TransType = 103 THEN
+    IF UBTransRec(1).TransDate <= AgeDate THEN
+      IF UBTransRec(1).RunBalance = 0 THEN
+        GOSUB FinishCalc: RETURN
+      END IF
+      GOSUB LineCalc
+    END IF
+  END IF
+  Trans& = UBTransRec(1).PrevTrans
+WEND
+'Nesting Error
+  
+  GOSUB FinishCalc
+  RETURN
+  
+  
+  
+  
+FinishCalc:
+  IF TotalPayments# > Amt4# THEN
+    TotalPayments# = TotalPayments# - Amt4#
+    Amt4# = 0
+  ELSE
+    Amt4# = Amt4# - TotalPayments#: TotalPayments# = 0
+  END IF
+  IF TotalPayments# > Amt3# THEN
+    TotalPayments# = TotalPayments# - Amt3#
+    Amt3# = 0
+  ELSE
+    Amt3# = Amt3# - TotalPayments#: TotalPayments# = 0
+  END IF
+  IF TotalPayments# > Amt2# THEN
+    TotalPayments# = TotalPayments# - Amt2#
+    Amt2# = 0
+  ELSE
+    Amt2# = Amt2# - TotalPayments#: TotalPayments# = 0
+  END IF
+  Amt1# = Amt1# - TotalPayments#
+  LineTotal# = Amt1# + Amt2# + Amt3# + Amt4#
+  RETURN
+  
+  
+LineCalc:
+  IF UBTransRec(1).TransType = 4 OR UBTransRec(1).TransType = 5 OR UBTransRec(1).TransType = 8 OR UBTransRec(1).TransType = 12 OR UBTransRec(1).TransType = 104 OR UBTransRec(1).TransType = 105 OR UBTransRec(1).TransType = 108 THEN
+    TotalPayments# = TotalPayments# + UBTransRec(1).TransAmt
+    TotalPayments# = Round(TotalPayments#)
+    RETURN
+  END IF
+  
+  IF UBTransRec(1).TransType = 1 OR UBTransRec(1).TransType = 2 OR UBTransRec(1).TransType = 3 OR UBTransRec(1).TransType = 11 OR UBTransRec(1).TransType = 10 OR UBTransRec(1).TransType = 101 OR UBTransRec(1).TransType = 102 OR UBTransRec(1). _
+TransType = 103 THEN
+  
+  Days& = AgeDate - UBTransRec(1).TransDate
+  IF Days& <= 30 THEN
+    Amt1# = Amt1# + UBTransRec(1).TransAmt
+    Amt1# = Round(Amt1#)
+    RETURN
+  END IF
+  IF Days& > 30 AND Days& <= 60 THEN
+    Amt2# = Amt2# + UBTransRec(1).TransAmt
+    Amt2# = Round(Amt2#)
+    RETURN
+  END IF
+  IF Days& > 60 AND Days& <= 90 THEN
+    Amt3# = Amt3# + UBTransRec(1).TransAmt
+    Amt3# = Round(Amt3#)
+    RETURN
+  END IF
+  IF Days& > 90 THEN
+    Amt4# = Amt4# + UBTransRec(1).TransAmt
+    Amt4# = Round(Amt4#)
+    RETURN
+  END IF
+END IF
+'Nesting Error
+  RETURN
+  
+  
+  
+  
+END SUB
+
+SUB CustomerCutOffListing
+  REDIM MChoice$(1 TO 3)
+  
+  MChoice$(1) = " Customer Name Order   "
+  MChoice$(2) = " Account Number Order  "
+  MChoice$(3) = " Location Number Order "
+  
+  MaxLen = 0    'Set menu width to zero
+  BoxBot = 17   'limit the box length to go no lower than line 20
+  Action = 0    '0 means stay in the menu until they select something
+  Choice = 1    'Pre-load choice to highlight
+  
+  '--Find max menu width
+  FOR Cnt = 1 TO UBOUND(MChoice$)
+    TLen = LEN(MChoice$(Cnt))
+    IF TLen > MaxLen THEN
+      MaxLen = TLen
+    END IF
+  NEXT
+  
+  'ReStart:
+  '--Center Menu within Screen
+  Row = ((25 - (UBOUND(MChoice$))) \ 2) - 1
+  Col = ((80 - MaxLen) \ 2) - 2
+  'Help$ = "Utility Billing Main Menu"
+  
+  UsingBook = False
+  UsingAcct = False
+  UsingName = False
+  
+  AbortFlag = False
+  PageNo = 0
+  
+  DO
+    
+    '--Set upper left corner of menu, turn off the cursor
+    LOCATE Row, Col, 0
+    BlockClear
+    TitleBox 3, Col, MaxLen + 3, "Customer Cut-Off Report ", Cnf
+    TitleBox 20, Col, MaxLen + 3, "Use " + CHR$(24) + "-" + CHR$(25) + " to select", Cnf
+    
+    VertMenu MChoice$(), Choice, MaxLen, BoxBot, Ky$, Action, Cnf
+    
+    IF Ky$ = CHR$(27) THEN
+      Choice = 0
+      ExitFlag = True
+    END IF
+    
+    SELECT CASE Choice
+    CASE 0
+      ExitFlag = True
+    CASE 1
+      IndexName$ = NameIndexFile
+      UsingName = True
+      OKFlag = True
+    CASE 2
+      IndexName$ = ""
+      UsingAcct = True
+      OKFlag = True
+    CASE 3
+      IndexName$ = BookIndexFile
+      UsingBook = True
+      OKFlag = True
+    END SELECT
+    
+  LOOP UNTIL OKFlag OR ExitFlag
+  
+  IF ExitFlag THEN GOTO ExitCutOffListing
+  
+  '***************
+  MaxLines = 55
+  PageNo = 0
+  Dash80$ = STRING$(80, "-")
+  
+  REDIM UBCustRec(1) AS UBCustRecType
+  UBCustRecLen = LEN(UBCustRec(1))
+  
+  REDIM UBLocaRec(1) AS UBLocationRecType
+  UBLocaRecLen = LEN(UBLocaRec(1))
+  
+  REDIM UBSetUp(1) AS UBSetupRecType
+  UBSetUpRecLen = LEN(UBSetUp(1))
+  
+  IF UsingName OR UsingBook THEN
+    IdxRecLen = 4               'we are using a long integer
+    IdxFileSize& = FileSize(IndexName$)
+    IdxNumOfRecs = IdxFileSize& \ IdxRecLen
+    REDIM IdxBuff(1 TO IdxNumOfRecs) AS UBCustIndexRecType
+    FGetAH IndexName$, IdxBuff(1), IdxRecLen, IdxNumOfRecs      'load it
+    NumOfRecs = IdxNumOfRecs
+  ELSE
+    NumOfRecs = FileSize("UBCUST.DAT") \ UBCustRecLen
+  END IF
+  
+  UBCust = FREEFILE
+  OPEN "UBCUST.DAT" FOR RANDOM SHARED AS UBCust LEN = UBCustRecLen
+  
+  UBLoca = FREEFILE
+  OPEN "UBLOCA.DAT" FOR RANDOM SHARED AS UBLoca LEN = UBLocaRecLen
+  
+  UBRpt = FREEFILE
+  OPEN "UBCOLIST.RPT" FOR OUTPUT AS UBRpt
+  
+  UBSetUp = FREEFILE
+  OPEN "UBSETUP.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS UBSetUp LEN = UBSetUpRecLen
+  IF LOF(UBSetUp) / UBSetUpRecLen = 0 THEN
+    TownName$ = "Undefined"
+  ELSE
+    GET UBSetUp, 1, UBSetUp(1)
+    TownName$ = UBSetUp(1).UTILNAME
+    TownLen = LEN(RTRIM$(TownName$))
+    TabStop = 40 - (TownLen / 2)
+    IF TabStop < 1 THEN TabStop = 1
+  END IF
+  CLOSE UBSetUp
+  
+  
+  BlockClear
+  ShowProcessingScrn "Customer Cut-Off Report."
+  
+  GOSUB DoCutOffRptHeader
+  
+  FOR Cnt = 1 TO NumOfRecs
+    IF UsingName OR UsingBook THEN
+      GET UBCust, IdxBuff(Cnt).RecNum, UBCustRec(1)
+      AcctNumber! = IdxBuff(Cnt).RecNum
+    ELSE
+      
+      GET UBCust, Cnt, UBCustRec(1)
+      AcctNumber! = Cnt
+    END IF
+    
+    IF UBCustRec(1).Status = "A" THEN
+      
+      IF UBCustRec(1).CustFrstLocRec > 0 THEN
+        GET UBLoca, UBCustRec(1).CustFrstLocRec, UBLocaRec(1)
+      END IF
+      IF UBLocaRec(1).LocatStatus = "A" THEN
+        
+        ' Calc Balance
+        AcctBalance# = UBCustRec(1).CurrBalance + UBCustRec(1).PrevBalance
+        ' Check if Town of LongView if so remove taps rev's 5 & 6
+        LongView = INSTR(TownName$, "LONGVIEW")
+        IF LongView > 0 THEN
+          AcctBalance# = AcctBalance# - (UBCustRec(1).CurrRevAmts(5) + UBCustRec(1).CurrRevAmts(6))
+        END IF
+        IF AcctBalance# > 0 THEN
+          IF LineCnt > MaxLines THEN
+            PRINT #UBRpt, CHR$(12)
+            GOSUB DoCutOffRptHeader
+          END IF
+          
+          '*************************************
+          '   Main body of Printing goes here
+          
+          PRINT #UBRpt, UBLocaRec(1).Book; "-"; UBLocaRec(1).SeqNumb;
+          PRINT #UBRpt, TAB(12); LEFT$(UBCustRec(1).CustName, 30); TAB(43); LEFT$(UBLocaRec(1).ServAddr, 25);
+          PRINT #UBRpt, TAB(70); USING "$#####,#.##"; AcctBalance#
+          LineCnt = LineCnt + 1
+          CustomerCnt = CustomerCnt + 1
+          '*************************************
+          
+          IF AskAbandonPrint% THEN
+            AbortFlag = True
+            EXIT FOR
+          END IF
+        END IF
+      END IF
+    END IF
+    ShowPctComp Cnt, NumOfRecs
+  NEXT
+  
+  GOSUB DoCutOffRptFooter:
+  
+  CLOSE UBCust, UBLoca, UBRpt
+  
+  ERASE IdxBuff, UBCustRec, UBLocaRec
+  
+  IF NOT AbortFlag THEN
+    PrintRptFile "Customer Cut-Off Report.", "UBCOLIST.RPT", 1, RetCode, EntryPoint
+  END IF
+  
+  KillFile "UBCOLIST.RPT"
+  
+ExitCutOffListing:
+  
+  EXIT SUB
+  
+DoCutOffRptHeader:
+  PageNo = PageNo + 1
+  PRINT #UBRpt, TAB(TabStop); TownName$
+  PRINT #UBRpt, TAB(26); "Customer Cut Off Listing Report"; TAB(70); "Page #"; PageNo
+  PRINT #UBRpt, "Report Date: "; DATE$;
+  PRINT #UBRpt, ""
+  PRINT #UBRpt, "Location #"; TAB(12); "Customer Name"; TAB(43); "Service Address"; TAB(72); "Balance"
+  PRINT #UBRpt, Dash80$
+  LineCnt = 6
+  RETURN
+  
+DoCutOffRptFooter:
+  PRINT #UBRpt, ""
+  PRINT #UBRpt, "Total Customers to Cut Off: "; USING "####,#"; CustomerCnt
+  RETURN
+  
+END SUB
+
+SUB CustomerInquiry
+  
+  REDIM UBCustRec(1) AS UBCustRecType
+  UBCustRecLen = LEN(UBCustRec(1))
+  
+  REDIM UBLocaRec(1) AS UBLocationRecType
+  UBLocaRecLen = LEN(UBLocaRec(1))
+  
+  BlockClear
+  
+  LookUp RecNo&, "Customer Inquiry", 2, True, False
+  
+  IF RecNo& = 0 THEN GOTO ExitInquiry
+  
+  UBCust = FREEFILE
+  OPEN "UBCUST.DAT" FOR RANDOM SHARED AS UBCust LEN = UBCustRecLen
+  
+  UBLoca = FREEFILE
+  OPEN "UBLOCA.DAT" FOR RANDOM SHARED AS UBLoca LEN = UBLocaRecLen
+  
+  'UBRpt = FREEFILE
+  'OPEN "UBHIST.RPT" FOR OUTPUT AS UBRpt
+  
+  CustAcct& = RecNo&
+  
+MainBody:
+  
+  LibName$ = "UB"
+  ScrnName$ = "UBCUSINQ"
+  
+  DisplayUBScrn ScrnName$
+  
+  ' Define Fields
+  NumFlds = LibNumberOfFields(LibName$, ScrnName$)
+  
+  ' Define Quick Screen Form Editing Arrays
+  REDIM Frm(1) AS FormInfo
+  REDIM Form$(NumFlds, 2)
+  REDIM Fld(NumFlds) AS FieldInfo
+  Frm(1).StayOnField = True
+  ' Get 1st & Last Fields
+  
+  StartEl = 0
+  LibGetFldDef LibName$, ScrnName$, StartEl, Fld(), Form$(), ErrCode
+  
+  ' Clear Fields
+  FOR F = 1 TO NumFlds
+    LSET Form$(F, 0) = ""
+  NEXT F
+  
+  'Set Form
+  GET UBCust, CustAcct&, UBCustRec(1)
+  
+  Form$(1, 0) = STR$(CustAcct&)
+  Form$(2, 0) = UBCustRec(1).Status
+  Form$(3, 0) = UBCustRec(1).CustName
+  Form$(4, 0) = UBCustRec(1).ADDR1
+  Form$(5, 0) = UBCustRec(1).ADDR2
+  Form$(6, 0) = UBCustRec(1).CITY
+  Form$(7, 0) = UBCustRec(1).STATE
+  Form$(8, 0) = UBCustRec(1).ZIPCODE
+  Form$(9, 0) = UBCustRec(1).HPHONE
+  Form$(10, 0) = Num2Date$(UBCustRec(1).OPENDATE)
+  Form$(11, 0) = UBCustRec(1).CUTOFFYN
+  Form$(12, 0) = UBCustRec(1).SOSEC
+  Form$(13, 0) = UBCustRec(1).DRVLIC
+  Form$(14, 0) = UBCustRec(1).WPHONE
+  Form$(15, 0) = UBCustRec(1).TAXEXPT
+  Form$(16, 0) = UBCustRec(1).CUSTTYPE
+  Form$(17, 0) = STR$(UBCustRec(1).BILLCOPY)
+  Form$(18, 0) = UBCustRec(1).DRAFTYPE
+  Form$(19, 0) = UBCustRec(1).BANKNAME
+  Form$(20, 0) = UBCustRec(1).BANKLOC
+  Form$(21, 0) = UBCustRec(1).TRANSIT
+  Form$(22, 0) = UBCustRec(1).BANKACCT
+  Form$(23, 0) = STR$((UBCustRec(1).CurrBalance + UBCustRec(1).PrevBalance))
+  Form$(24, 0) = STR$(UBCustRec(1).CurrBalance)
+  Form$(25, 0) = STR$(UBCustRec(1).PrevBalance)
+  
+  
+  Action = 1
+  
+  DO
+    EditForm Form$(), Fld(), Frm(1), Cnf, Action
+    
+    SELECT CASE Frm(1).KeyCode
+      
+      
+    CASE F4KEY  'Customer History
+      IF CustAcct& > 0 THEN
+        ShowCustHistory CustAcct&
+        Action = 2
+      END IF
+      
+    CASE F5KEY
+    CASE F6KEY
+    CASE F7KEY
+    CASE F10Key
+      Done = True
+    CASE ESC
+      EXIT SUB
+    CASE ELSE
+      Done = False
+    END SELECT
+  LOOP UNTIL Done
+  
+  
+  
+  
+  '***************
+  
+  
+  
+  
+  
+  
+  
+  
+  CLOSE UBCust, UBLoca
+ExitInquiry:
+  CLOSE UBCust, UBLoca
+END SUB
+
+SUB DetailedTransJournal
+  
+  SHARED Choice$()
+  
+  REDIM TempScrn(0)
+  REDIM Choice$(0 TO 12, 0 TO 1)
+  REDIM RevenueName$(15)
+  REDIM MChoice$(3)
+  
+  MChoice$(1) = " Customer Name Order   "
+  MChoice$(2) = " Account Number Order  "
+  MChoice$(3) = " Location Number Order "
+  
+  MaxLen = 0    'Set menu width to zero
+  BoxBot = 17   'limit the box length to go no lower than line 20
+  Action = 0    '0 means stay in the menu until they select something
+  Choice = 1    'Pre-load choice to highlight
+  
+  '--Find max menu width
+  FOR Cnt = 1 TO UBOUND(MChoice$)
+    TLen = LEN(MChoice$(Cnt))
+    IF TLen > MaxLen THEN
+      MaxLen = TLen
+    END IF
+  NEXT
+  
+  '--Center Menu within Screen
+  Row = ((25 - (UBOUND(MChoice$))) \ 2) - 1
+  Col = ((80 - MaxLen) \ 2) - 2
+  'Help$ = "Utility Billing Main Menu"
+  
+  UsingBook = False
+  UsingAcct = False
+  UsingName = False
+  
+  AbortFlag = False
+  PageNo = 0
+  
+  DO
+    
+    '--Set upper left corner of menu, turn off the cursor
+    LOCATE Row, Col, 0
+    BlockClear
+    TitleBox 3, Col, MaxLen + 3, "Detailed Journal Report ", Cnf
+    TitleBox 20, Col, MaxLen + 3, "Use " + CHR$(24) + "-" + CHR$(25) + " to select", Cnf
+    
+    
+    VertMenu MChoice$(), Choice, MaxLen, BoxBot, Ky$, Action, Cnf
+    
+    IF Ky$ = CHR$(27) THEN
+      Choice = 0
+      ExitFlag = True
+    END IF
+    
+    SELECT CASE Choice
+    CASE 0
+      ExitFlag = True
+    CASE 1
+      IndexName$ = NameIndexFile
+      UsingName = True
+      OKFlag = True
+    CASE 2
+      IndexName$ = ""
+      UsingAcct = True
+      OKFlag = True
+    CASE 3
+      IndexName$ = BookIndexFile
+      UsingBook = True
+      OKFlag = True
+    END SELECT
+    
+  LOOP UNTIL OKFlag OR ExitFlag
+  
+  IF ExitFlag THEN GOTO ExitDetailedListing
+  '*******************************
+  
+  'Select What They Want From the List
+SelectFromList:
+  LibName$ = "UB"
+  ScrnName$ = "UBTRJOU"
+  
+  DisplayUBScrn ScrnName$
+  
+  ' Define Fields
+  NumFlds = LibNumberOfFields(LibName$, ScrnName$)
+  
+  ' Define Quick Screen Form Editing Arrays
+  REDIM Frm(1) AS FormInfo
+  REDIM Form$(NumFlds, 2)
+  REDIM Fld(NumFlds) AS FieldInfo
+  Frm(1).StayOnField = True
+  
+  ' Get 1st & Last Fields
+  StartEl = 0
+  LibGetFldDef LibName$, ScrnName$, StartEl, Fld(), Form$(), ErrCode
+  
+  ' Clear Fields
+  FOR F = 1 TO NumFlds
+    LSET Form$(F, 0) = ""
+  NEXT F
+  
+  Choice$(0, 0) = "3"
+  Choice$(1, 0) = " 0 - All Transactions"
+  Choice$(2, 0) = " 1 - Utility Bill"
+  Choice$(3, 0) = " 2 - Late Charge"
+  Choice$(4, 0) = " 3 - Reconnect Charge"
+  Choice$(5, 0) = " 4 - Payment"
+  Choice$(6, 0) = " 6 - Penalty Charge"
+  Choice$(7, 0) = " 7 - Deposit Payment"
+  Choice$(8, 0) = " 8 - Draft Payment"
+  Choice$(9, 0) = "10 - Beginning Balance"
+  Choice$(10, 0) = "11 - Up Adjustment"
+  Choice$(11, 0) = "12 - Down Adjustment"
+  Choice$(12, 0) = "99 - Misc Payment"
+  
+  ' Set Defaults as Anticpated Response
+  Form$(1, 0) = DATE$
+  Form$(2, 0) = DATE$
+  Form$(4, 0) = "0"
+  Form$(5, 0) = "N"
+  Action = 1
+  
+  DO
+    EditForm Form$(), Fld(), Frm(1), Cnf, Action
+    
+    SELECT CASE Frm(1).KeyCode
+      
+    CASE F10Key
+      BegDate$ = Form$(1, 0)
+      EndDate$ = Form$(2, 0)
+      IF VAL(LEFT$(BegDate$, 2)) < 1 OR VAL(LEFT$(BegDate$, 2)) > 12 THEN
+        Done = False: Action = 1: Frm(1).FldNo = 1
+      ELSEIF VAL(MID$(BegDate$, 4, 2)) < 1 OR VAL(MID$(BegDate$, 4, 2)) > 31 THEN
+        Done = False: Action = 1: Frm(1).FldNo = 1
+      ELSEIF VAL(LEFT$(EndDate$, 2)) < 1 OR VAL(LEFT$(EndDate$, 2)) > 12 THEN
+        Done = False: Action = 1: Frm(1).FldNo = 1
+      ELSEIF VAL(MID$(EndDate$, 4, 2)) < 1 OR VAL(MID$(EndDate$, 4, 2)) > 31 THEN
+        Done = False: Action = 1: Frm(1).FldNo = 1
+      ELSE
+        Done = True
+      END IF
+      
+    CASE ESC
+      EXIT SUB
+    CASE ELSE
+      Done = False
+    END SELECT
+  LOOP UNTIL Done
+  
+  '***************
+  'Check Date Range for Valid Dates
+  
+  IF Form$(2, 0) < Form$(1, 0) THEN
+    PRINT CHR$(7);
+    SaveScrn TempScrn()
+    LOCATE , , 0
+    DisplayUBScrn "UBBADDAT"
+    WaitForAction
+    RestScrn TempScrn()
+    LOCATE , , 1
+    Frm(1).FldNo = 1
+    Action = 1
+    GOTO SelectFromList
+  END IF
+  ' Set Up Specifications from Input Screen
+  BegDate = Date2Num%(BegDate$)
+  EndDate = Date2Num%(EndDate$)
+  
+  '  BegDate = 0
+  '  EndDate = BegDate
+  
+  TrType$ = QPTrim$(LEFT$(Form$(3, 0), 2))
+  
+  TrType = VAL(TrType$)
+  
+  IF TrType = 0 THEN
+    BegTrans = 1: EndTrans = 999
+  ELSE
+    BegTrans = TrType: EndTrans = TrType
+  END IF
+  
+  Operator$ = Form$(4, 0)
+  Operator = VAL(Operator$)
+  IF Operator = 0 THEN
+    BegOperator = 0: EndOperator = 99
+  ELSE
+    BegOperator = Operator: EndOperator = Operator
+  END IF
+  
+  Detail$ = Form$(5, 0)
+  
+  '***************
+  MaxLines = 55
+  PageNo = 0
+  Dash120$ = STRING$(120, "-")
+  
+  REDIM RevTotals(1 TO 15)  AS DOUBLE
+  
+  REDIM UBCustRec(1) AS UBCustRecType
+  UBCustRecLen = LEN(UBCustRec(1))
+  
+  REDIM UBSetUp(1) AS UBSetupRecType
+  UBSetUpRecLen = LEN(UBSetUp(1))
+  
+  REDIM UBTrans(1) AS UBTransRecType
+  UBTransRecLen = LEN(UBTrans(1))
+  
+  REDIM UBLocaRec(1) AS UBLocationRecType
+  UBLocaRecLen = LEN(UBLocaRec(1))
+  
+  IF UsingName OR UsingBook THEN
+    IdxRecLen = 4               'we are using a long integer
+    IdxFileSize& = FileSize(IndexName$)
+    IdxNumOfRecs = IdxFileSize& \ IdxRecLen
+    REDIM IdxBuff(1 TO IdxNumOfRecs) AS UBCustIndexRecType
+    FGetAH IndexName$, IdxBuff(1), IdxRecLen, IdxNumOfRecs      'load it
+    NumOfRecs = IdxNumOfRecs
+  ELSE
+    NumOfRecs = FileSize("UBCUST.DAT") \ UBCustRecLen
+  END IF
+  
+  UBCust = FREEFILE
+  OPEN "UBCUST.DAT" FOR RANDOM SHARED AS UBCust LEN = UBCustRecLen
+  
+  UBLoca = FREEFILE
+  OPEN "UBLOCA.DAT" FOR RANDOM SHARED AS UBLoca LEN = UBLocaRecLen
+  
+  UBSetUp = FREEFILE
+  OPEN "UBSETUP.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS UBSetUp LEN = UBSetUpRecLen
+  
+  UBTrans = FREEFILE
+  OPEN "UBTRANS.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS UBTrans LEN = UBTransRecLen
+  
+  UBRpt = FREEFILE
+  OPEN "UBDJLIST.RPT" FOR OUTPUT AS UBRpt
+  
+  UBSetUp = FREEFILE
+  OPEN "UBSETUP.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS UBSetUp LEN = UBSetUpRecLen
+  IF LOF(UBSetUp) / UBSetUpRecLen = 0 THEN
+    TownName$ = "Undefined"
+    ' Set Revenue Names to Nothing
+    FOR RCnt = 1 TO 15: RevenueName$(RCnt) = "Not Set": NEXT RCnt
+    ELSE
+      GET UBSetUp, 1, UBSetUp(1)
+      FOR RCnt = 1 TO 15: RevenueName$(RCnt) = QPTrim$(UBSetUp(1).Revenues(RCnt).REVNAME): NEXT RCnt
+        RCnt = 1
+        DO WHILE RCnt <= 15
+          IF RevenueName$(RCnt) = "" THEN MaxRevenue = RCnt - 1: EXIT DO
+          RCnt = RCnt + 1
+        LOOP
+        
+        TownName$ = UBSetUp(1).UTILNAME
+        TownLen = LEN(RTRIM$(TownName$))
+        TabStop = 40 - (TownLen / 2)
+        IF TabStop < 1 THEN TabStop = 1
+      END IF
+      CLOSE UBSetUp
+      
+      BlockClear
+      ShowProcessingScrn "Detailed Journal Report."
+      
+      GOSUB DoDetailedRptHeader
+      
+      FOR Cnt = 1 TO NumOfRecs
+        IF UsingName OR UsingBook THEN
+          GET UBCust, IdxBuff(Cnt).RecNum, UBCustRec(1)
+        ELSE
+          GET UBCust, Cnt, UBCustRec(1)
+        END IF
+        
+        IF UBCustRec(1).CustFrstLocRec > 0 THEN
+          GET UBLoca, UBCustRec(1).CustFrstLocRec, UBLocaRec(1)
+        END IF
+        
+        IF LineCnt > MaxLines THEN
+          PRINT #UBRpt, CHR$(12)
+          GOSUB DoDetailedRptHeader
+        END IF
+        
+        '*************************************
+        '   Main Body of Printing goes here
+        BadCount = 0
+        Trans& = UBCustRec(1).LastTrans
+        DO WHILE Trans& <> 0
+          GET UBTrans, Trans&, UBTrans(1)
+          'Check Date, Operator and Trans Type
+          IF UBTrans(1).TransDate < BegDate THEN
+            BadCount = BadCount + 1
+            IF BadCount > 3 THEN EXIT DO
+          END IF
+          IF (UBTrans(1).TransDate >= BegDate AND UBTrans(1).TransDate <= EndDate) AND (UBTrans(1).OperatorNumber >= BegOperator AND UBTrans(1).OperatorNumber <= EndOperator) AND (UBTrans(1).TransType >= BegTrans AND UBTrans(1).TransType <= EndTrans _
+ OR (UBTrans(1).TransType >= BegTrans + 100 AND UBTrans(1).TransType <= EndTrans + 100)) THEN
+          GOSUB DefineType
+          PRINT #UBRpt, Num2Date$(UBTrans(1).TransDate); TAB(11); USING "#####"; UBTrans(1).CustAcctNo;
+          PRINT #UBRpt, TAB(20); LEFT$(UBCustRec(1).CustName, 33);
+          PRINT #UBRpt, TAB(55); LEFT$(UBTrans(1).TransDesc, 20);
+          PRINT #UBRpt, TAB(80); UBTrans(1).OperatorNumber;
+          PRINT #UBRpt, TAB(90); TransDesc$;
+          PRINT #UBRpt, TAB(108); USING "$$#####,#.##"; Amount#
+          LineCnt = LineCnt + 1
+          TotalTrans# = TotalTrans# + Amount#
+          TransCnt! = TransCnt! + 1
+          
+          IF Detail$ = "Y" THEN
+            PRINT #UBRpt, "Revenue Source Breakdown ................................."
+            LineCnt = LineCnt + 1
+            FOR RCnt = 1 TO MaxRevenue STEP 3
+              PRINT #UBRpt, RevenueName$(RCnt); TAB(16); USING "#####.##"; UBTrans(1).RevAmt(RCnt);
+              PRINT #UBRpt, TAB(30); RevenueName$(RCnt + 1); TAB(46); USING "#####.##"; UBTrans(1).RevAmt(RCnt + 1);
+              PRINT #UBRpt, TAB(60); RevenueName$(RCnt + 2); TAB(76); USING "#####.##"; UBTrans(1).RevAmt(RCnt + 2)
+              LineCnt = LineCnt + 1
+            NEXT RCnt
+            PRINT #UBRpt, Dash120$
+            LineCnt = LineCnt + 1
+          END IF
+          FOR RCnt = 1 TO MaxRevenue
+            RevTotals(RCnt) = Round#(RevTotals(RCnt) + UBTrans(1).RevAmt(RCnt))
+          NEXT
+          IF LineCnt > MaxLines THEN
+            PRINT #UBRpt, CHR$(12)
+            GOSUB DoDetailedRptHeader
+          END IF
+          
+          'AskAbandonPrint% ()
+          
+        END IF
+        IF AskAbandonPrint% THEN
+          AbortFlag = True
+          EXIT FOR
+        END IF
+        Trans& = UBTrans(1).PrevTrans
+      LOOP
+      ShowPctComp Cnt, NumOfRecs
+    NEXT
+    
+    GOSUB DoDetailedRptFooter:
+    
+    CLOSE UBCust, UBLoca, UBRpt, UBTrans
+    
+    ERASE IdxBuff, UBCustRec, UBLocaRec
+    
+    IF NOT AbortFlag THEN
+      PrintRptFile "Detailed Journal Report.", "UBDJLIST.RPT", 1, RetCode, EntryPoint
+    END IF
+    
+    'KillFile "UBDJLIST.RPT"
+    
+ExitDetailedListing:
+    
+    EXIT SUB
+    
+DoDetailedRptHeader:
+    PageNo = PageNo + 1
+    PRINT #UBRpt, TAB(TabStop); TownName$
+    PRINT #UBRpt, TAB(28); "Detailed Transaction Report"; TAB(90); "Page #"; PageNo
+    PRINT #UBRpt, "Report Date: "; DATE$
+    PRINT #UBRpt, "Beginning Transaction Date: "; BegDate$;
+    IF VAL(Operator$) = 0 THEN
+      PRINT #UBRpt, TAB(90); " Operator #: ALL"
+    ELSE
+      PRINT #UBRpt, TAB(90); " Operator #: "; Operator$
+    END IF
+    PRINT #UBRpt, "   Ending Transaction Date: "; EndDate$;
+    PRINT #UBRpt, TAB(90); "Show Detail: "; Detail$
+    PRINT #UBRpt, ""
+    PRINT #UBRpt, "  Date"; TAB(11); "Acct #"; TAB(20); "Customer Name"; TAB(55); "Description"; TAB(80); "Oper#"; TAB(90); "Trans Type"; TAB(110); "   Amount"
+    PRINT #UBRpt, Dash120$
+    LineCnt = 8
+    RETURN
+    
+DoDetailedRptFooter:
+    PRINT #UBRpt, Dash120$
+    PRINT #UBRpt, "Transactions: "; TransCnt!; "                                                       Total of Transactions: "; USING "$$#######,#.##"; TotalTrans#
+    PRINT #UBRpt, CHR$(12)
+    PageNo = PageNo + 1
+    PRINT #UBRpt, TAB(TabStop); TownName$
+    PRINT #UBRpt, TAB(28); "Detailed Transaction Report"; TAB(90); "Page #"; PageNo
+    PRINT #UBRpt, "Report Date: "; DATE$
+    PRINT #UBRpt, "Beginning Transaction Date: "; BegDate$;
+    IF VAL(Operator$) = 0 THEN
+      PRINT #UBRpt, TAB(90); " Operator #: ALL"
+    ELSE
+      PRINT #UBRpt, TAB(90); " Operator #: "; Operator$
+    END IF
+    PRINT #UBRpt, "   Ending Transaction Date: "; EndDate$;
+    PRINT #UBRpt, TAB(90); "Show Detail: "; Detail$
+    PRINT #UBRpt, ""
+    PRINT #UBRpt, "Revenue Summary"; TAB(38); "Amount"
+    PRINT #UBRpt, Dash120$
+    TotalRevsAmt# = 0
+    FOR RCnt = 1 TO MaxRevenue
+      TotalRevsAmt# = Round#(TotalRevsAmt# + RevTotals(RCnt))
+      PRINT #UBRpt, RevenueName$(RCnt), TAB(35); USING "######.##"; RevTotals(RCnt)
+    NEXT
+    PRINT #UBRpt,
+    PRINT #UBRpt, "Total Amount"; TAB(35); USING "######.##"; TotalRevsAmt#
+    RETURN
+    
+DefineType:
+    IF UBTrans(1).TransType = 1 OR UBTrans(1).TransType = 101 THEN
+      TransDesc$ = "Util Bill"
+      Amount# = UBTrans(1).TransAmt
+      RETURN
+    END IF
+    IF UBTrans(1).TransType = 2 OR UBTrans(1).TransType = 102 THEN
+      TransDesc$ = "Late Charge"
+      Amount# = UBTrans(1).TransAmt
+      RETURN
+    END IF
+    IF UBTrans(1).TransType = 3 THEN
+      TransDesc$ = "Reconnect"
+      Amount# = UBTrans(1).TransAmt
+      RETURN
+    END IF
+    IF UBTrans(1).TransType = 4 OR UBTrans(1).TransType = 104 THEN
+      TransDesc$ = "Reg Payment"
+      Amount# = UBTrans(1).TransAmt * -1
+      RETURN
+    END IF
+    
+    IF UBTrans(1).TransType = 6 THEN
+      TransDesc$ = "Penalty Pmt"
+      Amount# = UBTrans(1).TransAmt * -1
+      RETURN
+    END IF
+    
+    IF UBTrans(1).TransType = 7 OR UBTrans(1).TransType = 107 THEN
+      TransDesc$ = "Dep. Payment"
+      Amount# = UBTrans(1).TransAmt * -1
+      RETURN
+    END IF
+    IF UBTrans(1).TransType = 8 THEN
+      TransDesc$ = "Draft Paymt"
+      Amount# = UBTrans(1).TransAmt * -1
+      RETURN
+    END IF
+    IF UBTrans(1).TransType = 10 OR UBTrans(1).TransType = 110 THEN
+      TransDesc$ = "Beg Balance"
+      Amount# = UBTrans(1).TransAmt
+      RETURN
+    END IF
+    IF UBTrans(1).TransType = 11 OR UBTrans(1).TransType = 111 THEN
+      TransDesc$ = "Up Adj."
+      Amount# = UBTrans(1).TransAmt
+      RETURN
+    END IF
+    IF UBTrans(1).TransType = 12 OR UBTrans(1).TransType = 112 THEN
+      TransDesc$ = "Down Adj."
+      Amount# = UBTrans(1).TransAmt * -1
+      RETURN
+    END IF
+    IF UBTrans(1).TransType = 99 THEN
+      TransDesc$ = "Misc Payment"
+      Amount# = UBTrans(1).TransAmt * -1
+      RETURN
+    END IF
+    TransDesc$ = "UNKNOWN"
+    Amount# = UBTrans(1).TransAmt
+    
+    
+    RETURN
+    
+END SUB
+
+SUB MailingLabel
+END SUB
+
+SUB MasterBalanceListing
+    
+    REDIM MChoice$(1 TO 3)
+    
+    MChoice$(1) = " Customer Name Order   "
+    MChoice$(2) = " Location Number Order "
+    MChoice$(3) = " Account Number Order  "
+    
+    
+    MaxLen = 0  'Set menu width to zero
+    BoxBot = 17 'limit the box length to go no lower than line 20
+    Action = 0  '0 means stay in the menu until they select something
+    Choice = 1  'Pre-load choice to highlight
+    
+    '--Find max menu width
+    FOR Cnt = 1 TO UBOUND(MChoice$)
+      TLen = LEN(MChoice$(Cnt))
+      IF TLen > MaxLen THEN
+        MaxLen = TLen
+      END IF
+    NEXT
+    
+ReStart:
+    '--Center Menu within Screen
+    Row = ((25 - (UBOUND(MChoice$))) \ 2) - 1
+    Col = ((80 - MaxLen) \ 2) - 2
+    'Help$ = "Utility Billing Main Menu"
+    
+    UsingBook = False
+    UsingAcct = False
+    UsingName = False
+    
+    AbortFlag = False
+    PageNo = 0
+    
+    DO
+      
+      '--Set upper left corner of menu, turn off the cursor
+      LOCATE Row, Col, 0
+      BlockClear
+      TitleBox 3, Col, MaxLen + 3, "Balance Listing Report  ", Cnf
+      TitleBox 20, Col, MaxLen + 3, "Use " + CHR$(24) + "-" + CHR$(25) + " to select", Cnf
+      
+      
+      VertMenu MChoice$(), Choice, MaxLen, BoxBot, Ky$, Action, Cnf
+      
+      IF Ky$ = CHR$(27) THEN
+        Choice = 0
+        ExitFlag = True
+      END IF
+      
+      SELECT CASE Choice
+      CASE 0
+        ExitFlag = True
+      CASE 1
+        IndexName$ = NameIndexFile
+        UsingName = True
+        OKFlag = True
+      CASE 2
+        IndexName$ = BookIndexFile
+        UsingBook = True
+        OKFlag = True
+      CASE 3
+        IndexName$ = ""
+        UsingAcct = True
+        OKFlag = True
+      END SELECT
+      
+    LOOP UNTIL OKFlag OR ExitFlag
+    
+    IF ExitFlag THEN GOTO ExitBalanceListing
+    
+    '***************
+    MaxLines = 55
+    PageNo = 0
+    Dash80$ = STRING$(80, "-")
+    
+    REDIM UBCustRec(1) AS UBCustRecType
+    UBCustRecLen = LEN(UBCustRec(1))
+    
+    REDIM UBLocaRec(1) AS UBLocationRecType
+    UBLocaRecLen = LEN(UBLocaRec(1))
+    
+    REDIM UBSetUp(1) AS UBSetupRecType
+    UBSetUpRecLen = LEN(UBSetUp(1))
+    
+    IF UsingName OR UsingBook THEN
+      IdxRecLen = 4             'we are using a long integer
+      IdxFileSize& = FileSize(IndexName$)
+      IdxNumOfRecs = IdxFileSize& \ IdxRecLen
+      REDIM IdxBuff(1 TO IdxNumOfRecs) AS UBCustIndexRecType
+      FGetAH IndexName$, IdxBuff(1), IdxRecLen, IdxNumOfRecs    'load it
+      NumOfRecs = IdxNumOfRecs
+    ELSE
+      NumOfRecs = FileSize("UBCUST.DAT") \ UBCustRecLen
+    END IF
+    
+    UBCust = FREEFILE
+    OPEN "UBCUST.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS UBCust LEN = UBCustRecLen
+    
+    UBLoca = FREEFILE
+    OPEN "UBLOCA.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS UBLoca LEN = UBLocaRecLen
+    
+    UBRpt = FREEFILE
+    OPEN "UBBALIST.RPT" FOR OUTPUT AS UBRpt
+    
+    UBSetUp = FREEFILE
+    OPEN "UBSETUP.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS UBSetUp LEN = UBSetUpRecLen
+    IF LOF(UBSetUp) / UBSetUpRecLen = 0 THEN
+      TownName$ = "Undefined"
+    ELSE
+      GET UBSetUp, 1, UBSetUp(1)
+      TownName$ = UBSetUp(1).UTILNAME
+      TownLen = LEN(RTRIM$(TownName$))
+      TabStop = 40 - (TownLen / 2)
+      IF TabStop < 1 THEN TabStop = 1
+    END IF
+    CLOSE UBSetUp
+    
+    
+    BlockClear
+    ShowProcessingScrn "Balance Listing Report."
+    
+    GOSUB DoCustRptHeader
+    
+    FOR Cnt = 1 TO NumOfRecs
+      IF UsingName OR UsingBook THEN
+        GET UBCust, IdxBuff(Cnt).RecNum, UBCustRec(1)
+        AcctNumber = IdxBuff(Cnt).RecNum
+      ELSE
+        GET UBCust, Cnt, UBCustRec(1)
+        AcctNumber = Cnt
+      END IF
+      
+      'IF UBCustRec(1).Status <> "A" THEN GOTO BSkipEm
+      
+      IF UBCustRec(1).CustFrstLocRec > 0 THEN
+        GET UBLoca, UBCustRec(1).CustFrstLocRec, UBLocaRec(1)
+      END IF
+      
+      IF LineCnt > MaxLines THEN
+        PRINT #UBRpt, CHR$(12)
+        GOSUB DoCustRptHeader
+      END IF
+      
+      IF UBCustRec(1).CurrBalance = 0 AND UBCustRec(1).PrevBalance = 0 THEN
+        REM Do Not Print
+      ELSE
+        PRINT #UBRpt, USING "#####"; AcctNumber;
+        IF UBCustRec(1).CustFrstLocRec = UBCustRec(1).CustLastLocRec THEN
+          PRINT #UBRpt, TAB(8); UBLocaRec(1).Book; "-"; UBLocaRec(1).SeqNumb;
+        ELSE
+          PRINT #UBRpt, "Multiple";
+        END IF
+        PRINT #UBRpt, TAB(18); LEFT$(UBCustRec(1).CustName, 31);
+        PRINT #UBRpt, TAB(50); USING "####,#.##"; UBCustRec(1).CurrBalance;
+        PRINT #UBRpt, TAB(61); USING "####,#.##"; UBCustRec(1).PrevBalance;
+        PRINT #UBRpt, TAB(72); USING "####,#.##"; (UBCustRec(1).CurrBalance + UBCustRec(1).PrevBalance)
+        TCurrBalance# = Round(TCurrBalance# + UBCustRec(1).CurrBalance)
+        TPrevBalance# = Round(TPrevBalance# + UBCustRec(1).PrevBalance)
+        CustCnt = CustCnt + 1
+        LineCnt = LineCnt + 1
+      END IF
+      IF AskAbandonPrint% THEN
+        AbortFlag = True
+        EXIT FOR
+      END IF
+      'BSkipEm:
+      ShowPctComp Cnt, NumOfRecs
+    NEXT
+    
+    GOSUB DoCustRptFooter
+    
+    CLOSE UBCust, UBLoca, UBRpt
+    ERASE IdxBuff, UBCustRec, UBLocaRec
+    
+    IF NOT AbortFlag THEN
+      PrintRptFile "Balance Listing Report.", "UBBALIST.RPT", 1, RetCode, EntryPoint
+    END IF
+    
+    '    KillFile "UBBALIST.RPT"
+    
+ExitBalanceListing:
+    
+    EXIT SUB
+    
+DoCustRptHeader:
+    PageNo = PageNo + 1
+    PRINT #UBRpt, TAB(TabStop); TownName$
+    PRINT #UBRpt, TAB(24); "Customer Balance Listing Report"; TAB(70); "Page #"; PageNo
+    PRINT #UBRpt, "Report Date: "; DATE$
+    PRINT #UBRpt, "Acct #";
+    PRINT #UBRpt, TAB(9); "Location"; TAB(18); "Customer Name"; TAB(52); "Cur Bal"; TAB(62); "Past Due"; TAB(73); "Acct Bal"
+    PRINT #UBRpt, Dash80$
+    LineCnt = 4
+    RETURN
+    
+DoCustRptFooter:
+    PRINT #UBRpt, Dash80$
+    PRINT #UBRpt, "Totals:"; TAB(10); "Customers: "; USING "#####,#"; CustCnt;
+    PRINT #UBRpt, TAB(49); USING "#####,#.##"; TCurrBalance#;
+    PRINT #UBRpt, TAB(60); USING "#####,#.##"; TPrevBalance#;
+    PRINT #UBRpt, TAB(71); USING "#####,#.##"; (TCurrBalance# + TPrevBalance#)
+    PRINT #UBRpt, CHR$(12)
+    RETURN
+END SUB
+
+SUB MasterCustomerListing
+    
+    REDIM MChoice$(1 TO 3)
+    
+    MChoice$(1) = " Customer Name Order    "
+    MChoice$(2) = " Account Number Order   "
+    MChoice$(3) = " Location Number Order  "
+    
+    MaxLen = 0  'Set menu width to zero
+    BoxBot = 17 'limit the box length to go no lower than line 20
+    Action = 0  '0 means stay in the menu until they select something
+    Choice = 1  'Pre-load choice to highlight
+    
+    '--Find max menu width
+    FOR Cnt = 1 TO UBOUND(MChoice$)
+      TLen = LEN(MChoice$(Cnt))
+      IF TLen > MaxLen THEN
+        MaxLen = TLen
+      END IF
+    NEXT
+    
+    
+    '--Center Menu within Screen
+    Row = ((25 - (UBOUND(MChoice$))) \ 2) - 1
+    Col = ((80 - MaxLen) \ 2) - 2
+    'Help$ = "Utility Billing Main Menu"
+    
+    UsingBook = False
+    UsingAcct = False
+    UsingName = False
+    
+    AbortFlag = False
+    PageNo = 0
+    
+    DO
+      
+      '--Set upper left corner of menu, turn off the cursor
+      LOCATE Row, Col, 0
+      BlockClear
+      TitleBox 3, Col, MaxLen + 3, "Master Customer Report  ", Cnf
+      TitleBox 20, Col, MaxLen + 3, "Use " + CHR$(24) + "-" + CHR$(25) + " to select", Cnf
+      
+      
+      VertMenu MChoice$(), Choice, MaxLen, BoxBot, Ky$, Action, Cnf
+      
+      IF Ky$ = CHR$(27) THEN
+        Choice = 0
+        ExitFlag = True
+      END IF
+      
+      SELECT CASE Choice
+      CASE 0
+        ExitFlag = True
+      CASE 1
+        IndexName$ = NameIndexFile
+        UsingName = True
+        OKFlag = True
+      CASE 2
+        IndexName$ = ""
+        UsingAcct = True
+        OKFlag = True
+      CASE 3
+        IndexName$ = BookIndexFile
+        UsingBook = True
+        OKFlag = True
+      END SELECT
+      
+    LOOP UNTIL OKFlag OR ExitFlag
+    
+    IF ExitFlag THEN GOTO ExitMastCustListing
+    
+    '***************
+    MaxLines = 55
+    PageNo = 0
+    Dash80$ = STRING$(80, "-")
+    
+    REDIM UBCustRec(1) AS UBCustRecType
+    UBCustRecLen = LEN(UBCustRec(1))
+    
+    REDIM UBLocaRec(1) AS UBLocationRecType
+    UBLocaRecLen = LEN(UBLocaRec(1))
+    
+    REDIM UBSetUp(1) AS UBSetupRecType
+    UBSetUpRecLen = LEN(UBSetUp(1))
+    
+    
+    IF UsingName OR UsingBook THEN
+      IdxRecLen = 4             'we are using a long integer
+      IdxFileSize& = FileSize(IndexName$)
+      IdxNumOfRecs = IdxFileSize& \ IdxRecLen
+      REDIM IdxBuff(1 TO IdxNumOfRecs) AS UBCustIndexRecType
+      FGetAH IndexName$, IdxBuff(1), IdxRecLen, IdxNumOfRecs    'load it
+      NumOfRecs = IdxNumOfRecs
+    ELSE
+      NumOfRecs = FileSize("UBCUST.DAT") \ UBCustRecLen
+    END IF
+    
+    UBCust = FREEFILE
+    OPEN "UBCUST.DAT" FOR RANDOM SHARED AS UBCust LEN = UBCustRecLen
+    
+    UBLoca = FREEFILE
+    OPEN "UBLOCA.DAT" FOR RANDOM SHARED AS UBLoca LEN = UBLocaRecLen
+    
+    UBRpt = FREEFILE
+    OPEN "UBMCLIST.RPT" FOR OUTPUT AS UBRpt
+    
+    UBSetUp = FREEFILE
+    OPEN "UBSETUP.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS UBSetUp LEN = UBSetUpRecLen
+    IF LOF(UBSetUp) / UBSetUpRecLen = 0 THEN
+      TownName$ = "Undefined"
+    ELSE
+      GET UBSetUp, 1, UBSetUp(1)
+      TownName$ = UBSetUp(1).UTILNAME
+      TownLen = LEN(RTRIM$(TownName$))
+      TabStop = 40 - (TownLen / 2)
+      IF TabStop < 1 THEN TabStop = 1
+    END IF
+    CLOSE UBSetUp
+    
+    
+    BlockClear
+    ShowProcessingScrn "Master Customer Report."
+    
+    GOSUB DoMastCustRptHeader
+    
+    FOR Cnt = 1 TO NumOfRecs
+      IF UsingName OR UsingBook THEN
+        GET UBCust, IdxBuff(Cnt).RecNum, UBCustRec(1)
+        AcctNumber = IdxBuff(Cnt).RecNum
+      ELSE
+        GET UBCust, Cnt, UBCustRec(1)
+        AcctNumber = Cnt
+      END IF
+      
+      IF UBCustRec(1).CustFrstLocRec > 0 THEN
+        GET UBLoca, UBCustRec(1).CustFrstLocRec, UBLocaRec(1)
+        IF UBCustRec(1).CustFrstLocRec = UBCustRec(1).CustLastLocRec THEN
+          LocationNumber$ = UBLocaRec(1).Book + "-" + UBLocaRec(1).SeqNumb
+        ELSE
+          'LocationNumber$ = "Multiple"
+        END IF
+      ELSE
+        LocationNumber$ = "NONE"
+      END IF
+      Code4$ = QPTrim$(UBLocaRec(1).Serv(4).RateCode)
+      IF Code4$ = "L6" OR Code4$ = "L20" OR Code4$ = "L28" OR Code4$ = "L33" OR Code4$ = "L39" THEN
+        
+        IF LineCnt > MaxLines THEN
+          PRINT #UBRpt, CHR$(12)
+          GOSUB DoMastCustRptHeader
+        END IF
+        
+        '*************************************
+        '   Main body of Printing goes here
+        PRINT #UBRpt, "Acct# :"; USING "#####"; AcctNumber;
+        PRINT #UBRpt, TAB(15); RTRIM$(UBCustRec(1).CustName);
+        PRINT #UBRpt, TAB(52); "Location: "; LocationNumber$;
+        PRINT #UBRpt, " Status: "; UBCustRec(1).Status
+        '; TAB(15); QPTrim$(UBCustRec(1).ADDR1);
+        'PRINT #UBRpt, TAB(52); "H Phone#: "; UBCustRec(1).HPHONE
+        'PRINT #UBRpt, "Type  : "; UBCustRec(1).CUSTTYPE; TAB(15); QPTrim$(UBCustRec(1).ADDR2);
+        'PRINT #UBRpt, TAB(52); "W Phone#: "; UBCustRec(1).WPHONE
+        'PRINT #UBRpt, "Draft : "; UBCustRec(1).DRAFTYPE;
+        'PRINT #UBRpt, TAB(15); RTRIM$(UBCustRec(1).CITY); ", "; UBCustRec(1).STATE; " "; UBCustRec(1).ZIPCODE
+        'PRINT #UBRpt, TAB(52); "DrvLic #: "; UBCustRec(1).HPHONE
+        RateCode$ = "  "
+        FOR ZZCnt = 1 TO 7
+          RateCode$ = RateCode$ + UBLocaRec(1).Serv(ZZCnt).RateCode + "  "
+        NEXT
+        PRINT #UBRpt, RateCode$
+        
+        IF LEN(QPTrim$(UBLocaRec(1).LocMeters(1).MTRType)) > 0 THEN
+          PRINT #UBRpt, UBLocaRec(1).LocMeters(1).MTRType;
+          PRINT #UBRpt, TAB(5); USING "########"; UBLocaRec(1).LocMeters(1).CurRead;
+          PRINT #UBRpt, TAB(20); USING "########"; UBLocaRec(1).LocMeters(1).PrevRead
+        END IF
+        
+        IF LEN(QPTrim$(UBLocaRec(1).LocMeters(2).MTRType)) > 0 THEN
+          PRINT #UBRpt, UBLocaRec(1).LocMeters(2).MTRType;
+          PRINT #UBRpt, TAB(5); USING "########"; UBLocaRec(1).LocMeters(2).CurRead;
+          PRINT #UBRpt, TAB(20); USING "########"; UBLocaRec(1).LocMeters(2).PrevRead
+        END IF
+        
+        IF LEN(QPTrim$(UBLocaRec(1).LocMeters(3).MTRType)) > 0 THEN
+          PRINT #UBRpt, UBLocaRec(1).LocMeters(3).MTRType;
+          PRINT #UBRpt, TAB(5); USING "########"; UBLocaRec(1).LocMeters(3).CurRead;
+          PRINT #UBRpt, TAB(20); USING "########"; UBLocaRec(1).LocMeters(3).PrevRead
+        END IF
+        
+        IF LEN(QPTrim$(UBLocaRec(1).LocMeters(4).MTRType)) > 0 THEN
+          PRINT #UBRpt, UBLocaRec(1).LocMeters(4).MTRType;
+          PRINT #UBRpt, TAB(5); USING "########"; UBLocaRec(1).LocMeters(4).CurRead;
+          PRINT #UBRpt, TAB(20); USING "########"; UBLocaRec(1).LocMeters(4).PrevRead
+        END IF
+        
+        PRINT #UBRpt, Dash80$
+        
+        LineCnt = LineCnt + 5: CustCnt = CustCnt + 1
+        '*************************************
+      END IF
+      IF AskAbandonPrint% THEN
+        AbortFlag = True
+        EXIT FOR
+      END IF
+      
+      ShowPctComp Cnt, NumOfRecs
+    NEXT
+    
+    GOSUB DoMastCustRptFooter:
+    
+    CLOSE UBCust, UBLoca, UBRpt
+    
+    ERASE IdxBuff, UBCustRec, UBLocaRec
+    
+    IF NOT AbortFlag THEN
+      PrintRptFile "Master Customer Report.", "UBMCLIST.RPT", 1, RetCode, EntryPoint
+    END IF
+    
+    KillFile "UBMCLIST.RPT"
+    
+ExitMastCustListing:
+    
+    EXIT SUB
+    
+DoMastCustRptHeader:
+    PageNo = PageNo + 1
+    PRINT #UBRpt, TAB(TabStop); TownName$
+    PRINT #UBRpt, TAB(24); "Master Customer Listing Report"; TAB(70); "Page #"; PageNo
+    PRINT #UBRpt, "Report Date: "; DATE$
+    PRINT #UBRpt, Dash80$
+    LineCnt = 4
+    RETURN
+    
+DoMastCustRptFooter:
+    PRINT #UBRpt, "Totals:"; TAB(10); "Customers: "; USING "#####,#"; CustCnt
+    RETURN
+    
+    
+END SUB
+
+SUB MasterDepositListing
+    
+    REDIM MChoice$(1 TO 2)
+    
+    MChoice$(1) = " Customer Name Order   "
+    MChoice$(2) = " Account Number Order  "
+    
+    MaxLen = 0  'Set menu width to zero
+    BoxBot = 17 'limit the box length to go no lower than line 20
+    Action = 0  '0 means stay in the menu until they select something
+    Choice = 1  'Pre-load choice to highlight
+    
+    '--Find max menu width
+    FOR Cnt = 1 TO UBOUND(MChoice$)
+      TLen = LEN(MChoice$(Cnt))
+      IF TLen > MaxLen THEN
+        MaxLen = TLen
+      END IF
+    NEXT
+    
+    'ReStart:
+    '--Center Menu within Screen
+    Row = ((25 - (UBOUND(MChoice$))) \ 2) - 1
+    Col = ((80 - MaxLen) \ 2) - 2
+    'Help$ = "Utility Billing Main Menu"
+    
+    UsingBook = False
+    UsingAcct = False
+    UsingName = False
+    
+    AbortFlag = False
+    PageNo = 0
+    
+    DO
+      
+      '--Set upper left corner of menu, turn off the cursor
+      LOCATE Row, Col, 0
+      BlockClear
+      TitleBox 3, Col, MaxLen + 3, "Deposit Listing Report  ", Cnf
+      TitleBox 20, Col, MaxLen + 3, "Use " + CHR$(24) + "-" + CHR$(25) + " to select", Cnf
+      
+      
+      VertMenu MChoice$(), Choice, MaxLen, BoxBot, Ky$, Action, Cnf
+      
+      IF Ky$ = CHR$(27) THEN
+        Choice = 0
+        ExitFlag = True
+      END IF
+      
+      SELECT CASE Choice
+      CASE 0
+        ExitFlag = True
+      CASE 1
+        IndexName$ = NameIndexFile
+        UsingName = True
+        OKFlag = True
+      CASE 2
+        IndexName$ = ""
+        UsingAcct = True
+        OKFlag = True
+      END SELECT
+      
+    LOOP UNTIL OKFlag OR ExitFlag
+    
+    IF ExitFlag THEN GOTO ExitDepositListing
+    
+    '***************
+    MaxLines = 55
+    PageNo = 0
+    Dash80$ = STRING$(80, "-")
+    
+    REDIM UBCustRec(1) AS UBCustRecType
+    UBCustRecLen = LEN(UBCustRec(1))
+    
+    REDIM UBLocaRec(1) AS UBLocationRecType
+    UBLocaRecLen = LEN(UBLocaRec(1))
+    
+    REDIM BUBLocaRec(1) AS UBLocationRecType
+    
+    BUBLocaRec(1).Book = ""
+    BUBLocaRec(1).SeqNumb = ""
+    
+    REDIM UBSetUp(1) AS UBSetupRecType
+    UBSetUpRecLen = LEN(UBSetUp(1))
+    
+    
+    IF UsingName OR UsingBook THEN
+      IdxRecLen = 4             'we are using a long integer
+      IdxFileSize& = FileSize(IndexName$)
+      IdxNumOfRecs = IdxFileSize& \ IdxRecLen
+      REDIM IdxBuff(1 TO IdxNumOfRecs) AS UBCustIndexRecType
+      FGetAH IndexName$, IdxBuff(1), IdxRecLen, IdxNumOfRecs    'load it
+      NumOfRecs = IdxNumOfRecs
+    ELSE
+      NumOfRecs = FileSize("UBCUST.DAT") \ UBCustRecLen
+    END IF
+    
+    UBCust = FREEFILE
+    OPEN "UBCUST.DAT" FOR RANDOM SHARED AS UBCust LEN = UBCustRecLen
+    
+    UBLoca = FREEFILE
+    OPEN "UBLOCA.DAT" FOR RANDOM SHARED AS UBLoca LEN = UBLocaRecLen
+    
+    UBRpt = FREEFILE
+    OPEN "UBDPLIST.RPT" FOR OUTPUT AS UBRpt
+    
+    UBSetUp = FREEFILE
+    OPEN "UBSETUP.DAT" FOR RANDOM ACCESS READ WRITE SHARED AS UBSetUp LEN = UBSetUpRecLen
+    IF LOF(UBSetUp) / UBSetUpRecLen = 0 THEN
+      TownName$ = "Undefined"
+    ELSE
+      GET UBSetUp, 1, UBSetUp(1)
+      TownName$ = UBSetUp(1).UTILNAME
+      TownLen = LEN(RTRIM$(TownName$))
+      TabStop = 40 - (TownLen / 2)
+      IF TabStop < 1 THEN TabStop = 1
+    END IF
+    CLOSE UBSetUp
+    
+    
+    BlockClear
+    ShowProcessingScrn "Deposit Listing Report."
+    
+    GOSUB DoDepositRptHeader
+    
+    FOR Cnt = 1 TO NumOfRecs
+      IF UsingName OR UsingBook THEN
+        GET UBCust, IdxBuff(Cnt).RecNum, UBCustRec(1)
+        AcctNumber = IdxBuff(Cnt).RecNum
+      ELSE
+        GET UBCust, Cnt, UBCustRec(1)
+        AcctNumber = Cnt
+      END IF
+      
+      IF UBCustRec(1).CustFrstLocRec > 0 THEN
+        GET UBLoca, UBCustRec(1).CustFrstLocRec, UBLocaRec(1)
+      ELSE
+        LSET UBLocaRec(1) = BUBLocaRec(1)
+      END IF
+      
+      IF LineCnt > MaxLines THEN
+        PRINT #UBRpt, CHR$(12)
+        GOSUB DoDepositRptHeader
+      END IF
+      
+      
+      IF UBCustRec(1).DepositAmt <> 0 THEN
+        PRINT #UBRpt, USING "#####"; AcctNumber;
+        IF UBCustRec(1).CustFrstLocRec = UBCustRec(1).CustLastLocRec THEN
+          PRINT #UBRpt, TAB(8); UBLocaRec(1).Book; "-"; UBLocaRec(1).SeqNumb;
+        ELSE
+          PRINT #UBRpt, "Multiple";
+        END IF
+        PRINT #UBRpt, TAB(20); LEFT$(UBCustRec(1).CustName, 38);
+        PRINT #UBRpt, TAB(61); USING "####,#.##"; UBCustRec(1).DepositAmt;
+        PRINT #UBRpt, TAB(78); UBCustRec(1).Status
+        TDeposit# = Round(TDeposit# + UBCustRec(1).DepositAmt)
+        CustCnt = CustCnt + 1
+      END IF
+      
+      
+      
+      IF AskAbandonPrint% THEN
+        AbortFlag = True
+        EXIT FOR
+      END IF
+      
+      ShowPctComp Cnt, NumOfRecs
+    NEXT
+    
+    GOSUB DoDepositRptFooter:
+    
+    CLOSE UBCust, UBLoca, UBRpt
+    
+    ERASE IdxBuff, UBCustRec, UBLocaRec
+    
+    IF NOT AbortFlag THEN
+      PrintRptFile "Deposit Listing Report.", "UBDPLIST.RPT", 1, RetCode, EntryPoint
+    END IF
+    
+    KillFile "UBDPLIST.RPT"
+    
+ExitDepositListing:
+    
+    EXIT SUB
+    
+DoDepositRptHeader:
+    PageNo = PageNo + 1
+    PRINT #UBRpt, TAB(TabStop); TownName$
+    PRINT #UBRpt, TAB(24); "Customer Deposit Listing Report"; TAB(70); "Page #"; PageNo
+    PRINT #UBRpt, "Report Date: "; DATE$
+    PRINT #UBRpt, "Acct #";
+    PRINT #UBRpt, TAB(9); "Location"; TAB(20); "Customer Name"; TAB(60); "Deposit Amt"; TAB(74); "Status"
+    PRINT #UBRpt, Dash80$
+    LineCnt = 4
+    
+    RETURN
+    
+DoDepositRptFooter:
+    PRINT #UBRpt, Dash80$
+    PRINT #UBRpt, "Totals:"; TAB(10); "Customers: "; USING "#####,#"; CustCnt;
+    PRINT #UBRpt, TAB(60); USING "#####,#.##"; TDeposit#
+    
+    PRINT #UBRpt, CHR$(12)
+    
+    RETURN
+    
+END SUB
+
+SUB PaymentSumReport
+    
+    REDIM TempScrn(0)
+    REDIM RevenueName$(15)
+    REDIM Revenues(1 TO 15) AS DOUBLE
+    
+    REDIM UBTrans(1) AS UBTransRecType
+    UBTransRecLen = LEN(UBTrans(1))
+    
+    REDIM UBSetUp(1) AS UBSetupRecType
+    LoadUBSetUpFile UBSetUp(), UBSetUpRecLen
+    
+    FOR RCnt = 1 TO 15
+      TRevName$ = QPTrim$(UBSetUp(1).Revenues(RCnt).REVNAME)
+      IF LEN(TRevName$) > 0 THEN
+        RevenueName$(RCnt) = TRevName$
+      ELSE
+        MaxRevenue = RCnt - 1
+        EXIT FOR
+      END IF
+    NEXT
+    
+    TownName$ = UBSetUp(1).UTILNAME
+    TownLen = LEN(RTRIM$(TownName$))
+    TabStop = 40 - (TownLen / 2)
+    IF TabStop < 1 THEN TabStop = 1
+    
+    '*******************************
+    
+SelectFromList3:
+    LibName$ = "UB"
+    ScrnName$ = "UBPAYSUM"
+    
+    ' Define Fields
+    NumFlds = LibNumberOfFields(LibName$, ScrnName$)
+    
+    ' Define Quick Screen Form Editing Arrays
+    REDIM Frm(1) AS FormInfo
+    REDIM Form$(NumFlds, 2)
+    REDIM Fld(NumFlds) AS FieldInfo
+    Frm(1).StayOnField = True
+    
+    ' Get 1st & Last Fields
+    StartEl = 0
+    LibGetFldDef LibName$, ScrnName$, StartEl, Fld(), Form$(), ErrCode
+    
+    ' Set Defaults as Anticpated Response
+    Form$(1, 0) = DATE$
+    Form$(2, 0) = DATE$
+    Action = 1
+    
+    BlockClear
+    DisplayUBScrn ScrnName$
+    
+    DO
+      EditForm Form$(), Fld(), Frm(1), Cnf, Action
+      SELECT CASE Frm(1).KeyCode
+      CASE F10Key
+        BegDate = Date2Num(Form$(1, 0))
+        EndDate = Date2Num(Form$(2, 0))
+        IF EndDate < BegDate THEN
+          Done = False
+          BEEP
+          SaveScrn TempScrn()
+          CursorOff
+          DisplayUBScrn "UBBADDAT"
+          WaitForAction
+          RestScrn TempScrn()
+          Frm(1).FldNo = 1
+          Action = 1
+        ELSE
+          Done = True
+        END IF
+        
+      CASE ESC
+        GOTO ExitDetailedListing3
+      CASE ELSE
+        Done = False
+      END SELECT
+    LOOP UNTIL Done
+    
+    '***************
+    ' Set Up Specifications from Input Screen
+    Operator$ = Form$(3, 0)
+    Operator = VAL(Operator$)
+    IF Operator = 0 THEN
+      BegOperator = 0
+      EndOperator = 99
+    ELSE
+      BegOperator = Operator
+      EndOperator = Operator
+    END IF
+    
+    '***************
+    MaxLines = 55
+    PageNo = 0
+    Dash80$ = STRING$(80, "-")
+    
+    UBRpt = FREEFILE
+    OPEN "UBPAYSUM.RPT" FOR OUTPUT AS UBRpt
+    
+    UBTrans = FREEFILE
+    OPEN "UBTRANS.DAT" FOR RANDOM SHARED AS UBTrans LEN = UBTransRecLen
+    
+    NumOfRecs& = LOF(UBTrans) \ UBTransRecLen
+    
+    BlockClear
+    ShowProcessingScrn "Payment Summary Report."
+    
+    GOSUB DoDetailedRptHeader3
+    
+    FOR Cnt& = 1 TO NumOfRecs&
+      GET UBTrans, Cnt&, UBTrans(1)
+      '*************************************
+      '   Main Body of Printing goes here
+      TransOK = False
+      IF (UBTrans(1).TransDate >= BegDate AND UBTrans(1).TransDate <= EndDate) AND (UBTrans(1).OperatorNumber >= BegOperator AND UBTrans(1).OperatorNumber <= EndOperator) THEN
+        SELECT CASE UBTrans(1).TransType
+        CASE TranBillPayment, TranBillPayment + 100
+          TransOK = True
+        CASE TranPenaltyPayment, TranPenaltyPayment + 100
+          TransOK = True
+        CASE TranDepositPayment, TranDepositPayment + 100
+          TransOK = True
+          '            CASE TranDraftPayment, TranDraftPayment + 100
+          '              TransOK = True
+        END SELECT
+        
+        IF TransOK THEN
+          FOR RevCnt = 1 TO 15
+            Revenues(RevCnt) = Round#(Revenues(RevCnt) + UBTrans(1).RevAmt(RevCnt))
+          NEXT
+          TransCnt& = TransCnt& + 1
+        END IF
+      END IF
+      
+      IF AskAbandonPrint% THEN
+        AbortFlag = True
+        EXIT FOR
+      END IF
+      ShowPctCompL Cnt&, NumOfRecs&
+    NEXT
+    
+    GOSUB DoDetailedRptFooter3
+    
+    CLOSE
+    
+    IF NOT AbortFlag THEN
+      PrintRptFile "Payment Summary Report.", "UBPAYSUM.RPT", 1, RetCode, EntryPoint
+    END IF
+    
+    KillFile "UBPAYSUM.RPT"
+    
+ExitDetailedListing3:
+    
+    EXIT SUB
+    
+DoDetailedRptHeader3:
+    PRINT #UBRpt, TAB(TabStop); TownName$
+    PRINT #UBRpt, TAB(28); "Payment Summary Report"             '; TAB(70); "Page #1"
+    PRINT #UBRpt, "   Report Date: "; DATE$
+    PRINT #UBRpt, "Beginning Date: "; BegDate$;
+    IF VAL(Operator$) = 0 THEN
+      PRINT #UBRpt, TAB(65); " Operator #: ALL"
+    ELSE
+      PRINT #UBRpt, TAB(65); " Operator #: "; Operator$
+    END IF
+    PRINT #UBRpt, "   Ending Date: "; EndDate$;
+    PRINT #UBRpt, ""
+    RETURN
+    
+DoDetailedRptFooter3:
+    PRINT #UBRpt, Dash80$
+    FOR Cnt = 1 TO MaxRevenue
+      PRINT #UBRpt, TAB(5); RevenueName$(Cnt); TAB(35); USING "$$#######,#.##"; Revenues(Cnt)
+      TotalTrans# = Round#(TotalTrans# + Revenues(Cnt))
+    NEXT
+    PRINT #UBRpt, Dash80$
+    PRINT #UBRpt, "Total Number Transactions: "; USING "##############"; TransCnt&
+    PRINT #UBRpt, "    Total of Transactions: "; USING "$$#######,#.##"; TotalTrans#
+    PRINT #UBRpt, CHR$(12)
+    RETURN
+    
+END SUB
+
+SUB ShowPctCompL (BYVAL RecNo&, BYVAL NumOfRecs&) STATIC
+    RSET PctC(1) = QPStrL$(INT((RecNo& / NumOfRecs&) * 100))
+    '  HideCursor
+    QPrintRC PctC(1), 13, 40, Cnf.HiLite
+    '  ShowCursor
+    '  QPrintRC STR$(FRE("")), 25, 1, Cnf.HiLite
+END SUB
+

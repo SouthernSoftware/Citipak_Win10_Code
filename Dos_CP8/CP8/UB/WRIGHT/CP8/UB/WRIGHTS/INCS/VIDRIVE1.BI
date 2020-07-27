@@ -1,0 +1,13 @@
+DECLARE FUNCTION WInitVideo (BYVAL FarStringFlag%, BYVAL ResetMouseFlag%)
+DECLARE SUB WResetVideo ()
+DECLARE SUB WCursorOn ()
+DECLARE SUB WCursorOff ()
+DECLARE SUB WLocate (BYVAL Row%, BYVAL Col%)
+DECLARE SUB WCursorGetSize (TopScanLine%, BotScanLine%)
+DECLARE SUB WCursorSetSize (BYVAL TopScanLine%, BYVAL BotScanLine%)
+DECLARE SUB WCursorGetPos (Row%, Col%)
+DECLARE SUB WCls ()
+DECLARE SUB WColorSet (BYVAL ForeGround%, BYVAL BackGround%)
+DECLARE SUB WColorGet (ForeGround%, BackGround%)
+DECLARE SUB WPrint (AnyString$)
+

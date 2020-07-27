@@ -1,0 +1,14 @@
+frmCitiPakExportData = 30, -3, 847, 660, Z, 24, 36, 740, 615, C
+modEnableCloseButton = 0, 0, 0, 0, C
+modErrorHandling = 69, 69, 565, 526, C
+modInitProcedures = 123, 132, 619, 589, C
+modMakeWindowTopMost = 110, 145, 817, 543, C
+PR_Common = 132, 95, 710, 685, 
+PR_STRUCT = -23, 27, 773, 671, C
+FrmShowPctComp = 0, 0, 607, 446, C, 132, 132, 687, 580, C
+frmMessage = 154, 203, 761, 649, C, 44, 44, 599, 492, C
+clsCommandButton = 88, 116, 887, 572, C
+clsTextBoxOverRider = 88, 116, 795, 514, C
+modPassOut = 110, 145, 909, 601, C
+frmLoadingRpt = 0, 0, 0, 0, C, 176, 176, 731, 624, C
+modCaptainsLog = 0, 0, 0, 0, C

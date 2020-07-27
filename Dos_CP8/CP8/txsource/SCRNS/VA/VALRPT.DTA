@@ -1,0 +1,27 @@
+VALRPT.FieldInfo:
+DATA  6 , 47 , 11 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 8 , 36 , 55 , 20 , 22 ,"", 0 , 0 ,"REPORDER", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  21 , 10 , 36 , 42 , 7 , 22 ,"", 0 , 0 ,"DETAIL", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  28 , 12 , 36 , 45 , 10 , 22 ,"", 0 , 0 ,"PTYPE", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  38 , 14 , 36 , 45 , 10 , 22 ,"", 0 , 0 ,"OUTPUTTO", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  48 , 17 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  48 , 17 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+VALRPT.Help:
+DATA ""
+DATA "Choose the Order to Print the Report. "
+DATA ""
+DATA "Select which property types to show. Real, Personal or Both. "
+DATA "Select the Output Device. "
+DATA "Press the <F10> Key to Process Your Report. "
+DATA "Press the <ESC> Key to Cancel Your Input. "
+
+VALRPT.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

@@ -1,0 +1,36 @@
+MORTCODE.FieldInfo:
+DATA  9 , 179 , 34 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 8 , 33 , 37 , 5 , 2 ,"", 0 , 0 ,"MORTCODE", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  6 , 9 , 33 , 64 , 32 , 2 ,"", 0 , 0 ,"NAME", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  38 , 10 , 33 , 64 , 32 , 2 ,"", 0 , 0 ,"ADD1", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  70 , 11 , 33 , 64 , 32 , 2 ,"", 0 , 0 ,"ADD2", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  102 , 12 , 33 , 64 , 32 , 2 ,"", 0 , 0 ,"ADD3", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  134 , 14 , 33 , 64 , 32 , 2 ,"", 0 , 0 ,"CONTACT", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  166 , 16 , 33 , 46 , 14 , 7 ,"", 0 , 0 ,"PHONE", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  180 , 23 , 52 , 61 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  180 , 23 , 62 , 73 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+MORTCODE.Help:
+DATA ""
+DATA "Enter a Code to Use for This Mortgage Company.  It may be any "
+DATA "Enter the Company Name Here. "
+DATA ""
+DATA ""
+DATA ""
+DATA "Enter a contact name here at the mortgage company for your reference. "
+DATA ""
+DATA "Press F10 to Save Your Information. "
+DATA "Press the ESC Key to Cancel Your Input. "
+
+MORTCODE.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

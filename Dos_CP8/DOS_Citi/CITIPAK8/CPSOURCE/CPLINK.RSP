@@ -1,0 +1,4 @@
+/NOE /far /packc cplib.lib+cpmenu+MAKEBOXS+VERTMENU+WAZZWIND+MTITLE
+CPMENU.EXE,
+nul,
+pro;

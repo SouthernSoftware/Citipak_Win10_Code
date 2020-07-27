@@ -1,0 +1,12 @@
+DEFINT A-Z
+WIDTH "lpt1:", 80
+
+OPEN "LPT1:" FOR OUTPUT AS #1
+OPEN "testchk.prn" FOR INPUT AS #2
+
+DO
+  LINE INPUT #2, a$
+  PRINT #1, a$
+LOOP UNTIL EOF(2)
+CLOSE
+

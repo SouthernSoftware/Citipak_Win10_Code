@@ -1,0 +1,90 @@
+[Version]
+Version=1.0.0.0
+
+[payroll.exe <0009>]
+Dest=$(AppPath)
+Date=02/14/2003
+Time=09:32
+Version=1.0.0.0
+CABFilename=payroll.CAB
+CABINFFile=payroll.INF
+Uses1=msvbvm60.dll
+Uses2=OLEAUT32.DLL
+Uses3=OLEPRO32.DLL
+Uses4=ASYCFILT.DLL
+Uses5=STDOLE2.TLB
+Uses6=COMCAT.DLL
+Uses7=btn32a20.ocx
+Uses8=Dpp32x30.ocx
+Uses9=MSSTDFMT.DLL
+Uses10=DTE.TLB
+Uses11=resize.dll
+Uses12=ARVIEW2.OCX
+Uses13=PropList.OCX
+Uses14=exclexpt.dll
+Uses15=textexpt.dll
+Uses16=actrpt2.dll
+Uses17=MSCOMCTL.OCX
+Uses18=COMDLG32.OCX
+Uses19=MSDATGRD.OCX
+Uses20=MSFLXGRD.OCX
+Uses21=MSMASK32.OCX
+Uses22=COMCT332.OCX
+Uses23=DBGRID32.OCX
+Uses24=MSHFLXGD.OCX
+Uses25=fpOutBar.ocx
+Uses26=Tab32x30.ocx
+Uses27=Imp32x30.ocx
+Uses28=SPR32X35.ocx
+Uses29=Edt32x30.ocx
+Uses30=mem32x30.ocx
+Uses31=Cal32x30.ocx
+Uses32=Flp32a30.ocx
+
+[DTE.TLB <0009>]
+Dest=$(WinSysPath)
+Date=06/16/1998
+Time=00:00
+Version=6.0.81.67
+
+[resize.dll <0009>]
+Dest=$(WinSysPath)
+Date=07/19/1999
+Time=21:54
+Version=1.0.0.0
+
+[ARVIEW2.OCX <0009>]
+Dest=$(WinSysPath)
+Date=10/30/2002
+Time=14:48
+Version=2.0.0.1191
+
+[PropList.OCX <0009>]
+Dest=$(WinSysPath)
+Date=10/30/2002
+Time=14:34
+Version=1.0.0.1191
+
+[exclexpt.dll <0009>]
+Dest=$(WinSysPath)
+Date=10/18/2002
+Time=12:34
+Version=2.0.0.1186
+
+[textexpt.dll <0009>]
+Dest=$(WinSysPath)
+Date=05/22/2002
+Time=12:05
+Version=2.0.0.1175
+
+[actrpt2.dll <0009>]
+Dest=$(WinSysPath)
+Date=10/30/2002
+Time=14:44
+Version=2.0.0.1191
+
+[fpOutBar.ocx <0009>]
+Dest=$(WinSysPath)
+Date=10/27/1999
+Time=15:05
+Version=1.0.0.3

@@ -1,0 +1,173 @@
+  '---New Std 10 cpi
+
+  ToPrint$ = SPACE$(80)
+  Void$ = "* VOID * VOID * VOID * VOID * VOID * VOID * VOID * VOID * VOID * VOID *"
+  MaxTopStub = 15  'detail lines on stub, 18 total lines
+
+  PrintFile = FREEFILE
+  OPEN "APCHECK.PRN" FOR OUTPUT AS PrintFile
+  OpenVendorFile VendorFile, NumVRecs
+  OpenAPLedgerFile APLedgerFile, NumTrans, RecLen
+  OpenAPDistFile APDistFile, NumDistRecs&, APDistRecLen
+
+
+  DoStubHeader = True
+
+  '--Don't change this loop
+  FOR Cnt = StartCnt TO VCnt
+    TChkAmt# = 0
+    TopStubCnt = 0
+    GET VendorFile, ChkInfo(Cnt).VendorRecNum, VENDOR
+    FOR Cnt2 = ChkInfo(Cnt).ListFirst TO ChkInfo(Cnt).ListLast
+      GET APLedgerFile, InvList(Cnt2).LedgerRecNum, APLedgerRec(1)
+      IF Cnt2 = ChkInfo(Cnt).ListFirst THEN
+        ChkInfo(Cnt).StartChk = TCheckNum&
+      END IF
+      GOSUB PRINTChkInfo        'go print some stuff
+    NEXT
+    ChkInfo(Cnt).LastChk = TCheckNum&
+    ChkInfo(Cnt).ChkAmt = TChkAmt#
+    ChkInfo(Cnt).ChkDate = CheckDate
+    GOSUB FinishChk
+  NEXT
+
+  PRINT #PrintFile, CHR$(12) '--For Novell
+
+  CLOSE
+  
+  KillFile "APCHKINF.DAT"
+  FPutAH "APCHKINF.DAT", ChkInfo(1), ChkInfoRecLen, VCnt
+
+  ToPrint$ = ""
+  ERASE APLedgerRec, PayListRec, ChkInfo, InvList
+  PrintRptFile "", "APCHECK.PRN", LPTPort%, RetCode%, 4         'EntryPoint%
+
+  GOTO ExitCheckPrinting
+
+PRINTChkInfo:
+  '--printing the stub detail lines here.
+  IF TopStubCnt >= MaxTopStub THEN  '--if listing more invoices that will
+    GOSUB PrintVoidChk             '--fit on a stub void the check and
+  END IF                           '--contine on next check
+  IF DoStubHeader THEN             '--check if we need to do a header
+    GOSUB StubHeader
+  END IF
+  LSET ToPrint$ = Num2Date(APLedgerRec(1).TRDate)   '--Invoice Date
+  MID$(ToPrint$, 13) = LEFT$(APLedgerRec(1).DOCNum, 14)       '--Invoice Number
+  MID$(ToPrint$, 28) = LEFT$(APLedgerRec(1).PONum, 10)        '--PO Number
+  MID$(ToPrint$, 40) = LEFT$(APLedgerRec(1).Comment, 23)        '--PO Number
+  MID$(ToPrint$, 66) = FUsing(STR$(APLedgerRec(1).Amt), ",#########.##") '-Amt
+
+  PRINT #PrintFile, ToPrint$
+  TChkAmt# = Round(TChkAmt# + APLedgerRec(1).Amt)
+  TopStubCnt = TopStubCnt + 1
+
+  DistRecord& = APLedgerRec(1).FrstDist
+
+  TabStop = 1
+
+  IF ShowDist$ = "Y" THEN
+   WHILE DistRecord& > 0
+   GET #APDistFile, DistRecord&, APDistRec(1)
+
+
+   PRINT #PrintFile, TAB(TabStop); qptrim$(APDistRec(1).DistAcctNum);
+    PRINT #PrintFile, " "; USING "########.##"; APDistRec(1).DistAmt;
+
+   IF TabStop = 1 THEN
+    TabStop = 40
+    TopStubCnt = TopStubCnt + 1
+    ELSE
+    TabStop = 1
+   END IF
+   DistRecord& = APDistRec(1).NextDist
+   WEND
+   PRINT #PrintFile, ""
+  END IF
+  RETURN
+
+
+FinishChk:
+ ' New Code Added to Page Up Check Upon Adding the Distribution
+
+ IF ShowDist$ = "Y" THEN
+  
+  FOR CntZZ = TopStubCnt TO (MaxTopStub + 3)
+    PRINT #PrintFile, " "
+  NEXT
+ ELSE
+  '--area from last detail line on stub to summary line
+  FOR CntZZ = TopStubCnt TO MaxTopStub
+    PRINT #PrintFile, ""
+  NEXT
+
+  '--Stub summary line
+  PRINT #PrintFile,
+  LSET ToPrint$ = ""
+  MID$(ToPrint$, 40) = "Total Invoices:"
+  MID$(ToPrint$, 66) = FUsing(STR$(TChkAmt#), ",#########.##")
+  PRINT #PrintFile, ToPrint$
+  PRINT #PrintFile, "~"   '"End of Stub Line"
+
+ END IF                 'Finish Distribution Check
+  
+  '-------body of check
+  PRINT #PrintFile, "~"   '"Check Line1"
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile, TAB(70); USING "########"; TCheckNum&;
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile, TAB(11); SpellNumber$(FUsing(STR$(TChkAmt#), "#########.##"))
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile, TAB(52); Num2Date$(CheckDate); TAB(62); FUsing(STR$(TChkAmt#), "$$,#########.##")
+  PRINT #PrintFile, TAB(11); qptrim$(VENDOR.PayToName)
+  PRINT #PrintFile, TAB(11); qptrim$(VENDOR.PayToAddr)
+  PRINT #PrintFile, TAB(11); qptrim$(VENDOR.PayToAddr2)
+  PRINT #PrintFile, TAB(11); qptrim$(VENDOR.PayToCity); " "; qptrim$(VENDOR.PayToState); " "; qptrim$(VENDOR.PayToZip)
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile,
+  PRINT #PrintFile, "~" '"End of Form"
+  
+  LSET ToPrint$ = ""
+  DoStubHeader = True
+  TCheckNum& = TCheckNum& + 1
+RETURN
+
+
+PrintVoidChk:
+  '--finish stub
+  FOR CntZZ = TopStubCnt TO 29
+    PRINT #PrintFile, ""
+  NEXT
+  
+  FOR VLCnt = 1 TO 6 '--24 lines on check
+    PRINT #PrintFile, Void$
+  NEXT
+  
+  FOR VLCnt = 36 TO 39
+    PRINT #PrintFile, '"Finish Void Chk"; VCnt
+  NEXT
+  
+  TopStubCnt = 0
+  TCheckNum& = TCheckNum& + 1
+  DoStubHeader = True
+RETURN
+
+
+StubHeader:
+  '--number of lines from top of form to first invoice item
+'HERE
+  PRINT #PrintFile, "~" '"Top of Form"
+  PRINT #PrintFile, "Date        Invoice        PO          Desc                             Amount"
+  PRINT #PrintFile, STRING$(78, "-")
+  TopStubCnt = 4
+  DoStubHeader = False
+RETURN
+

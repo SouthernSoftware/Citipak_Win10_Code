@@ -1,0 +1,21 @@
+CALCINT.FieldInfo:
+DATA  4 , 30 , 24 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 9 , 39 , 42 , 2 , 3 ,"", 0 , 0 ,"TAXYEAR",-1 , 0 , 0 , 0 , 1996 , 2025 ,""
+DATA  3 , 11 , 39 , 44 , 4 , 4 ,"", 0 , 0 ,"CURINT", 2 , 0 , 0 , 0 , 0 , 3.402823D+38 ,""
+DATA  7 , 13 , 39 , 42 , 4 , 4 ,"", 0 , 0 ,"REALRATE",-1 , 0 , 0 , 0 , 0 , 3.402823D+38 ,""
+DATA  11 , 15 , 39 , 58 , 20 , 22 ,"", 0 , 0 ,"PRNORDER", 0 , 0 , 0 , 0 , 0 , 0 ,""
+
+CALCINT.Help:
+DATA ""
+DATA "Enter the Current Tax Year. "
+DATA ""
+DATA ""
+DATA ""
+
+CALCINT.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

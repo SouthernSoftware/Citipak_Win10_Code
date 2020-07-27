@@ -1,0 +1,23 @@
+;;; Setup Log File Opened 08/10/04 13:05:22
+
+User chose as destination directory: 'C:\CITIPAK'
+May have had to create the directory: C:\CITIPAK
+Windows directory is: C:\WINDOWS\
+
+;; CopyFilesInCopyList
+[24] Overwriting file: 'C:\CITIPAK\HCOMW32.HLP'
+[21] Using Decomp to copy file: 'C:\HCOMMI~1\HCOMW32.HL_',  to: 'C:\CITIPAK\HCOMW32.HLP'
+[21] Using Decomp to copy file: 'C:\HCOMMI~1\HCOMW32.DL_',  to: 'C:\WINDOWS\HCOMW32.DLL'
+[21] Using Decomp to copy file: 'C:\HCOMMI~1\H16FS2.BI_',  to: 'C:\WINDOWS\H16FS2.BIN'
+[21] Using Decomp to copy file: 'C:\HCOMMI~1\HAWK.BI_',  to: 'C:\WINDOWS\HAWK.BIN'
+[21] Using Decomp to copy file: 'C:\HCOMMI~1\HUNTER.BI_',  to: 'C:\WINDOWS\HUNTER.BIN'
+[24] Overwriting file: 'C:\CITIPAK\README.TXT'
+[21] Using Decomp to copy file: 'C:\HCOMMI~1\README.TXT',  to: 'C:\CITIPAK\README.TXT'
+[55] Creating Ini Key (With Value) - file: 'C:\WINDOWS\HCOMW32.INI',  section: 'Registration',  key: 'User',  value: 'Phillis'
+[55] Creating Ini Key (With Value) - file: 'C:\WINDOWS\HCOMW32.INI',  section: 'Registration',  key: 'Organisation',  value: 'Town of Wagram'
+[71] Creating ProgMan group: 'HCOM for Windows',  path: ''
+[73] Creating ProgMan item - group: 'HCOM for Windows',  item: 'HCOM for Windows',  command: 'C:\CITIPAK\hcomw32.exe'
+[71] Creating ProgMan group: 'HCOM for Windows',  path: ''
+[73] Creating ProgMan item - group: 'HCOM for Windows',  item: 'Read Me',  command: 'notepad.exe C:\CITIPAK\readme.txt'
+[71] Creating ProgMan group: 'HCOM for Windows',  path: ''
+;;; Setup Log File Closed 08/10/04 13:05:22

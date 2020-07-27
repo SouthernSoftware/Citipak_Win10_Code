@@ -1,0 +1,10 @@
+ren prfprint.bas prfprint.
+ren post2ba.bas post2ba.
+for %%a in (*.bas) do (Echo BC %%a /o /ot /g2 ^echo.^bc %%a /o/ot/g2;)
+ren prfprint. prfprint.bas
+ren post2ba. post2ba.bas
+bc prfprint.bas /x/o/ot/g2;
+bc post2ba.bas /e/o/ot/g2;
+bc prprint1.bas /s/o/ot/g2;
+link @link.rsp
+del /q *.obj

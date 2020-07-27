@@ -1,0 +1,21 @@
+UBPC30HH.FieldInfo:
+DATA  4 , 20 , 4 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 11 , 40 , 49 , 10 , 22 ,"", 0 , 0 ,"OPERATIO", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  11 , 13 , 40 , 49 , 10 , 2 ,"", 0 , 0 ,"PATH", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  21 , 16 , 35 , 46 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  21 , 16 , 49 , 62 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+UBPC30HH.Help:
+DATA ""
+DATA "Select the Operation to Perform. "
+DATA "Enter the Path to the PC3000. "
+DATA "Press the F10 Key to begin operation. "
+DATA "Press the <ESC> key to cancel your input. "
+
+UBPC30HH.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

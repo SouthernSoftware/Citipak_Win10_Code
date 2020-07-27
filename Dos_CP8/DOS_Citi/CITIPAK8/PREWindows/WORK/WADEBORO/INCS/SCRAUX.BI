@@ -1,0 +1,10 @@
+DECLARE SUB LibLoadDisplayForm (LibName$, FormName$, Form$(), Fld() AS ANY)
+DECLARE SUB EditForm (Form$(), Fld() AS ANY, Frm AS ANY, Cnf AS ANY, Action%)
+'DECLARE SUB LibGetFldDef (LibName$, FrmName$, StartEl%, Fld() AS ANY, Form$(), ErrCode%)
+DECLARE SUB LibFile2Scrn (LibName$, ScrnName$, MonoCode%, Attribute%, ErrorCode%)
+DECLARE FUNCTION InputBox$ (LibName$, FormName$, Cancel%)
+DECLARE FUNCTION MsgBox% (LibName$, FormName$)
+DECLARE FUNCTION GetPassword$ (Row%, Col%, Max%, Abort%)
+DECLARE SUB PrintHelp (H$)
+DECLARE SUB DispLoad ()
+

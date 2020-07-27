@@ -1,0 +1,9 @@
+DEFINT A-Z
+DECLARE FUNCTION Exist% (FileName$)
+
+
+    UBZipDat = FREEFILE
+    OPEN "UB2ZIPUP.DAT" FOR INPUT AS UBZipDat
+    LINE INPUT #UBZipDat, SCSFileName$
+    CLOSE UBZipDat
+

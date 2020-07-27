@@ -1,0 +1,2 @@
+LPRINT CHR$(27); CHR$(88); CHR$(18); CHR$(0); CHR$(0)
+

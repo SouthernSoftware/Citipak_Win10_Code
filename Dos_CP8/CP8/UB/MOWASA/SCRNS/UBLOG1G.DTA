@@ -1,0 +1,21 @@
+UBLOG1G.FieldInfo:
+DATA  4 , 4 , 19 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 9 , 50 , 50 , 2 , 3 ,"", 0 , 0 ,"INTEROG", 0 , 0 , 0 , 0 , 1 , 9 ,""
+DATA  3 , 10 , 50 , 59 , 2 , 6 ,"", 0 , 0 ,"MTRREAD", 0 , 0 , 0 , 0 , 5480 , 31368 ,""
+DATA  5 , 16 , 35 , 46 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  5 , 16 , 49 , 62 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+UBLOG1G.Help:
+DATA ""
+DATA "Enter the Interrogator Number to Process. "
+DATA "Enter the Date the Meters Were Read. "
+DATA ""
+DATA ""
+
+UBLOG1G.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

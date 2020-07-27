@@ -1,0 +1,24 @@
+     LPRINT "TOP"
+     FOR lop = 1 TO 4
+       LPRINT lop
+     NEXT lop
+     LPRINT TAB(2); STRING$(26, "X")
+     LPRINT
+     LPRINT TAB(3); "XX/XX/XX"; TAB(12); "XX/XX/XX"; TAB(22); "X-XXXXXX"
+     LPRINT TAB(34); STRING$(23, "X")
+     LPRINT TAB(34); STRING$(23, "X")
+     LPRINT TAB(2); "XXXXXXXX"; TAB(12); "XXXXXXXX"; TAB(22); "XXXXXXXX"; TAB(34); "XXXXXXXXXX XX XXXXX"
+     LPRINT
+     LPRINT TAB(2); "WATER USAGE"; TAB(22); "$XXXXX.XX"
+     FOR j = 1 TO 3
+       LPRINT j
+     NEXT j
+     LPRINT TAB(35); "XX/XX/XX"; TAB(45); "X-XXXXXX"
+     LPRINT
+     LPRINT
+     LPRINT TAB(2); "$XXXX.XX"; TAB(22); "$XXXXX.XX"; TAB(43); "$XXXXX.XX"
+     LPRINT
+     LPRINT
+     LPRINT
+     LPRINT "END"
+

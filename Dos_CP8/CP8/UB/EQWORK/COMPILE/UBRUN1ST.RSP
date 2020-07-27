@@ -1,0 +1,4 @@
+/NOE /SE:200 /exe UBrun1st+ubstubs.lib /noe /far /packc
+UBrun1st.EXE,
+nul,
+pro WFF_II;

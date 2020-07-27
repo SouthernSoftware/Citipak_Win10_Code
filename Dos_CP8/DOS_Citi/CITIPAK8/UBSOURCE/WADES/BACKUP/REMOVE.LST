@@ -1,0 +1,49 @@
+
+Quick-Library Maker Utility  Version 1.05
+Copyright (c) 1988-1990 Crescent Software, Inc.
+32 Seventy Acres, West Redding, CT 06896  (203)438-5300
+
+
+Note: The following procedures have been declared or defined but never used.
+UBDRAFT.BAS
+    ENTERMETERREADINGSMENU         was DECLAREd but not used.
+
+    MAKEPOSTALINDEX                was DECLAREd but not used.
+    MAKESEQUENCEINDEX              was DECLAREd but not used.
+    MAKETEMPINDEX                  was DECLAREd but not used.
+    MAKEZIPCODEINDEX               was DECLAREd but not used.
+
+    MANUALMETERREADING             was DECLAREd but not used.
+    QPRINTRC                       was DECLAREd but not used.
+    UBBILLMENU                     was DECLAREd but not used.
+    UBDRAFTEDIT                    was DECLAREd but not used.
+    WAITFORACTION                  was DECLAREd but not used.
+    CALCFIELDS                     was DECLAREd but not used.
+    FLDNUM                         was DECLAREd but not used.
+    PRINTARRAY                     was DECLAREd but not used.
+    SAVEFIELD                      was DECLAREd but not used.
+    UNPACKBUFFER                   was DECLAREd but not used.
+    VALUE                          was DECLAREd but not used.
+    LIBFILE2SCRN                   was DECLAREd but not used.
+                                                                               
+ChrisMay.obj(chrismay.ASM) : error L2029: 'SHOWPCTCOMP' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'BLOCKCLEAR' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'DISPLAYUBSCRN' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'LIBGETFLDDEF' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'CLEARSCRN' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'ASKABANDONPRINT' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'PRINTRPTFILE' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'LIBNUMBEROFFIELDS' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'SHOWPCTCOMPL' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'ROUND' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'EDITFORM' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'SHOWPROCESSINGSCRN' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'LOADUBSETUPFILE' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'VERTMENU' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'TITLEBOX' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'PRESSBUTTON' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'CURSOROFF' : unresolved external
+ChrisMay.obj(chrismay.ASM) : error L2029: 'FILESIZE' : unresolved external
+
+
+There were 18 errors detected

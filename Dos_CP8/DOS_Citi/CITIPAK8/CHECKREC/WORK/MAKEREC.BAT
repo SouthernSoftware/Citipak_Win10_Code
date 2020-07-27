@@ -1,0 +1,22 @@
+bc crlock.bas /o/ot/g2/ah/fs/e;
+bc checkrec.bas /o/ot/g2/ah/fs;
+bc chkaux01.bas /o/ot/g2/ah/fs;
+bc comnaux.bas /o/ot/g2/ah/fs;
+bc evaluate.bas /o/ot/g2/ah/fs;
+bc fileio.bas /o/ot/g2/ah/fs;
+bc formedit.bas /o/ot/g2/ah/fs;
+bc formlib.bas /o/ot/g2/ah/fs;
+bc ncpfprnt.bas /o/ot/g2/ah/x/fs;
+bc nocalc.bas /o/ot/g2/ah/fs;
+bc nonotes.bas /o/ot/g2/ah/fs;
+bc preval.bas /o/ot/g2/ah/fs;
+bc qscalc.bas /o/ot/g2/ah/fs;
+bc scrndisp.bas /o/ot/g2/ah/fs;
+bc scrnfile.bas /o/ot/g2/ah/fs;
+bc scrnlib.bas /o/ot/g2/ah/fs;
+bc scraux.bas /o/ot/g2/ah/fs;
+bc vertmenu.bas /o/ot/g2/ah/fs;
+bc wazzwind.bas /o/ot/g2/ah/fs;
+bc wpicklst.bas /o/ot/g2/ah/fs;
+bc wvertmnt.bas /o/ot/g2/ah/fs;
+link @checkrec.rsp

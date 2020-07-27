@@ -1,0 +1,18 @@
+UBCOLIST.FieldInfo:
+DATA  3 , 48 , 14 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 10 , 38 , 44 , 8 , 10 ,"", 0 , 0 ,"MINBAL", 2 , 0 , 0 , 0 , 0 , 1.79769313486231D+308 ,"$"
+DATA  9 , 11 , 38 , 57 , 20 , 22 ,"", 0 , 0 ,"DAYSPAST", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  29 , 12 , 38 , 57 , 20 , 22 ,"", 0 , 0 ,"PRINTORD", 0 , 0 , 0 , 0 , 0 , 0 ,""
+
+UBCOLIST.Help:
+DATA ""
+DATA "Enter the Minimum Amount to process Notices on here. "
+DATA "Choose the Aging Period to Define Past Due Customers. For Example Over 90 means all customers 90 days past due. "
+DATA "Select the Printing Order to print Cut-Off Listing. "
+
+UBCOLIST.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

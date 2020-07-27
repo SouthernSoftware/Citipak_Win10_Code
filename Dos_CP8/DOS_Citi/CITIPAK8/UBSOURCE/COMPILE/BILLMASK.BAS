@@ -1,0 +1,31 @@
+ LPRINT "top"
+ LPRINT ""
+ LPRINT ""
+ LPRINT
+ LPRINT
+ LPRINT
+ LPRINT TAB(1); "01-01-98"; TAB(13); "X-XXXXXX"
+ LPRINT TAB(37); STRING$(23, "X")
+ LPRINT
+ LPRINT TAB(2); "########";
+ LPRINT TAB(13); "########";
+ LPRINT TAB(25); "########";
+ LPRINT TAB(37); STRING$(23, "X")
+ LPRINT TAB(37); STRING$(23, "X"): REM line 11
+ LPRINT TAB(2); "WATER USAGE"; TAB(30); "###.##";
+ LPRINT TAB(37); STRING$(23, "X")
+ LPRINT TAB(2); "MISC CHARGES"; TAB(30); "###.##";
+ LPRINT TAB(37); "XXXXXXXXXX XX XXXXX"
+ LPRINT TAB(2); "PENALTY"; TAB(30); "###.##"
+ LPRINT TAB(2); "PASTDUE AMOUNT"; TAB(30); "###.##"
+ LPRINT
+ LPRINT TAB(40); "X - XXXXXX"; TAB(52); "01-15-98";
+ LPRINT TAB(8); "01-15-98"
+ LPRINT TAB(8); "$####.##";
+ LPRINT TAB(30); "###.##";
+ LPRINT TAB(40); "$####.##";
+ LPRINT TAB(52); "$####.##"
+
+LPRINT
+LPRINT "bottom"
+

@@ -1,0 +1,113 @@
+***  Installation Started 08/08/2003 13:15  ***
+Title: CitiPak Installation
+Source: C:\CitiInstall.EXE
+File Copy: C:\WINDOWS\SYSTEM32\dbgrid32.ocx
+Made Dir: C:\CitiPak\BACKUP
+File Overwrite: C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL
+Backup Copy: C:\CitiPak\BACKUP\msstdfmt.dll
+File Copy: C:\Program Files\Common Files\Designer\msderun.dll
+File Copy: C:\WINDOWS\SYSTEM32\msde.dll
+File Copy: C:\WINDOWS\SYSTEM32\msbind.dll
+File Copy: C:\citipak\UNWISE.EXE
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\CitiPak
+RegDB Val: CitiPak
+RegDB Name: DisplayName
+RegDB Root: 2
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\CitiPak
+RegDB Val: C:\citipak\UNWISE.EXE C:\citipak\INSTALL.LOG
+RegDB Name: UninstallString
+RegDB Root: 2
+File Copy: C:\citipak\CitipakSplash.exe
+File Copy: C:\citipak\CitiPak.exe
+File Copy: C:\citipak\Gociti.bat
+File Overwrite: C:\citipak\Cpmenu.exe
+Backup Copy: C:\CitiPak\BACKUP\Cpmenu.exe
+File Copy: C:\citipak\CitiInstallSub.EXE
+File Copy: C:\citipak\AP.exe
+File Copy: C:\citipak\GL.exe
+File Copy: C:\citipak\payroll.exe
+File Copy: C:\citipak\PayrollCheck.exe
+File Copy: C:\citipak\W2Processing.exe
+File Copy: C:\citipak\ACTRPT2.DLL
+File Copy: C:\citipak\ARVIEW2.OCX
+File Copy: C:\citipak\EXCLEXPT.DLL
+File Copy: C:\citipak\PROPLIST.OCX
+File Copy: C:\citipak\TEXTEXPT.DLL
+File Copy: C:\citipak\RESIZE.DLL
+File Copy: C:\citipak\BTN32A20.OCX
+File Copy: C:\citipak\CAL32X30.OCX
+File Copy: C:\citipak\DPP32X30.OCX
+File Copy: C:\citipak\EDT32X30.OCX
+File Copy: C:\citipak\FLP32A30.OCX
+File Copy: C:\citipak\FPFLP30.OCX
+File Copy: C:\citipak\FPOUTBAR.OCX
+File Copy: C:\citipak\FPSPR35.OCX
+File Copy: C:\citipak\IMP32X30.OCX
+File Copy: C:\citipak\MEM32X30.OCX
+File Copy: C:\citipak\SPR32X35.OCX
+File Copy: C:\citipak\TAB32X30.OCX
+File Copy: C:\citipak\Comct332.ocx
+File Copy: C:\citipak\atl.dll
+File Copy: C:\citipak\msvcrt.dll
+File Copy: C:\citipak\MSMask32.ocx
+File Copy: C:\citipak\nCiti1a.ico
+File Copy: C:\citipak\CitiPass.dat
+File Copy: C:\citipak\Ap1099.msk
+File Copy: C:\citipak\Chk1Aln.msk
+File Copy: C:\citipak\Chk2Aln.MSK
+File Copy: C:\citipak\Chk3Aln.MSK
+Made Dir: C:\CitiPak\PRData
+File Copy: C:\citipak\PRData\LASER2MSK.txt
+File Copy: C:\citipak\PRData\LASER1MSK.txt
+File Copy: C:\citipak\PRData\P9007msk.txt
+File Copy: C:\citipak\PRData\P9013-39MSK.txt
+File Copy: C:\citipak\PRData\P9013-42MSK.txt
+File Copy: C:\citipak\PRData\P9028msk.txt
+File Copy: C:\citipak\PRData\W2Mask.txt
+File Copy: C:\citipak\PRData\Prw2msk1.dpm
+File Copy: C:\citipak\PRData\Prprndf.dat
+File Copy: C:\citipak\PRData\Prstadef.dat
+File Copy: C:\citipak\PRData\Prfedtax.dat
+File Copy: C:\citipak\PRData\Preictbl.dat
+File Copy: C:\citipak\PRData\Prstatax.dat
+Made Dir: C:\CitiPak\PRRPTS
+Made Dir: C:\CitiPak\PRRDF
+Shell Link: C:\Documents and Settings\All Users\Desktop\CitiPak.lnk
+Made Dir: C:\Documents and Settings\All Users\Start Menu\Programs\CitiPak
+Shell Link: C:\Documents and Settings\All Users\Start Menu\Programs\CitiPak\CitiPak.lnk
+Self-Register: C:\WINDOWS\SYSTEM32\dbgrid32.ocx
+Self-Register: C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL
+Self-Register: C:\Program Files\Common Files\Designer\msderun.dll
+Self-Register: C:\WINDOWS\SYSTEM32\msde.dll
+Self-Register: C:\WINDOWS\SYSTEM32\msbind.dll
+Self-Register: C:\WINDOWS\SYSTEM32\OLEAUT32.DLL
+Self-Register: C:\WINDOWS\SYSTEM32\OLEPRO32.DLL
+Self-Register: C:\WINDOWS\SYSTEM32\STDOLE2.TLB
+Self-Register: C:\WINDOWS\SYSTEM32\MSVBVM60.DLL
+Self-Register: C:\WINDOWS\SYSTEM32\COMCAT.DLL
+Self-Register: C:\WINDOWS\SYSTEM32\MFC42.DLL
+Self-Register: C:\WINDOWS\SYSTEM32\MSCOMCTL.OCX
+Self-Register: C:\WINDOWS\SYSTEM32\COMDLG32.OCX
+Self-Register: C:\citipak\ACTRPT2.DLL
+Self-Register: C:\citipak\ARVIEW2.OCX
+Self-Register: C:\citipak\EXCLEXPT.DLL
+Self-Register: C:\citipak\PROPLIST.OCX
+Self-Register: C:\citipak\TEXTEXPT.DLL
+Self-Register: C:\citipak\RESIZE.DLL
+Self-Register: C:\citipak\BTN32A20.OCX
+Self-Register: C:\citipak\CAL32X30.OCX
+Self-Register: C:\citipak\DPP32X30.OCX
+Self-Register: C:\citipak\EDT32X30.OCX
+Self-Register: C:\citipak\FLP32A30.OCX
+Self-Register: C:\citipak\FPFLP30.OCX
+Self-Register: C:\citipak\FPOUTBAR.OCX
+Self-Register: C:\citipak\FPSPR35.OCX
+Self-Register: C:\citipak\IMP32X30.OCX
+Self-Register: C:\citipak\MEM32X30.OCX
+Self-Register: C:\citipak\SPR32X35.OCX
+Self-Register: C:\citipak\TAB32X30.OCX
+Self-Register: C:\citipak\Comct332.ocx
+Self-Register: C:\citipak\atl.dll
+Could not Self-Register: C:\citipak\msvcrt.dll
+Self-Register: C:\citipak\MSMask32.ocx
+User Rights: Admin

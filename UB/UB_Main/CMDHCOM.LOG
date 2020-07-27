@@ -1,0 +1,389 @@
+CMDHCOM.LOG                Ver. 2.00        (C) Copyright Husky Computers Ltd. December 1993.
+29/11/104 11:54:48  ERROR: Transmit - Communications Failure.
+29/11/104 11:56:03  Transmit UBCUSTTR.DAT 
+29/11/104 11:56:40  ERROR: Transmit - Communications Failure.
+29/11/104 12:02:32  Transmit UBCUSTTR.DAT 
+29/11/104 12:03:01  ERROR: Transmit - Communications Failure.
+29/11/104 12:04:45  Transmit UBCUSTTR.DAT 
+29/11/104 12:05:28  ERROR: Transmit - Communications Failure.
+29/11/104 12:06:22  Transmit UBCUSTTR.DAT 
+29/11/104 12:07:09  ERROR: Transmit - Communications Failure.
+29/11/104 12:47:45  Transmit UBCUSTTR.DAT 
+29/11/104 12:48:16  ERROR: Transmit - Communications Failure.
+29/11/104 12:49:43  Connected at 38400                
+29/11/104 12:49:43  Transmit UBCUSTTR.DAT 
+29/11/104 12:50:03  Data transfer completed on handheld.
+29/11/104 13:20:19  Receive UBCUSTTR.DAT 
+29/11/104 13:21:04  Data transfer completed on handheld.
+30/11/104 14:43:50  Connected at 38400                
+30/11/104 14:43:50  Transmit UBCUSTTR.DAT 
+30/11/104 14:44:37  Data transfer completed on handheld.
+01/12/104  7:50:26  Receive UBCUSTTR.DAT 
+01/12/104  7:51:29  Data transfer completed on handheld.
+01/12/104  8:14:13  Transmit UBCUSTTR.DAT 
+01/12/104  8:14:47  Data transfer completed on handheld.
+01/12/104 13:09:31  Receive UBCUSTTR.DAT 
+01/12/104 13:10:17  Data transfer completed on handheld.
+01/12/104 13:21:02  Receive UBCUSTTR.DAT 
+01/12/104 13:22:46  Data transfer completed on handheld.
+01/12/104 13:25:01  Transmit UBCUSTTR.DAT 
+01/12/104 13:25:34  Data transfer completed on handheld.
+01/12/104 15:27:18  Receive UBCUSTTR.DAT 
+01/12/104 15:28:09  Data transfer completed on handheld.
+03/12/104 11:37:28  ERROR: Could not connect to handheld.
+03/12/104 11:38:10  Transmit UBCUSTTR.DAT 
+03/12/104 11:40:55  Data transfer completed on handheld.
+03/12/104 16:26:27  Receive UBCUSTTR.DAT 
+03/12/104 16:32:35  ERROR: Receive - Communications Failure.
+03/12/104 16:43:18  Receive UBCUSTTR.DAT 
+03/12/104 16:55:38  Data transfer completed on handheld.
+06/12/104 15:18:01  Connected at 38400                
+06/12/104 15:18:01  Transmit UBCUSTTR.DAT 
+06/12/104 15:18:23  Data transfer completed on handheld.
+07/12/104  9:42:30  ERROR: Could not connect to handheld.
+07/12/104  9:47:36  Receive UBCUSTTR.DAT 
+07/12/104  9:48:48  Data transfer completed on handheld.
+07/12/104 13:25:43  Connected at 38400                
+07/12/104 13:25:43  Transmit UBCUSTTR.DAT 
+07/12/104 13:26:42  Data transfer completed on handheld.
+07/12/104 14:10:06  Receive UBCUSTTR.DAT 
+07/12/104 14:11:50  Data transfer completed on handheld.
+08/12/104 14:35:00  Connected at 38400                
+08/12/104 14:35:00  Transmit UBCUSTTR.DAT 
+08/12/104 14:36:12  ERROR: Transmit - Communications Failure.
+08/12/104 14:38:00  Transmit UBCUSTTR.DAT 
+08/12/104 14:39:13  Data transfer completed on handheld.
+08/12/104 16:41:34  Receive UBCUSTTR.DAT 
+08/12/104 16:51:03  ERROR: Receive - Communications Failure.
+09/12/104  8:05:42  Connected at 38400                
+09/12/104  8:05:43  Receive UBCUSTTR.DAT 
+09/12/104  8:07:54  Data transfer completed on handheld.
+09/12/104 14:05:39  Transmit UBCUSTTR.DAT 
+09/12/104 14:06:26  Data transfer completed on handheld.
+10/12/104 16:10:21  Connected at 38400                
+10/12/104 16:10:22  Receive UBCUSTTR.DAT 
+10/12/104 16:12:18  Data transfer completed on handheld.
+13/12/104 10:05:21  ERROR: Could not connect to handheld.
+13/12/104 10:08:19  ERROR: Could not connect to handheld.
+13/12/104 10:10:05  ERROR: Could not connect to handheld.
+13/12/104 10:11:30  Transmit UBCUSTTR.DAT 
+13/12/104 10:11:59  Data transfer completed on handheld.
+13/12/104 10:55:22  Receive UBCUSTTR.DAT 
+13/12/104 10:56:26  Data transfer completed on handheld.
+13/12/104 11:43:00  Transmit UBCUSTTR.DAT 
+13/12/104 11:43:31  Data transfer completed on handheld.
+14/12/104 15:03:21  Connected at 38400                
+14/12/104 15:03:22  Receive UBCUSTTR.DAT 
+14/12/104 15:06:40  Data transfer completed on handheld.
+15/12/104  7:59:10  Connected at 38400                
+15/12/104  7:59:10  Transmit UBCUSTTR.DAT 
+15/12/104  7:59:19  Data transfer completed on handheld.
+15/12/104  8:04:28  Transmit UBCUSTTR.DAT 
+15/12/104  8:04:58  Data transfer completed on handheld.
+15/12/104 13:07:34  Receive UBCUSTTR.DAT 
+15/12/104 13:08:06  Data transfer completed on handheld.
+16/12/104 15:16:22  Connected at 38400                
+16/12/104 15:16:23  Receive UBCUSTTR.DAT 
+16/12/104 15:20:32  Data transfer completed on handheld.
+20/12/104 14:35:56  ERROR: Could not connect to handheld.
+20/12/104 14:43:56  Connected at 38400                
+20/12/104 14:43:56  Transmit UBCUSTTR.DAT 
+20/12/104 14:44:30  Data transfer completed on handheld.
+20/12/104 15:47:49  Receive UBCUSTTR.DAT 
+20/12/104 15:48:35  Data transfer completed on handheld.
+21/12/104 15:38:36  ERROR: Could not connect to handheld.
+21/12/104 15:40:11  Transmit UBCUSTTR.DAT 
+21/12/104 15:41:18  Data transfer completed on handheld.
+22/12/104  7:46:29  Connected at 38400                
+22/12/104  7:46:30  Receive UBCUSTTR.DAT 
+22/12/104  7:48:04  Data transfer completed on handheld.
+22/12/104 15:37:16  Connected at 38400                
+22/12/104 15:37:16  Transmit UBCUSTTR.DAT 
+22/12/104 15:39:12  Data transfer completed on handheld.
+23/12/104  7:52:51  Connected at 38400                
+23/12/104  7:52:51  Receive UBCUSTTR.DAT 
+23/12/104  7:53:53  Data transfer completed on handheld.
+23/12/104 13:09:45  ERROR: Could not connect to handheld.
+23/12/104 13:12:01  Connected at 38400                
+23/12/104 13:12:01  Transmit UBCUSTTR.DAT 
+23/12/104 13:12:33  Data transfer completed on handheld.
+23/12/104 15:03:43  Receive UBCUSTTR.DAT 
+23/12/104 15:05:20  Data transfer completed on handheld.
+29/12/104 14:28:42  Connected at 38400                
+29/12/104 14:28:42  Transmit UBCUSTTR.DAT 
+29/12/104 14:29:51  Data transfer completed on handheld.
+30/12/104 16:51:56  Connected at 38400                
+30/12/104 16:51:56  Receive UBCUSTTR.DAT 
+30/12/104 16:55:05  ERROR: Receive - Communications Failure.
+30/12/104 16:55:42  Receive UBCUSTTR.DAT 
+30/12/104 16:56:26  ERROR: Receive - User pressed ESC.
+30/12/104 16:56:58  Receive UBCUSTTR.DAT 
+30/12/104 17:02:22  Data transfer completed on handheld.
+03/01/105 10:32:48  Connected at 38400                
+03/01/105 10:32:48  Transmit UBCUSTTR.DAT 
+03/01/105 10:33:29  ERROR: Transmit - Communications Failure.
+03/01/105 14:44:33  Transmit UBCUSTTR.DAT 
+03/01/105 14:45:16  ERROR: Transmit - Communications Failure.
+03/01/105 14:46:04  Transmit UBCUSTTR.DAT 
+03/01/105 14:47:00  ERROR: Transmit - Communications Failure.
+03/01/105 14:52:04  Connected at 38400                
+03/01/105 14:52:04  Transmit UBCUSTTR.DAT 
+03/01/105 14:52:24  Data transfer completed on handheld.
+04/01/105 13:07:54  Connected at 38400                
+04/01/105 13:07:54  Receive UBCUSTTR.DAT 
+04/01/105 13:08:47  Data transfer completed on handheld.
+04/01/105 13:09:59  Transmit UBCUSTTR.DAT 
+04/01/105 13:10:47  Data transfer completed on handheld.
+05/01/105  7:55:07  Connected at 38400                
+05/01/105  7:55:07  Receive UBCUSTTR.DAT 
+05/01/105  7:55:13  Data transfer completed on handheld.
+05/01/105  7:56:32  Receive UBCUSTTR.DAT 
+05/01/105  7:56:34  ERROR: Receive - Communications Failure.
+05/01/105  8:03:30  Connected at 38400                
+05/01/105  8:03:30  Receive UBCUSTTR.DAT 
+05/01/105  8:04:56  Data transfer completed on handheld.
+05/01/105 11:03:20  Transmit UBCUSTTR.DAT 
+05/01/105 11:03:58  Data transfer completed on handheld.
+05/01/105 14:40:57  Connected at 38400                
+05/01/105 14:40:57  Receive UBCUSTTR.DAT 
+05/01/105 14:42:45  Data transfer completed on handheld.
+06/01/105  9:42:10  Connected at 38400                
+06/01/105  9:42:10  Transmit UBCUSTTR.DAT 
+06/01/105  9:42:44  Data transfer completed on handheld.
+06/01/105 11:09:19  Receive UBCUSTTR.DAT 
+06/01/105 11:10:16  Data transfer completed on handheld.
+07/01/105 15:07:05  Connected at 38400                
+07/01/105 15:07:05  Transmit UBCUSTTR.DAT 
+07/01/105 15:08:20  Data transfer completed on handheld.
+10/01/105  8:17:29  Connected at 38400                
+10/01/105  8:17:29  Receive UBCUSTTR.DAT 
+10/01/105  8:19:44  ERROR: Receive - Communications Failure.
+10/01/105  8:20:36  Receive UBCUSTTR.DAT 
+10/01/105  8:22:21  Data transfer completed on handheld.
+10/01/105 10:20:19  Connected at 38400                
+10/01/105 10:20:19  Transmit UBCUSTTR.DAT 
+10/01/105 10:20:35  Data transfer completed on handheld.
+11/01/105  7:41:03  Receive UBCUSTTR.DAT 
+11/01/105  7:41:46  Data transfer completed on handheld.
+11/01/105  7:44:26  Transmit UBCUSTTR.DAT 
+11/01/105  7:44:54  Data transfer completed on handheld.
+11/01/105 11:53:31  Receive UBCUSTTR.DAT 
+11/01/105 11:54:10  Data transfer completed on handheld.
+11/01/105 12:14:46  Transmit UBCUSTTR.DAT 
+11/01/105 12:15:40  Data transfer completed on handheld.
+12/01/105 11:00:33  Connected at 38400                
+12/01/105 11:00:34  Receive UBCUSTTR.DAT 
+12/01/105 11:00:37  ERROR: Receive - User pressed ESC.
+12/01/105 11:02:12  Receive UBCUSTTR.DAT 
+12/01/105 11:03:38  Data transfer completed on handheld.
+12/01/105 15:53:08  Connected at 38400                
+12/01/105 15:53:08  Transmit UBCUSTTR.DAT 
+12/01/105 15:53:33  Data transfer completed on handheld.
+13/01/105 14:43:36  ERROR: Could not connect to handheld.
+13/01/105 14:44:45  ERROR: Could not connect to handheld.
+13/01/105 14:45:14  ERROR: Could not connect to handheld.
+13/01/105 14:45:44  ERROR: Could not connect to handheld.
+13/01/105 14:46:31  Transmit UBCUSTTR.DAT 
+13/01/105 14:47:17  Data transfer completed on handheld.
+13/01/105 14:49:13  Receive UBCUSTTR.DAT 
+13/01/105 14:50:46  Data transfer completed on handheld.
+14/01/105  9:40:50  Connected at 38400                
+14/01/105  9:40:51  Receive UBCUSTTR.DAT 
+14/01/105  9:43:30  ERROR: Receive - Communications Failure.
+14/01/105  9:44:49  Receive UBCUSTTR.DAT 
+14/01/105  9:45:46  ERROR: Receive - Communications Failure.
+14/01/105  9:47:58  Receive UBCUSTTR.DAT 
+14/01/105  9:52:13  ERROR: Receive - Communications Failure.
+14/01/105  9:55:02  Connected at 38400                
+14/01/105  9:55:02  Receive UBCUSTTR.DAT 
+14/01/105  9:55:57  Data transfer completed on handheld.
+14/01/105  9:58:40  Connected at 38400                
+14/01/105  9:58:40  Transmit UBCUSTTR.DAT 
+14/01/105  9:59:11  Data transfer completed on handheld.
+14/01/105 15:28:45  Receive UBCUSTTR.DAT 
+14/01/105 15:31:51  ERROR: Receive - Communications Failure.
+14/01/105 15:33:36  Receive UBCUSTTR.DAT 
+14/01/105 15:34:54  ERROR: Receive - Communications Failure.
+14/01/105 15:40:14  Receive UBCUSTTR.DAT 
+14/01/105 15:41:23  Data transfer completed on handheld.
+18/01/105 14:47:29  Connected at 38400                
+18/01/105 14:47:29  Transmit UBCUSTTR.DAT 
+18/01/105 14:47:44  Data transfer completed on handheld.
+18/01/105 15:31:48  Receive UBCUSTTR.DAT 
+18/01/105 15:32:17  Data transfer completed on handheld.
+18/01/105 15:34:13  Transmit UBCUSTTR.DAT 
+18/01/105 15:35:37  ERROR: Transmit - Communications Failure.
+18/01/105 15:36:42  ERROR: Could not connect to handheld.
+18/01/105 15:37:54  Transmit UBCUSTTR.DAT 
+18/01/105 15:38:26  Data transfer completed on handheld.
+19/01/105 10:06:13  Connected at 38400                
+19/01/105 10:06:13  Receive UBCUSTTR.DAT 
+19/01/105 10:07:35  Data transfer completed on handheld.
+20/01/105 12:16:30  Connected at 38400                
+20/01/105 12:16:30  Transmit UBCUSTTR.DAT 
+20/01/105 12:17:48  Data transfer completed on handheld.
+20/01/105 13:48:54  Receive UBCUSTTR.DAT 
+20/01/105 13:52:33  Data transfer completed on handheld.
+20/01/105 13:54:54  Connected at 38400                
+20/01/105 13:54:54  Transmit UBCUSTTR.DAT 
+20/01/105 13:56:01  Data transfer completed on handheld.
+21/01/105 15:57:07  Connected at 38400                
+21/01/105 15:57:08  Receive UBCUSTTR.DAT 
+21/01/105 16:06:07  Data transfer completed on handheld.
+25/01/105 11:02:34  Connected at 38400                
+25/01/105 11:02:34  Transmit UBCUSTTR.DAT 
+25/01/105 11:04:24  ERROR: Transmit - Communications Failure.
+25/01/105 11:06:34  Transmit UBCUSTTR.DAT 
+25/01/105 11:08:11  Data transfer completed on handheld.
+25/01/105 11:09:33  Transmit UBCUSTTR.DAT 
+25/01/105 11:10:34  Data transfer completed on handheld.
+25/01/105 13:15:20  Receive UBCUSTTR.DAT 
+25/01/105 13:20:55  Data transfer completed on handheld.
+25/01/105 15:35:56  Connected at 38400                
+25/01/105 15:35:57  Receive UBCUSTTR.DAT 
+25/01/105 15:39:15  Data transfer completed on handheld.
+26/01/105 15:45:26  Connected at 38400                
+26/01/105 15:45:26  Transmit UBCUSTTR.DAT 
+26/01/105 15:48:02  Data transfer completed on handheld.
+27/01/105  8:14:55  Connected at 38400                
+27/01/105  8:14:56  Receive UBCUSTTR.DAT 
+27/01/105  8:17:32  Data transfer completed on handheld.
+31/01/105  8:31:06  Connected at 38400                
+31/01/105  8:31:06  Transmit UBCUSTTR.DAT 
+31/01/105  8:32:03  ERROR: Transmit - Communications Failure.
+31/01/105  8:33:24  Connected at 38400                
+31/01/105  8:33:24  Transmit UBCUSTTR.DAT 
+31/01/105  8:33:54  Data transfer completed on handheld.
+31/01/105 15:42:25  Receive UBCUSTTR.DAT 
+31/01/105 15:42:52  ERROR: Receive - Communications Failure.
+31/01/105 15:43:54  Connected at 38400                
+31/01/105 15:43:55  Receive UBCUSTTR.DAT 
+31/01/105 15:47:44  Data transfer completed on handheld.
+31/01/105 15:54:09  ERROR: Could not connect to handheld.
+31/01/105 15:54:58  Transmit UBCUSTTR.DAT 
+31/01/105 15:56:59  ERROR: Transmit - Communications Failure.
+31/01/105 15:58:07  Connected at 38400                
+31/01/105 15:58:07  Transmit UBCUSTTR.DAT 
+31/01/105 15:58:55  Data transfer completed on handheld.
+01/02/105  7:50:51  Connected at 38400                
+01/02/105  7:50:52  Receive UBCUSTTR.DAT 
+01/02/105  7:51:01  Data transfer completed on handheld.
+01/02/105 11:44:46  Receive UBCUSTTR.DAT 
+01/02/105 11:44:54  Data transfer completed on handheld.
+01/02/105 11:46:24  Connected at 38400                
+01/02/105 11:46:24  Receive UBCUSTTR.DAT 
+01/02/105 11:47:42  Data transfer completed on handheld.
+01/02/105 15:14:31  Connected at 38400                
+01/02/105 15:14:31  Transmit UBCUSTTR.DAT 
+01/02/105 15:15:06  Data transfer completed on handheld.
+02/02/105  8:10:20  Connected at 38400                
+02/02/105  8:10:20  Receive UBCUSTTR.DAT 
+02/02/105  8:12:12  Data transfer completed on handheld.
+02/02/105 13:08:34  Transmit UBCUSTTR.DAT 
+02/02/105 13:09:54  Data transfer completed on handheld.
+03/02/105  8:05:34  Connected at 38400                
+03/02/105  8:05:35  Receive UBCUSTTR.DAT 
+03/02/105  8:06:42  Data transfer completed on handheld.
+04/02/105 15:28:54  Connected at 38400                
+04/02/105 15:28:54  Transmit UBCUSTTR.DAT 
+04/02/105 15:30:09  Data transfer completed on handheld.
+07/02/105  8:28:20  ERROR: Could not connect to handheld.
+07/02/105  8:32:04  Receive UBCUSTTR.DAT 
+07/02/105  8:32:55  ERROR: Receive - Communications Failure.
+07/02/105  8:33:57  Receive UBCUSTTR.DAT 
+07/02/105  8:36:03  Data transfer completed on handheld.
+07/02/105 14:25:03  Connected at 38400                
+07/02/105 14:25:03  Transmit UBCUSTTR.DAT 
+07/02/105 14:25:20  Data transfer completed on handheld.
+07/02/105 16:25:27  Receive UBCUSTTR.DAT 
+07/02/105 16:26:19  Data transfer completed on handheld.
+07/02/105 16:28:20  Transmit UBCUSTTR.DAT 
+07/02/105 16:28:49  Data transfer completed on handheld.
+08/02/105 14:51:43  Connected at 38400                
+08/02/105 14:51:43  Receive UBCUSTTR.DAT 
+08/02/105 14:55:46  Data transfer completed on handheld.
+09/02/105  8:58:31  Connected at 38400                
+09/02/105  8:58:31  Transmit UBCUSTTR.DAT 
+09/02/105  8:59:25  Data transfer completed on handheld.
+09/02/105 14:49:53  Receive UBCUSTTR.DAT 
+09/02/105 14:52:16  Data transfer completed on handheld.
+09/02/105 14:54:03  Transmit UBCUSTTR.DAT 
+09/02/105 14:54:29  Data transfer completed on handheld.
+10/02/105  8:18:51  Connected at 38400                
+10/02/105  8:18:52  Receive UBCUSTTR.DAT 
+10/02/105  8:19:04  ERROR: Receive - Communications Failure.
+10/02/105  8:19:56  Receive UBCUSTTR.DAT 
+10/02/105  8:22:35  ERROR: Receive - Communications Failure.
+10/02/105  8:23:22  Receive UBCUSTTR.DAT 
+10/02/105  8:27:37  ERROR: Receive - Communications Failure.
+10/02/105  8:29:10  Connected at 38400                
+10/02/105  8:29:11  Receive UBCUSTTR.DAT 
+10/02/105  8:30:07  Data transfer completed on handheld.
+10/02/105 12:23:06  ERROR: Could not connect to handheld.
+10/02/105 12:24:47  Transmit UBCUSTTR.DAT 
+10/02/105 12:25:16  Data transfer completed on handheld.
+10/02/105 13:18:31  Receive UBCUSTTR.DAT 
+10/02/105 13:19:14  Data transfer completed on handheld.
+10/02/105 13:33:51  Transmit UBCUSTTR.DAT 
+10/02/105 13:34:22  Data transfer completed on handheld.
+11/02/105 10:34:36  Connected at 38400                
+11/02/105 10:34:37  Receive UBCUSTTR.DAT 
+11/02/105 10:37:22  ERROR: Receive - Communications Failure.
+11/02/105 10:40:38  Connected at 38400                
+11/02/105 10:40:39  Receive UBCUSTTR.DAT 
+11/02/105 10:41:46  Data transfer completed on handheld.
+15/02/105 16:46:05  Connected at 38400                
+15/02/105 16:46:05  Transmit UBCUSTTR.DAT 
+15/02/105 16:46:13  Data transfer completed on handheld.
+15/02/105 16:51:09  Transmit UBCUSTTR.DAT 
+15/02/105 16:51:38  Data transfer completed on handheld.
+16/02/105 11:12:59  Connected at 38400                
+16/02/105 11:12:59  Receive UBCUSTTR.DAT 
+16/02/105 11:13:19  Data transfer completed on handheld.
+16/02/105 11:16:39  Receive UBCUSTTR.DAT 
+16/02/105 11:17:28  Data transfer completed on handheld.
+17/02/105 14:44:52  Connected at 38400                
+17/02/105 14:44:52  Transmit UBCUSTTR.DAT 
+17/02/105 14:45:26  Data transfer completed on handheld.
+17/02/105 16:00:30  Receive UBCUSTTR.DAT 
+17/02/105 16:00:43  ERROR: Receive - Communications Failure.
+17/02/105 16:01:41  Connected at 38400                
+17/02/105 16:01:42  Receive UBCUSTTR.DAT 
+17/02/105 16:02:26  Data transfer completed on handheld.
+17/02/105 16:26:29  Transmit UBCUSTTR.DAT 
+17/02/105 16:27:36  Data transfer completed on handheld.
+18/02/105  7:58:44  Connected at 38400                
+18/02/105  7:58:44  Transmit UBCUSTTR.DAT 
+18/02/105  7:59:11  Data transfer completed on handheld.
+18/02/105 14:53:09  Receive UBCUSTTR.DAT 
+18/02/105 15:04:03  Data transfer completed on handheld.
+18/02/105 15:09:36  Connected at 38400                
+18/02/105 15:09:36  Transmit UBCUSTTR.DAT 
+18/02/105 15:10:27  Data transfer completed on handheld.
+22/02/105  7:48:03  Connected at 38400                
+22/02/105  7:48:04  Receive UBCUSTTR.DAT 
+22/02/105  7:53:26  ERROR: Receive - Communications Failure.
+22/02/105  7:54:35  Connected at 38400                
+22/02/105  7:54:36  Receive UBCUSTTR.DAT 
+22/02/105  7:55:52  Data transfer completed on handheld.
+22/02/105 13:02:10  Receive UBCUSTTR.DAT 
+22/02/105 13:02:50  Data transfer completed on handheld.
+23/02/105 15:29:50  Connected at 38400                
+23/02/105 15:29:50  Transmit UBCUSTTR.DAT 
+23/02/105 15:32:13  Data transfer completed on handheld.
+24/02/105  9:03:59  Connected at 38400                
+24/02/105  9:04:00  Receive UBCUSTTR.DAT 
+24/02/105  9:09:45  ERROR: Receive - Communications Failure.
+24/02/105  9:15:20  Connected at 38400                
+24/02/105  9:15:21  Receive UBCUSTTR.DAT 
+24/02/105  9:17:00  Data transfer completed on handheld.
+25/02/105 11:57:19  ERROR: Could not connect to handheld.
+25/02/105 11:58:34  Connected at 38400                
+25/02/105 11:58:34  Transmit UBCUSTTR.DAT 
+25/02/105 11:58:54  Data transfer completed on handheld.
+28/02/105  8:00:12  Connected at 38400                
+28/02/105  8:00:12  Receive UBCUSTTR.DAT 
+28/02/105  8:00:35  ERROR: Receive - Communications Failure.
+28/02/105  8:01:31  ERROR: Could not connect to handheld.
+28/02/105  8:03:57  Receive UBCUSTTR.DAT 
+28/02/105  8:04:28  Data transfer completed on handheld.

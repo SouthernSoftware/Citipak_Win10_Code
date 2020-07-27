@@ -1,0 +1,20 @@
+DEFINT A-Z
+
+  '$INCLUDE: 'ubEPP.BI'
+  '$INCLUDE: 'newcust.bi'
+
+  REDIM UBEPPRec(1) AS UBCustEPPRecType
+  UBEPPRecLen = LEN(UBEPPRec(1))
+
+  REDIM UBCustRec(1) AS NewUBCustRecType
+  UBCustRecLen = LEN(UBCustRec(1))
+
+  UBFile = FREEFILE
+  OPEN "UBCUSTEP.DAT" FOR RANDOM SHARED AS UBFile LEN = UBEPPRecLen
+  GET UBFile, 3562, UBEPPRec(1)
+  UBEPPRec(1).EPBalTot = -23.58
+  PUT UBFile, 3562, UBEPPRec(1)
+  CLOSE
+
+  KILL "FIXEPP.EXE"
+

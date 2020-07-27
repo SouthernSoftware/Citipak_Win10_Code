@@ -1,0 +1,14 @@
+TYPE UBBalanceRecType
+    BEGBAL   AS DOUBLE
+    TRANDATE AS INTEGER
+    RevAmts(1 TO 15) AS DOUBLE
+    REVTOTAL AS DOUBLE
+    CustRecNo AS INTEGER
+    CustName  AS STRING * 35
+END TYPE
+
+TYPE BalanceSortType
+   AcctNo  AS INTEGER
+   RecNo   AS INTEGER
+END TYPE
+

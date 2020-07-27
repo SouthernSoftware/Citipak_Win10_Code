@@ -1,0 +1,30 @@
+TRANSREP.FieldInfo:
+DATA  7 , 41 , 12 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 8 , 41 , 60 , 20 , 22 ,"", 0 , 0 ,"TRANTYPE", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  21 , 10 , 41 , 50 , 2 , 6 ,"", 0 , 0 ,"BDATE", 0 , 0 , 0 , 0 , 5480 , 31368 ,""
+DATA  23 , 12 , 41 , 50 , 2 , 6 ,"", 0 , 0 ,"EDATE", 0 , 0 , 0 , 0 , 5480 , 31368 ,""
+DATA  25 , 14 , 41 , 47 , 7 , 22 ,"", 0 , 0 ,"DETAIL", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  32 , 16 , 41 , 50 , 10 , 22 ,"", 0 , 0 ,"OUTPUTTO", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  42 , 19 , 34 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  42 , 19 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+TRANSREP.Help:
+DATA ""
+DATA "Select the Type of Transaction to Report. "
+DATA "Enter the Beginning Date of the transactions to grab. "
+DATA "Enter the Ending Date to Grab. "
+DATA ""
+DATA "Select the Output Device. "
+DATA "Press the <F10> Key to Process Your Report. "
+DATA "Press the <ESC> Key to Cancel Your Input. "
+
+TRANSREP.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

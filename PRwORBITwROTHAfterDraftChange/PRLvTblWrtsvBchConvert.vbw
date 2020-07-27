@@ -1,0 +1,6 @@
+frmLvTblWrtsvlBchConvert = 13, 3, 831, 659, , 52, 52, 889, 659, C
+modInitProceduresWrtsvlBchCnvrt = 0, 0, 0, 0, C
+modCommonWrtsvlbchCnvrt = 147, 156, 899, 783, 
+clsTextBoxOverRider = 0, 0, 0, 0, C
+clsCommandButton = 0, 0, 0, 0, C
+modStructWrtsvlBchConvert = 102, 78, 691, 624, 

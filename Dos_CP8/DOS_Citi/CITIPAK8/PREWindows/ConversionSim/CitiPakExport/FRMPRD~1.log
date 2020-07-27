@@ -1,0 +1,6 @@
+Line 56: Class FPSpread.vaSpread of control vaSpreadAdditional was not a loaded control class.
+Line 79: Class FPSpread.vaSpread of control vaSpreadEmp2Pay was not a loaded control class.
+Line 103: Class LpLib.fpList of control fplistDef was not a loaded control class.
+Line 202: Class FPSpread.vaSpread of control vaSpreadDed2Take was not a loaded control class.
+Line 225: Class EditLib.fpDateTime of control fpMaskBeginDate was not a loaded control class.
+Line 332: Class EditLib.fpDateTime of control fpMaskEndDate was not a loaded control class.

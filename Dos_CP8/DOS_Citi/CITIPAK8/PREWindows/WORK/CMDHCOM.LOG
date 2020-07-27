@@ -1,0 +1,20 @@
+CMDHCOM.LOG                Ver. 2.00        (C) Copyright Husky Computers Ltd. December 1993.
+18/06/103 15:35:52  Receive UBCUSTTR.DAT 
+18/06/103 15:35:59  Data transfer completed on handheld.
+18/06/103 15:47:38  ERROR: Could not connect to handheld.
+18/06/103 15:47:45  Receive UBCUSTTR.DAT 
+18/06/103 15:47:53  Data transfer completed on handheld.
+19/06/103  7:06:25  Receive UBCUSTTR.DAT 
+19/06/103  7:06:33  Data transfer completed on handheld.
+19/06/103  8:36:17  Connected at 38400                
+19/06/103  8:36:17  Receive UBCUSTTR.DAT 
+19/06/103  8:36:25  Data transfer completed on handheld.
+19/06/103  8:36:40  Connected at 38400                
+19/06/103  8:36:40  Receive UBCUSTTR.DAT 
+19/06/103  8:36:48  Data transfer completed on handheld.
+19/06/103  8:39:18  ERROR: Could not connect to handheld.
+19/06/103  8:39:52  Connected at 9600                
+19/06/103  8:39:52  Receive UBCUSTTR.DAT 
+19/06/103  8:39:55  ERROR: Receive - User pressed ESC.
+19/06/103  8:40:14  Receive UBCUSTTR.DAT 
+19/06/103  8:40:29  Data transfer completed on handheld.

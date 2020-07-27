@@ -1,0 +1,9 @@
+
+TEF usage:  TEF [command_file  time]
+
+i.e TEF TEST.CMD 14:30
+
+The command file name and time are optional, you can
+also just enter the command: TEF for interactive use.
+
+

@@ -1,0 +1,8 @@
+ren NCPFPRNT.BAS NCPFPRNT.HLD
+for %%1 in (*.bas) do (echo %%1^bc %%1 /o/ot/g2/ah;)
+ren NCPFPRNT.HLD NCPFPRNT.BAS
+bc NCPFPRNT /o/ot/g2/X;
+
+LINK @POSTEM.RSP
+
+DEL *.obj

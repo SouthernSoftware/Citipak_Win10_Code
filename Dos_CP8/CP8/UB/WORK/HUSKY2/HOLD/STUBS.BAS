@@ -1,0 +1,14 @@
+DEFINT A-Z
+DECLARE FUNCTION GetPower% ()
+
+SUB BackLightToggle
+
+END SUB
+
+FUNCTION GetPower
+  GetPower = 99
+END FUNCTION
+
+SUB SetFont
+END SUB
+

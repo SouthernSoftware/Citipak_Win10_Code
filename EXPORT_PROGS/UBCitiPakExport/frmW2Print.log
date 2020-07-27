@@ -1,0 +1,4 @@
+Line 20: Class LpLib.fpCombo of control fpcboPrinters was not a loaded control class.
+Line 138: Class EditLib.fpLongInteger of control txtCopies was not a loaded control class.
+Line 229: Class fpBtnAtlLibCtl.fpBtn of control cmdPrint was not a loaded control class.
+Line 266: Class fpBtnAtlLibCtl.fpBtn of control cmdCancel was not a loaded control class.

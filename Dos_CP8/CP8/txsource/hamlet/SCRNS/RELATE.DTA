@@ -1,0 +1,27 @@
+RELATE.FieldInfo:
+DATA  6 , 159 , 28 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 7 , 39 , 42 , 2 , 3 ,"", 0 , 0 ,"TAXYEAR",-1 , 0 , 0 , 0 , 1996 , 2010 ,""
+DATA  3 , 8 , 39 , 58 , 20 , 22 ,"", 0 , 0 ,"PRNORDER", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  23 , 9 , 39 , 48 , 2 , 6 ,"", 0 , 0 ,"INTTHRU", 0 , 0 , 0 , 0 , 5845 , 31368 ,""
+DATA  25 , 13 , 22 , 66 , 45 , 2 ,"", 0 , 0 ,"LINE1", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  70 , 15 , 22 , 66 , 45 , 2 ,"", 0 , 0 ,"LINE2", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  115 , 17 , 22 , 66 , 45 , 2 ,"", 0 , 0 ,"LINE3", 0 , 0 , 0 , 0 , 0 , 0 ,""
+
+RELATE.Help:
+DATA ""
+DATA ""
+DATA ""
+DATA "Enter the Interest Charged Thru Date to Print on the Late Notice "
+DATA ""
+DATA ""
+DATA ""
+
+RELATE.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+

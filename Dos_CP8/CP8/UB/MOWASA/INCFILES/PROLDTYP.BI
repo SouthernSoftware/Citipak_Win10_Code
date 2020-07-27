@@ -1,0 +1,293 @@
+TYPE oConfig
+    MonTyp    AS INTEGER        'Monitor Type
+    PulBar    AS INTEGER        'Horizontal Bar Color
+    MenBox    AS INTEGER        'Pulled down Box Color
+    ActivCh   AS INTEGER        'Active menu choice color
+    InActCh   AS INTEGER        'Inactive (Non-selectable) Choice Color
+    HiLite    AS INTEGER        'Menu Bar Color for active choices
+    InActHiLt AS INTEGER        'Dito for inactive choices
+    NonMen    AS INTEGER        'Normal screen color
+    CsrSize   AS INTEGER        'Cursor Scan Lines
+    Mouse     AS INTEGER        'Mouse in residence Flag
+    PaintFlag AS INTEGER
+END TYPE
+
+TYPE oUnitFileRecType
+
+    UFEMPR   AS STRING * 35
+    UFATTN   AS STRING * 35
+    UFADDR1  AS STRING * 35
+    UFADDR2  AS STRING * 35
+    UFCITY   AS STRING * 25
+    UFSTATE  AS STRING * 2
+    UFZIP    AS STRING * 10
+    UFFEDID  AS STRING * 14
+    UFSTAID  AS STRING * 14
+    UFRETID  AS STRING * 14
+    UFRETIDL AS STRING * 14
+    ESCRTYPE AS INTEGER
+
+'    UFEMPR   AS STRING * 35
+'    UFATTN   AS STRING * 35
+'    UFADDR1  AS STRING * 35
+'    UFADDR2  AS STRING * 35
+'    UFCITY   AS STRING * 25
+'    UFSTATE  AS STRING * 2
+'    UFZIP    AS STRING * 10
+'    UFFEDID  AS STRING * 14
+'    UFSTAID  AS STRING * 14
+'    UFRETID  AS STRING * 14
+END TYPE
+
+TYPE oRetireRecType
+    TYPEDES1 AS STRING * 20
+    TYPEWH1  AS DOUBLE
+    TYPEM1   AS DOUBLE
+    TYPEOT1  AS STRING * 1
+END TYPE
+
+TYPE orgLeaveRecType
+    VACMAX   AS DOUBLE
+    LBVYO1   AS INTEGER
+    LBVYNO1  AS INTEGER
+    LBVHE1   AS DOUBLE
+    LBVYO2   AS INTEGER
+    LBVYNO2  AS INTEGER
+    LBVHE2   AS DOUBLE
+    LBVYO3   AS INTEGER
+    LBVYNO3  AS INTEGER
+    LBVHE3   AS DOUBLE
+    LBVYO4   AS INTEGER
+    LBVYNO4  AS INTEGER
+    LBVHE4   AS DOUBLE
+    LBVYO5   AS INTEGER
+    LBVYNO5  AS INTEGER
+    LBVHE5   AS DOUBLE
+    LBVYO6   AS INTEGER
+    LBVYNO6  AS INTEGER
+    LBVHE6   AS DOUBLE
+    SICKMAX  AS DOUBLE
+    LBSYO1   AS INTEGER
+    LBSYNO1  AS INTEGER
+    LBSHE1   AS DOUBLE
+    LBSYO2   AS INTEGER
+    LBSYNO2  AS INTEGER
+    LBSHE2   AS DOUBLE
+    LBSYO3   AS INTEGER
+    LBSYNO3  AS INTEGER
+    LBSHE3   AS DOUBLE
+    LBSYO4   AS INTEGER
+    LBSYNO4  AS INTEGER
+    LBSHE4   AS DOUBLE
+    LBSYO5   AS INTEGER
+    LBSYNO5  AS INTEGER
+    LBSHE5   AS DOUBLE
+    LBSYO6   AS INTEGER
+    LBSYNO6  AS INTEGER
+    LBSHE6   AS DOUBLE
+END TYPE
+
+TYPE oLeaveEntryType
+    YEARS1   AS INTEGER     '1
+    YEARS2   AS INTEGER     '2
+    EARN     AS DOUBLE      'earned
+END TYPE
+
+TYPE oLeaveRecType
+    VACMAX   AS DOUBLE
+    VEntry(1 TO 6)  AS oLeaveEntryType
+    SICKMAX  AS DOUBLE
+    SEntry(1 TO 6)  AS oLeaveEntryType
+END TYPE
+
+TYPE oStateTaxRecType
+'--- Single
+    STSCTYPE AS STRING * 1
+    STSGWCA  AS DOUBLE
+    STSMINSA AS DOUBLE
+    STSMAXSA AS DOUBLE
+    STSSUI1  AS DOUBLE
+    STSSUI2  AS DOUBLE
+    STSSDAA  AS DOUBLE
+    STS(1 TO 3, 1 TO 10) AS DOUBLE
+
+'--- Married
+    STMCTYPE AS STRING * 1
+    STMGWCA  AS DOUBLE
+    STMMINSA AS DOUBLE
+    STMMAXSA AS DOUBLE
+    STMSUI1  AS DOUBLE
+    STMSUI2  AS DOUBLE
+    STMSDAA  AS DOUBLE
+    STM(1 TO 3, 1 TO 10) AS DOUBLE
+
+'--- Head of House
+    STHCTYPE AS STRING * 1
+    STHGWCA  AS DOUBLE
+    STHMINSA AS DOUBLE
+    STHMAXSA AS DOUBLE
+    STHSUI1  AS DOUBLE
+    STHSUI2  AS DOUBLE
+    STHSDAA  AS DOUBLE
+    STH(1 TO 3, 1 TO 10) AS DOUBLE
+END TYPE
+
+'TYPE TaxRetLiabType
+'    Acct AS STRING * 14
+'END TYPE
+
+TYPE oRegDSysFileRecType
+
+    CASHACCT AS STRING * 14
+    IDRACCT AS STRING * 14
+    ICRACCT AS STRING * 14
+
+    Liab(1 TO 5) AS TaxRetLiabType
+
+    FRNGRATE AS DOUBLE
+    FRNGEXP  AS STRING * 7
+    FRNGDR  AS STRING * 14
+    FRNGCR  AS STRING * 14
+    INDRATE AS DOUBLE
+    INDEXP  AS STRING * 7
+    INDDR   AS STRING * 14
+    INDCR   AS STRING * 14
+    CITIDIR AS STRING * 49
+END TYPE
+
+TYPE oRegDSysFileRecType2
+    USEIMP   AS STRING * 1
+    CASHACCT AS STRING * 14
+    IDRACCT  AS STRING * 14
+    ICRACCT  AS STRING * 14
+
+    Liab(1 TO 5) AS TaxRetLiabType
+
+    FRNGRATE AS DOUBLE
+    FRNGEXP  AS STRING * 7
+    FRNGDR   AS STRING * 14
+    FRNGCR   AS STRING * 14
+    INDRATE  AS DOUBLE
+    INDEXP   AS STRING * 7
+    INDDR    AS STRING * 14
+    INDCR    AS STRING * 14
+    CITIDIR  AS STRING * 49
+END TYPE
+
+
+TYPE oScrnCalcType1
+    REGEARN  AS DOUBLE
+    OTEARN   AS DOUBLE
+    ALTEARN1 AS DOUBLE
+    ALTEARN2 AS DOUBLE
+    ALTEARN3 AS DOUBLE
+    SOCTAX   AS DOUBLE
+    MEDTAX   AS DOUBLE
+    FEDTAX   AS DOUBLE
+    STATAX   AS DOUBLE
+    RETIRE   AS DOUBLE
+    DED1     AS DOUBLE
+    DED2     AS DOUBLE
+    DED3     AS DOUBLE
+    DED4     AS DOUBLE
+    DED5     AS DOUBLE
+    DED6     AS DOUBLE
+    DED7     AS DOUBLE
+    DED8     AS DOUBLE
+    DED9     AS DOUBLE
+    DED10    AS DOUBLE
+    DED11    AS DOUBLE
+    DED12    AS DOUBLE
+    GrossPay AS DOUBLE
+    TOTDED   AS DOUBLE
+    EIC      AS DOUBLE
+    NetPay   AS DOUBLE
+END TYPE
+
+TYPE PRDEDType
+   DCode       AS STRING * 10
+   DAmt        AS DOUBLE
+'added
+   YTDDAmt     AS DOUBLE
+'--------
+END TYPE
+
+TYPE oPRCheckRecType
+   CActive       AS INTEGER
+   CheckNum      AS INTEGER
+   CheckDate     AS INTEGER
+
+   EmpName       AS STRING * 35
+   EmpNo         AS STRING * 10
+   EmpSSN        AS STRING * 11
+
+'=-=-=-=-=-
+   EmpAddr1 AS STRING * 36
+   EmpCity  AS STRING * 24
+   EmpState AS STRING * 2
+   EmpZip   AS STRING * 10
+'-=-=-=-=-=-=
+
+   PayEndDate    AS INTEGER
+   BaseRate      AS DOUBLE
+   GrossPay      AS DOUBLE
+   FedTaxAmt     AS DOUBLE
+   StaTaxAmt     AS DOUBLE
+   MedTaxAmt     AS DOUBLE
+   SocTaxAmt     AS DOUBLE
+   TotDedAmt     AS DOUBLE
+
+'added
+   RetireAmt     AS DOUBLE
+
+   NetPay        AS DOUBLE
+   YTDGrossPay   AS DOUBLE
+   YTDFederal    AS DOUBLE
+   YTDState      AS DOUBLE
+   YTDSocial     AS DOUBLE
+   YTDMedicare   AS DOUBLE
+   YTDTotDed     AS DOUBLE
+   YTDNetPay     AS DOUBLE
+
+'added
+   YTDRetire     AS DOUBLE
+
+   VactBal       AS DOUBLE   '
+   SickBal       AS DOUBLE   '
+   CompBal       AS DOUBLE
+'added-----
+   CompEarn      AS DOUBLE
+   RegHrsWork    AS DOUBLE
+   OTHrsPaid     AS DOUBLE
+   TotRegWage    AS DOUBLE
+
+   VacUsed       AS DOUBLE
+   SickUsed      AS DOUBLE
+   CompUsed      AS DOUBLE
+   HolUsed       AS DOUBLE
+
+   RegHrsPaid    AS DOUBLE
+   TotOTWage     AS DOUBLE
+
+   AEarn(1 TO 3) AS PRDEDType
+
+   TotAdditEarn  AS DOUBLE
+
+   EICAmt        AS DOUBLE
+   Extra4        AS DOUBLE
+
+'----------
+   CDED(1 TO 12) AS PRDEDType
+END TYPE
+
+
+TYPE GLAcctDataType
+    AcctNum AS STRING * 12
+    Stuff   AS STRING * 116
+END TYPE
+
+TYPE GLAcctDataType2
+    AcctNum AS STRING * 9
+    Stuff   AS STRING * 91
+END TYPE
+

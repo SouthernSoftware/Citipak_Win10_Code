@@ -1,0 +1,27 @@
+PRTOJOUR.FieldInfo:
+DATA  6 , 24 , 7 , 0 , 0 , 0 ,"", 0 , 0 ,"", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  1 , 9 , 40 , 51 , 12 , 22 ,"", 0 , 0 ,"SORTFLD", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  13 , 11 , 40 , 49 , 2 , 6 ,"", 0 , 0 ,"BEGDATE", 0 , 0 , 0 , 0 ,-29219 , 31368 ,""
+DATA  15 , 12 , 40 , 49 , 2 , 6 ,"", 0 , 0 ,"ENDDATE", 0 , 0 , 0 , 0 ,-29219 , 31368 ,""
+DATA  17 , 14 , 40 , 47 , 8 , 22 ,"", 0 , 0 ,"SENDTO", 0 , 0 , 0 , 0 , 0 , 0 ,""
+DATA  25 , 18 , 36 , 45 , 0 , 24 ,"", 0 , 0 ,"F10KEY", 0 , 0 , 0 ,-68 , 0 , 0 ,""
+DATA  25 , 18 , 48 , 59 , 0 , 24 ,"", 0 , 0 ,"ESCKEY", 0 , 0 , 0 , 27 , 0 , 0 ,""
+
+PRTOJOUR.Help:
+DATA ""
+DATA "Enter the Order in Which to Print the Journal. "
+DATA "Enter the Beginning Receipt Date. "
+DATA "Enter the Ending Receipt Date.  The Beginning and Ending Date May be the Same to Print a Daily Journal. "
+DATA "Where do you wish to send the report. "
+DATA "Press the F10 Key to Process Your Request. "
+DATA "Press the ESC Key to Cancel Your Request. "
+
+PRTOJOUR.Formulas:
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+DATA ""
+
